@@ -15,30 +15,30 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($user as $users)
+                    @foreach ($users as $user)
                         {{-- already ban user account --}}
-                        @if ($users->role == 3)
+                        @if (str_contains($user->role, 'ban'))
                             <tr>
-                                <td>{{ $users->id }}</td>
-                                <td>{{ $users->name }}</td>
-                                <td>{{ $users->email }}</td>
-                                <td><a href="{{ route('reactivateUser', ['id' => $users->id]) }}" class="btn btn btn-xs"
+                                <td>{{ $user->id }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td><a href="{{ route('reactivateUser', ['id' => $user->id]) }}" class="btn btn btn-xs"
                                         style=" background-color:grey;"
                                         onClick="return confirm('Are you sure to reactivate?')">Reactivate</a></td>
-                                <td><a href="{{ route('profile_user_view', ['id' => $users->id]) }}"
+                                <td><a href="{{ route('profile_user_view', ['id' => $user->id]) }}"
                                         class="btn btn-primary btn-xs">Enter</a></td>
 
 
                             </tr>
-                        @elseif($users->role == 0 || $users->role == 1)
+                        @elseif($user->role == "Staff" || $user->role == "Agent" || $user->role == "Housekeep")
                             <tr>
-                                <td>{{ $users->id }}</td>
-                                <td>{{ $users->name }}</td>
-                                <td>{{ $users->email }}</td>
-                                <td><a href="{{ route('deactivateUser', ['id' => $users->id]) }}" class="btn btn btn-xs"
+                                <td>{{ $user->id }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td><a href="{{ route('deactivateUser', ['id' => $user->id]) }}" class="btn btn btn-xs"
                                         style=" background-color:red;"
                                         onClick="return confirm('Are you sure to deactivate?')">Deactivate</a></td>
-                                <td><a href="{{ route('profile_user_view', ['id' => $users->id]) }}"
+                                <td><a href="{{ route('profile_user_view', ['id' => $user->id]) }}"
                                         class="btn btn-primary btn-xs">Enter</a></td>
                             </tr>
                         @endif

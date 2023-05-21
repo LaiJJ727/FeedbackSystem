@@ -8,16 +8,26 @@ use App\Models\Branch;
 class BranchController extends Controller
 {
     //add branch
-    public function add()
+    public function add(Request $request)
     {
-        $r = request();
-        //image function
+        if ($request->file('branchImage') != null) {
+            $validated = $request->validate([
+                'branchName' => 'required|string',
+                'branchAddress' => 'required|string',
+                'branchImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            ]);
+        } else {
+            $validated = $request->validate([
+                'branchName' => 'required|string',
+                'branchAddress' => 'required|string',
+            ]);
+        }
 
         $addBranch = Branch::create([
-            'name' => $r->branchName,
-            'address' => $r->branchAddress,
-            'description' => $r->branchDescription,
-            'image' => $r->branchImage,
+            'name' => $request->branchName,
+            'address' => $request->branchAddress,
+            'description' => $request->branchDescription,
+            'image' => $request->branchImage,
             'status' => 'exist',
         ]);
         return redirect()->route('branch_view');

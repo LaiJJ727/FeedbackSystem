@@ -30,7 +30,7 @@
 @endif
 @if (Session::has('Fail'))
     <!---for deactivate user alert--->
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-danger" role="alert" style="margin-bottom: -0.5rem !important">
         {{ Session::get('Fail') }}
     </div>
 @endif

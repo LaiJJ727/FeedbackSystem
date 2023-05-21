@@ -16,16 +16,15 @@ class DeactivateUserMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->check() && auth()->user()->role == 3) {
+        if (auth()->check() && str_contains(auth()->user()->role, 'ban')) {
             Auth::logout();
 
             $request->session()->invalidate();
 
             $request->session()->regenerateToken();
 
-            return redirect()
-                ->route('login')
-                ->with('error', 'Your Account is suspended, please contact Admin.');
+            return back()
+                ->with('Fail', 'Your Account is suspended, please contact Admin.');
         }
 
         return $next($request);

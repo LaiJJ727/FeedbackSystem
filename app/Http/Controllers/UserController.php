@@ -11,13 +11,14 @@ class UserController extends Controller
 {
     public function view()
     {
-        $viewUser = User::all();
-        return view('/auth/userManagement')->with('user', $viewUser);
+        $data["users"] = User::all();
+
+        return view('/auth/userManagement',$data);
     }
     public function deactivateUser($id)
     {
         $deactivateUser = User::find($id);
-        $deactivateUser->role = 3;
+        $deactivateUser->role = $deactivateUser->role.'ban';
         $deactivateUser->save();
 
         return redirect()->route('user_view');
@@ -26,7 +27,7 @@ class UserController extends Controller
     public function reactivateUser($id)
     {
         $deactivateUser = User::find($id);
-        $deactivateUser->role = 0;
+        $deactivateUser->role =  str_replace('ban','',$deactivateUser->role);
         $deactivateUser->save();
 
         return redirect()->route('user_view');
