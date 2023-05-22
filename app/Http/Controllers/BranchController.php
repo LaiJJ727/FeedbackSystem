@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Branch;
+use Illuminate\Support\Facades\Validator;
 
 class BranchController extends Controller
 {
     //add branch
     public function add(Request $request)
     {
+        
         if ($request->file('branchImage') != null) {
             $validated = $request->validate([
                 'branchName' => 'required|string',
