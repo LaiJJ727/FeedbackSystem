@@ -23,11 +23,20 @@ class BranchController extends Controller
             ]);
         }
 
+        $image = $request->file('branchImage') ? $request->file('branchImage') : null;
+        $imageName = null;
+
+        if ($image) {
+            $imageName = $image->getClientOriginalName();
+            $destinationPath = public_path('images');
+            $image->move($destinationPath, $imageName); //images is the location
+        }
+
         $addBranch = Branch::create([
             'name' => $request->branchName,
             'address' => $request->branchAddress,
             'description' => $request->branchDescription,
-            'image' => $request->branchImage,
+            'image' => $imageName,
             'status' => 'exist',
         ]);
         return redirect()->route('branch_view');
@@ -50,15 +59,36 @@ class BranchController extends Controller
     }
 
     //update branch
-    public function update(){
+    public function update(Request $request){
 
-        $r=request();
+        if ($request->file('branchImage') != null) {
+            $validated = $request->validate([
+                'branchName' => 'required|string',
+                'branchAddress' => 'required|string',
+                'branchImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            ]);
+        } else {
+            $validated = $request->validate([
+                'branchName' => 'required|string',
+                'branchAddress' => 'required|string',
+            ]);
+        }
 
-        $editBranch=Branch::find($r->branchId);
+        $image = $request->file('branchImage') ? $request->file('branchImage') : null;
+        $imageName = null;
 
-        $editBranch->name=$r->branchName;
-        $editBranch->address=$r->branchAddress;
-        $editBranch->description=$r->branchDescription;
+        if ($image) {
+            $imageName = $image->getClientOriginalName();
+            $destinationPath = public_path('images');
+            $image->move($destinationPath, $imageName); //images is the location
+        }
+
+        $editBranch=Branch::find($request->branchId);
+
+        $editBranch->name = $request->branchName;
+        $editBranch->address = $request->branchAddress;
+        $editBranch->description = $request->branchDescription;
+        $editBranch->image = $imageName ? $imageName : $editBranch->image;
         $editBranch->save();
 
         return redirect()->route('branch_view');
