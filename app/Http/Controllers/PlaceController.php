@@ -7,13 +7,18 @@ use App\Models\Place;
 use App\Models\Branch;
 class PlaceController extends Controller
 {
-    public function add()
+    public function add(Request $request)
     {
-        $r = request();
+        $validated = $request->validate([
+            'zoneName' => 'required|string',
+            'placeCname' => 'required|string',
+        ]);
 
         $addPlace = Place::create([
-            'name' => $r->placeName,
-            'branch_id' => $r->branch,
+            'zone' => $request->zoneName,
+            'c_name' => $request->placeCname,
+            'e_name' => $request->placeEname ? $request->placeEname:null,
+            'branch_id' => $request->branch,
             'status' => 'exist',
         ]);
         return redirect()->route('place_view');
@@ -36,18 +41,23 @@ class PlaceController extends Controller
     {
         $branches = Branch::whereNot('status', '=', 'close')->get();
 
-        return view('place/add')->with('branches',$branches);
+        return view('place/add')->with('branches', $branches);
     }
 
     //update branch
-    public function update(){
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'zoneName' => 'required|string',
+            'placeCname' => 'required|string',
+        ]);
 
-        $r=request();
+        $editPlace = Place::find($request->placeId);
 
-        $editPlace=Place::find($r->placeId);
-
-        $editPlace->name=$r->placeName;
-        $editPlace->branch_id=$r->branch;
+        $editPlace->zone = $request->zoneName;
+        $editPlace->c_name = $request->placeCname;
+        $editPlace->e_name = $request->placeEname ? $request->placeEname : null;
+        $editPlace->branch_id = $request->branch;
 
         $editPlace->save();
 
@@ -55,8 +65,9 @@ class PlaceController extends Controller
     }
 
     //deactivate the Branch
-    public function deactivate($id){
-        $deactivatePlace=Place::find($id);
+    public function deactivate($id)
+    {
+        $deactivatePlace = Place::find($id);
 
         $deactivatePlace->status = 'close';
         $deactivatePlace->save();
@@ -64,9 +75,9 @@ class PlaceController extends Controller
         return redirect()->route('place_view');
     }
     //reactivate the Branch
-    public function reactivate($id){
-
-        $reactivatePlace=Place::find($id);
+    public function reactivate($id)
+    {
+        $reactivatePlace = Place::find($id);
 
         $reactivatePlace->status = 'exist';
         $reactivatePlace->save();

@@ -82,7 +82,7 @@ class RegisterController extends Controller
     }
     protected function viewRegister()
     {
-        $data['branches'] = Branch::all();
+        $data['branches'] = Branch::where('status','exist')->get();
 
         return view('auth/register',$data);
     }

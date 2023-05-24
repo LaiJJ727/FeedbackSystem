@@ -5,12 +5,14 @@
          <div class="col-sm-6">
              <br><br>
              @foreach ($branches as $branch)
-                <h3>{{$branch->name}}</h3>
+                 <h3>{{ $branch->name }}</h3>
                  <table class="table table-bordered">
                      <thead>
                          <tr>
                              <th>Place id</th>
-                             <td>Place name</th>
+                             <td>Zone</th>
+                             <td>Chinese place name</th>
+                             <td>English place name</th>
                              <td>Branch name</th>
                              <th>Operate</th>
                          </tr>
@@ -20,7 +22,9 @@
                              @if ($place->status == 'exist')
                                  <tr>
                                      <td>{{ $place->id }}</td>
-                                     <td>{{ $place->name }}</td>
+                                     <td>{{ $place->zone }}</td>
+                                     <td>{{ $place->c_name }}</td>
+                                     <td>{{ $place->e_name ? $place->e_name : '-' }}</td>
                                      <td>{{ $place->branches->name }}</td>
                                      <td><a href="{{ route('place_edit', ['id' => $place->id]) }}"
                                              class="btn btn-warning btn-xs">Edit</a>
@@ -32,7 +36,9 @@
                              @else
                                  <tr>
                                      <td>{{ $place->id }}</td>
-                                     <td>{{ $place->name }}</td>
+                                     <td>{{ $place->zone }}</td>
+                                     <td>{{ $place->c_name }}</td>
+                                     <td>{{ $place->e_name ? $place->e_name : '-' }}</td>
                                      <td>{{ $place->branches->name }}</td>
                                      <td><a href="{{ route('place_reactivate', ['id' => $place->id]) }}"
                                              class="btn btn btn-xs" style=" background-color:red;"

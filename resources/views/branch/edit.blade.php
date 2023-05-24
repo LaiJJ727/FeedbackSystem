@@ -10,13 +10,13 @@
                     <div class="form-group">
                         <label for="branchName">Branch Name</label>
                         <input class="form-control  @error('branchName') is-invalid @enderror" type="text" id="branchName"
-                            name="branchName" value="{{ $branch->name}}">
+                            name="branchName" value="{{ $branch->name }}">
                         @error('branchName')
                             <span class="invalid-message" style="color:red;" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
+                            <br>
                         @enderror
-                        <br>
                         <label for="branchAddress">Address</label>
                         <input class="form-control @error('branchAddress') is-invalid @enderror" type="text"
                             id="branchAddress" name="branchAddress" value="{{ $branch->address }}">
@@ -24,10 +24,11 @@
                             <span class="invalid-message" style="color:red;" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
+                            <br>
                         @enderror
-                        <br>
                         <label for="branchDescription">Description</label>
-                        <input class="form-control" type="text" id="branchDescription" name="branchDescription" value="{{ $branch->description}}">
+                        <input class="form-control" type="text" id="branchDescription" name="branchDescription"
+                            value="{{ $branch->description }}">
                         <br>
                         <label for="branchImage">Image</label>
                         <input class="form-control @error('branchImage') is-invalid @enderror" type="file"
