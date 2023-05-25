@@ -10,7 +10,7 @@ class Place extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['zone','c_name', 'e_name', 'branch_id', 'status'];
+    protected $fillable = ['zone','c_name', 'e_name', 'image', 'branch_id', 'status'];
 
     protected $table = 'places';
 

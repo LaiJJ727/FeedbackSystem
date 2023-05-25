@@ -18,6 +18,7 @@ class PlaceSeeder extends Seeder
             'c_name' => '行政楼底楼男厕所',
             'e_name' => null,
             'branch_id' => '1',
+            'image' => 'test1.jpeg',
             'status'=> 'exist',
         ]);
         Place::create([
@@ -25,6 +26,7 @@ class PlaceSeeder extends Seeder
             'c_name' => '酒店8号房',
             'e_name' => null,
             'branch_id' => '1',
+            'image' => 'test1.jpeg',
             'status'=> 'exist',
         ]);
         Place::create([
@@ -32,6 +34,7 @@ class PlaceSeeder extends Seeder
             'c_name' => '大伯公庙储藏室',
             'e_name' => null,
             'branch_id' => '2',
+            'image' => null,
             'status'=> 'exist',
         ]);
     }

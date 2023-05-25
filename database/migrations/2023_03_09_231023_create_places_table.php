@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('c_name')->nullable();
             $table->string('e_name')->nullable();
             $table->string('branch_id')->nullable();
+            $table->string('image')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
         });
