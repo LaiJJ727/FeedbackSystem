@@ -8,9 +8,10 @@
                 @CSRF
                 @foreach ($branches as $branch)
                     <div class="form-group">
+                        <input type="hidden" name="branchId" value="{{ $branch->id }}">
                         <label for="branchName">Branch Name</label>
-                        <input class="form-control  @error('branchName') is-invalid @enderror" type="text" id="branchName"
-                            name="branchName" value="{{ $branch->name }}">
+                        <input class="form-control  @error('branchName') is-invalid @enderror" type="text"
+                            id="branchName" name="branchName" value="{{ $branch->name }}">
                         @error('branchName')
                             <span class="invalid-message" style="color:red;" role="alert">
                                 <strong>{{ $message }}</strong>

@@ -11,19 +11,13 @@ class BranchController extends Controller
     //add branch
     public function add(Request $request)
     {
-        
-        if ($request->file('branchImage') != null) {
-            $validated = $request->validate([
-                'branchName' => 'required|string',
-                'branchAddress' => 'required|string',
-                'branchImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
-            ]);
-        } else {
-            $validated = $request->validate([
-                'branchName' => 'required|string',
-                'branchAddress' => 'required|string',
-            ]);
-        }
+        //if ($request->file('branchImage') != null) {
+        $validated = $request->validate([
+            'branchName' => 'required|string',
+            'branchAddress' => 'required|string',
+            'branchImage' => 'image|mimes:jpeg,png,jpg,gif,svg',
+        ]);
+        // }
 
         $image = $request->file('branchImage') ? $request->file('branchImage') : null;
         $imageName = null;
@@ -61,20 +55,13 @@ class BranchController extends Controller
     }
 
     //update branch
-    public function update(Request $request){
-
-        if ($request->file('branchImage') != null) {
-            $validated = $request->validate([
-                'branchName' => 'required|string',
-                'branchAddress' => 'required|string',
-                'branchImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
-            ]);
-        } else {
-            $validated = $request->validate([
-                'branchName' => 'required|string',
-                'branchAddress' => 'required|string',
-            ]);
-        }
+    public function update(Request $request)
+    {
+        $validated = $request->validate([
+            'branchName' => 'required|string',
+            'branchAddress' => 'required|string',
+            'branchImage' => 'image|mimes:jpeg,png,jpg,gif,svg',
+        ]);
 
         $image = $request->file('branchImage') ? $request->file('branchImage') : null;
         $imageName = null;
@@ -85,8 +72,7 @@ class BranchController extends Controller
             $image->move($destinationPath, $imageName); //images is the location
         }
 
-        $editBranch=Branch::find($request->branchId);
-
+        $editBranch = Branch::find($request->branchId);
         $editBranch->name = $request->branchName;
         $editBranch->address = $request->branchAddress;
         $editBranch->description = $request->branchDescription;
@@ -97,8 +83,9 @@ class BranchController extends Controller
     }
 
     //deactivate the Branch
-    public function deactivate($id){
-        $deactivateBranch=branch::find($id);
+    public function deactivate($id)
+    {
+        $deactivateBranch = branch::find($id);
 
         $deactivateBranch->status = 'close';
         $deactivateBranch->save();
@@ -106,8 +93,9 @@ class BranchController extends Controller
         return redirect()->route('branch_view');
     }
     //reactivate the Branch
-    public function reactivate($id){
-        $reactivateBranch=branch::find($id);
+    public function reactivate($id)
+    {
+        $reactivateBranch = branch::find($id);
 
         $reactivateBranch->status = 'exist';
         $reactivateBranch->save();
