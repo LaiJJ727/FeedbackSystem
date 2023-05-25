@@ -12,15 +12,27 @@ class PlaceController extends Controller
         $validated = $request->validate([
             'zoneName' => 'required|string',
             'placeCname' => 'required|string',
+            'placeImage' => 'image|mimes:png,jpg,jpeg,gif,svg',
         ]);
+
+        $image = $request->file('placeImage') ? $request->file('placeImage') : null;
+        $imageName = null;
+
+        if ($image) {
+            $imageName = $image->getClientOriginalName();
+            $destinationPath = public_path('place_images');
+            $image->move($destinationPath, $imageName); //images is the location
+        }
 
         $addPlace = Place::create([
             'zone' => $request->zoneName,
             'c_name' => $request->placeCname,
             'e_name' => $request->placeEname ? $request->placeEname:null,
             'branch_id' => $request->branch,
+            'image' => $imageName,
             'status' => 'exist',
         ]);
+
         return redirect()->route('place_view');
     }
     public function view()

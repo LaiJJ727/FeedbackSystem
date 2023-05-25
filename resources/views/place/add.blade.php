@@ -32,6 +32,14 @@
                         <option value="{{ $branch->id }}">{{ $branch->name }}</option>
                     @endforeach
                 </select>
+                <label for="placeImage">Image</label>
+                <input type="file" name="placeImage" id="placeImage" class="form-control"/>
+                @error('placeImage')
+                    <span class="invalid-message" style="color:red;" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    <br>
+                @enderror
             </div>
 
             <button type="submit" class="btn btn-primary">Add New Place</button>
