@@ -1,68 +1,59 @@
  @extends('layouts.app')
  @section('content')
-     <div class="row">
-         <div class="col-sm-3"></div>
-         <div class="col-sm-6">
-             <br><br>
+     <div class="container">
 
-             <table class="table table-bordered">
-                 <thead>
-                     <tr>
-                         <th>Branch id</th>
-                         <td>Bracnh name</th>
-                         <th>Address</th>
-                         <th>Description</th>
-                         <th>Image</th>
-                         <th>Operate</th>
-                     </tr>
-                 </thead>
-                 <tbody>
-                     @foreach ($branches as $branch)
-                         @if ($branch->status == 'exist')
+         <div class="row">
+             <div class="col-sm-1"></div>
+
+             <div class="col-sm-10 mt-sm-5">
+                 <div class="table-responsive">
+                     <table class="table table-borderless shadow-sm">
+                         <thead>
                              <tr>
-                                 <td>{{ $branch->id }}</td>
-                                 <td>{{ $branch->name }}</td>
-                                 <td>{{ $branch->address }}</td>
-                                 <td>{{ $branch->description }}</td>
-                                 @if (isset($branch->image))
-                                     <td><a class="viewImage" data-toggle="modal"
-                                             data-id="{{ asset('images') }}/{{ $branch->image }}"
-                                             data-target="#imageModal">{{ $branch->image }}</a></td>
-                                 @else
-                                     <td style="color:grey;">None</td>
-                                 @endif
-                                 <td><a href="{{ route('branch_edit', ['id' => $branch->id]) }}"
-                                         class="btn btn-warning btn-xs">Edit</a>
-                                     <a href="{{ route('branch_deactivate', ['id' => $branch->id]) }}"
-                                         class="btn btn-danger btn-xs"
-                                         onClick="return confirm('Are you sure to deactivate?')">Deactivate</a>
-                                 </td>
+                                 <th scope="col">#</th>
+                                 <th scope="col">Bracnh name</th>
+                                 <th scope="col">Address</th>
+                                 <th scope="col">Description</th>
+                                 <th scope="col">Image</th>
+                                 <th scope="col" class="text-center" colspan="2">Operate</th>
                              </tr>
-                         @else
-                             <tr>
-                                 <td>{{ $branch->id }}</td>
-                                 <td>{{ $branch->name }}</td>
-                                 <td>{{ $branch->address }}</td>
-                                 <td>{{ $branch->description }}</td>
-                                 @if (isset($branch->image))
-                                     <td><a class="viewImage" data-toggle="modal"
-                                             data-id="{{ asset('images') }}/{{ $branch->image }}"
-                                             data-target="#imageModal">{{ $branch->image }}</a></td>
-                                 @else
-                                     <td style="color:grey;">None</td>
-                                 @endif
-                                 <td><a href="{{ route('branch_reactivate', ['id' => $branch->id]) }}" class="btn btn-xs"
-                                         style=" background-color:red; color:white"
-                                         onClick="return confirm('Are you sure to reactivate?')">Reactivate</a></td>
-                             </tr>
-                         @endif
-                     @endforeach
+                         </thead>
+                         <tbody>
+                             @foreach ($branches as $key => $branch)
+                                 <tr>
+                                     <th scope="row">{{ $key + 1 }}</th>
+                                     <td>{{ $branch->name }}</td>
+                                     <td>{{ $branch->address }}</td>
+                                     <td>{{ $branch->description ? $branch->description : '-' }}</td>
+                                     @if (isset($branch->image))
+                                         <td><a class="viewImage" data-toggle="modal"
+                                                 data-id="{{ asset('images') }}/{{ $branch->image }}"
+                                                 data-target="#imageModal">{{ $branch->image }}</a></td>
+                                     @else
+                                         <td style="color:grey;">-</td>
+                                     @endif
+                                     <td class="border: 5px !important"><a
+                                             href="{{ route('branch_edit', ['id' => $branch->id]) }}"
+                                             class="btn btn-warning btn-xs">Edit</a>
+                                     </td>
+                                     @if ($branch->status == 'exist')
+                                         <td><a href="{{ route('branch_deactivate', ['id' => $branch->id]) }}"
+                                                 class="btn btn-danger btn-xs"
+                                                 onClick="return confirm('Are you sure to deactivate?')">Deactivate</a></td>
+                                     @else
+                                         <td><a href="{{ route('branch_reactivate', ['id' => $branch->id]) }}"
+                                                 class="btn btn-success btn-xs"
+                                                 onClick="return confirm('Are you sure to reactivate?')">Reactivate</a></td>
+                                 </tr>
+                             @endif
+                             @endforeach
+                         </tbody>
+                     </table>
+                 </div>
+             </div>
+             <div class="col-sm-1"></div>
 
-
-                 </tbody>
-             </table>
          </div>
-         <div class="col-sm-3"></div>
      </div>
      <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
          <div class="modal-dialog">

@@ -6,3 +6,29 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+body{
+font-family: Arial, Helvetica, sans-serif !important;
+}
+.text-center{
+    text-align: center;
+}
+table {
+border-collapse: collapse;
+border-radius: 1em;
+overflow: hidden; 
+}
+.table thead th {
+vertical-align: bottom;
+border-bottom: none !important;
+}
+.table th {
+background-color: #352671;
+color: white;
+padding: 0.75rem;
+vertical-align: top;
+border-top: none !important;
+}
+.table td{
+background-color: white;
+}

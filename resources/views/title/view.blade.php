@@ -5,13 +5,13 @@
          <div class="col-sm-6">
              <br><br>
 
-             <table class="table table-bordered">
+             <table class="table  table-borderless shadow-sm">
                  <thead>
                      <tr>
                          <th>中文标题名称 Chinese Title Name</th>
                          <th>英文标题名称 English Title Name</th>
                          <th>图片 Image</th>
-                         <th style="text-align: center" colspan="2">操作 Operate</th>
+                         <th class="text-center" colspan="2">操作 Operate</th>
                      </tr>
                  </thead>
                  <tbody>

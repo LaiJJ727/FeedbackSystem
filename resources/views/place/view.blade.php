@@ -10,10 +10,11 @@
                      <thead>
                          <tr>
                              <th>Place id</th>
-                             <td>Zone</th>
-                             <td>Chinese place name</th>
-                             <td>English place name</th>
-                             <td>Branch name</th>
+                             <th>Zone</th>
+                             <th>Chinese place name</th>
+                             <th>English place name</th>
+                             <th>Branch name</th>
+                             <th>Image</th>
                              <th>Operate</th>
                          </tr>
                      </thead>

@@ -7,7 +7,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <link href="{{ asset('images') }}/logo.png">
     <title>Feedback System</title>
 
     <!-- Fonts -->
@@ -40,7 +40,8 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    Feedback System
+                     <img src="{{ asset('images') }}/UpKeepLogo.svg" alt=""
+                                    width="150" class="img-fluid">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
