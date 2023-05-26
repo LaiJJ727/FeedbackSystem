@@ -12,7 +12,8 @@ class TitleController extends Controller
         $r = request();
 
         $addTitle = Title::create([
-            'name' => $r->titleName,
+            'c_name' => $r->titleName,
+            'e_name' => $r->titleEngName,
             'status' => 'exist',
         ]);
         return redirect()->route('title_view');
@@ -41,7 +42,8 @@ class TitleController extends Controller
 
         $editTitle=Title::find($r->titleId);
 
-        $editTitle->name=$r->titleName;
+        $editTitle->c_name=$r->titleName;
+        $editTitle->e_name=$r->engTitleName;
 
         $editTitle->save();
 
