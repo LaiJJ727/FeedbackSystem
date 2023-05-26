@@ -85,7 +85,6 @@
              $('.viewImage').click(function() {
 
                  var image = $(this).data('id');
-                 console.log(image);
                  $('.image').attr('src', image);
                  $('#imageModal').modal('show');
              });

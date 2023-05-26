@@ -27,7 +27,7 @@
                                 <div class="col-md-2">
                                     <select name="language" id="language"class="form-control" required>
                                         <option value="Chinese" selected>Chinese</option>
-                                        <option value="Englist">English</option>
+                                        <option value="English">English</option>
                                     </select>
                                 </div>
                             </div>

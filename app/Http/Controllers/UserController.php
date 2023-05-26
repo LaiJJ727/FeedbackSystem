@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\user;
+use App\Models\User;
+use App\Models\Branch;
 use Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -11,7 +12,7 @@ class UserController extends Controller
 {
     public function view()
     {
-        $data["users"] = User::all();
+        $data["users"] = User::whereNot('id',"1")->get();
 
         return view('/auth/userManagement',$data);
     }
@@ -41,28 +42,26 @@ class UserController extends Controller
     public function profileUser($id)
     {
         $profile = User::find($id);
+        $branches= Branch::where('status','exist')->get();
 
-        return view('auth/profile')->with('profile', $profile);
+        return view('auth/profile', compact('profile','branches'));
     }
-    public function profileUpdate()
+    public function profileUpdate(Request $request)
     {
-        $r = request();
         //valdiate
-        $rules = [
-            'name' => 'required|string',
-            'phone' => 'required|string|min:10',
-        ];
+        $validated = $request->validate([
+            'phone' => 'required|regex:/^\d{10,11}$/'
+        ]);
 
-        $validator = Validator::make($r->all(), $rules);
-        if($validator->fails()){
-            return back()->withErrors($validator->errors())->withInput();
-        }
-        $profile = User::find($r->id);
-
-        $profile->name = $r->name;
-        $profile->phone = $r->phone;
+        $profile = User::find($request->id);
+        $profile->username = $request->username;
+        $profile->name = $request->name;
+        $profile->phone = $request->phone;
+        $profile->language = $request->language ? $request->language:$profile->language;
+        $profile->branch_id = $request->branch_id ? $request->branch_id:$profile->branch_id;
         $profile->save();
-        if($profile->role==2){
+
+        if($profile->role=="Admin"){
             return redirect()->route('profile_view');
         }else{
             return redirect()->route('user_view');

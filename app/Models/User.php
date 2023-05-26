@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Branch;
 
 class User extends Authenticatable
 {
@@ -38,6 +39,11 @@ class User extends Authenticatable
 
     public function isSuperAdmin()
     {
-        return $this->role == 2;
+        return $this->role == "Admin";
     }
+    public function branches()
+    {
+        return $this->hasOne(Branch::class,'id','branch_id');
+    }
+
 }
