@@ -10,9 +10,19 @@
                     <div class="form-group">
                         <input type="hidden" name="titleId" value="{{ $title->id }}">
                         <label for="titleName">中文标题名称 Chinese Title Name</label>
-                        <input class="form-control" type="text" id="titleName" name="titleName" value="{{ $title->c_name }}" requiered>
+                        <input class="form-control" type="text" id="titleName" name="titleName"
+                            value="{{ $title->c_name }}" requiered>
                         <label for="engTitleName">英文标题名称 English Title Name</label>
-                        <input class="form-control" type="text" id="engTitleName" name="engTitleName" value="{{ $title->e_name }}">
+                        <input class="form-control" type="text" id="engTitleName" name="engTitleName"
+                            value="{{ $title->e_name }}">
+                        <label for="titleImg">图片 Image</label>
+                        <input type="file" name="titleImg" id="titleImg" class="form-control" />
+                        @error('titleImg')
+                            <span class="invalid-message" style="color:red;" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            <br>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">编辑 Edit</button>
                 @endforeach

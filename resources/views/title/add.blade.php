@@ -7,12 +7,34 @@
             <div class="form-group">
                 <label for="titleName">中文标题名称 Chinese Title Name</label>
                 <input class="form-control" type="text" id="titleName" name="titleName">
+                @error('titleName')
+                    <span class="invalid-message" style="color:red;" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    <br>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="titleEngName">英文标题名称 English Title Name</label>
                 <input class="form-control" type="text" id="titleEngName" name="titleEngName">
+                @error('titleEngName')
+                    <span class="invalid-message" style="color:red;" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    <br>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="titleImg">图片 Image</label>
+                <input type="file" name="titleImg" id="titleImg" class="form-control" />
+                @error('titleImg')
+                    <span class="invalid-message" style="color:red;" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    <br>
+                @enderror
             </div>
             <button type="submit" class="btn btn-primary">填加 Add</button>
         </form>
         <div>
-@endsection
+        @endsection
