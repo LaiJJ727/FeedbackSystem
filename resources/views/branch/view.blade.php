@@ -1,21 +1,37 @@
  @extends('layouts.app')
  @section('content')
      <div class="container">
-
          <div class="row">
              <div class="col-sm-1"></div>
 
              <div class="col-sm-10 mt-sm-5">
                  <div class="table-responsive">
-                     <table class="table table-borderless shadow-sm">
+                     <table class="table table-borderless shadow-sm" id="myTable">
                          <thead>
                              <tr>
+                                 <th colspan="7" style="font-size:30px;  border-bottom: 2px solid white !important;"
+                                     scope="col">分行 Branch</th>
+                             </tr>
+                             <tr>
+                                 <th colspan="7" style="border-bottom: 2px solid white !important;" scope="col">
+                                     <div class="input-group">
+                                         <div class="input-group-prepend">
+                                             <span class="input-group-text" id="basic-addon1"><i
+                                                     class="fa fa-search"></i></span>
+                                         </div>
+                                         <input type="text" class="form-control" id="searchKey" placeholder="Search by name"  onkeyup="searchFunction()"
+                                             aria-describedby="basic-addon1">
+                                     </div>
+
+                                 </th>
+                             </tr>
+                             <tr>
                                  <th scope="col">#</th>
-                                 <th scope="col">Bracnh name</th>
-                                 <th scope="col">Address</th>
-                                 <th scope="col">Description</th>
-                                 <th scope="col">Image</th>
-                                 <th scope="col" class="text-center" colspan="2">Operate</th>
+                                 <th scope="col">名字<br> Name</th>
+                                 <th scope="col">地址<br>Address</th>
+                                 <th scope="col">描述<br>Description</th>
+                                 <th scope="col">图片<br>Image</th>
+                                 <th scope="col" class="text-center" colspan="2">操作<br>Operate</th>
                              </tr>
                          </thead>
                          <tbody>
@@ -27,7 +43,7 @@
                                      <td>{{ $branch->description ? $branch->description : '-' }}</td>
                                      @if (isset($branch->image))
                                          <td><a class="viewImage" data-toggle="modal"
-                                                 data-id="{{ asset('images') }}/{{ $branch->image }}"
+                                                 data-id="{{ asset('branch_images') }}/{{ $branch->image }}"
                                                  data-target="#imageModal">{{ $branch->image }}</a></td>
                                      @else
                                          <td style="color:grey;">-</td>
@@ -80,5 +96,27 @@
                  $('#imageModal').modal('show');
              });
          });
+
+         function searchFunction() {
+             // Declare variables
+             var input, filter, table, tr, td, i, txtValue;
+             input = document.getElementById("searchKey");
+             filter = input.value.toUpperCase();
+             table = document.getElementById("myTable");
+             tr = table.getElementsByTagName("tr");
+
+             // Loop through all table rows, and hide those who don't match the search query
+             for (i = 0; i < tr.length; i++) {
+                 td = tr[i].getElementsByTagName("td")[0];
+                 if (td) {
+                     txtValue = td.textContent || td.innerText;
+                     if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                         tr[i].style.display = "";
+                     } else {
+                         tr[i].style.display = "none";
+                     }
+                 }
+             }
+         }
      </script>
  @endsection

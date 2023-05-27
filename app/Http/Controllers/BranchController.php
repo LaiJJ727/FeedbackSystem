@@ -24,7 +24,7 @@ class BranchController extends Controller
 
         if ($image) {
             $imageName = $image->getClientOriginalName();
-            $destinationPath = public_path('images');
+            $destinationPath = public_path('branch_images');
             $image->move($destinationPath, $imageName); //images is the location
         }
 
@@ -68,7 +68,7 @@ class BranchController extends Controller
 
         if ($image) {
             $imageName = $image->getClientOriginalName();
-            $destinationPath = public_path('images');
+            $destinationPath = public_path('branch_images');
             $image->move($destinationPath, $imageName); //images is the location
         }
 

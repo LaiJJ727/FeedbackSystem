@@ -11,12 +11,12 @@ body{
 font-family: Arial, Helvetica, sans-serif !important;
 }
 .text-center{
-    text-align: center;
+text-align: center;
 }
 table {
 border-collapse: collapse;
 border-radius: 1em;
-overflow: hidden; 
+overflow: hidden;
 }
 .table thead th {
 vertical-align: bottom;
@@ -31,4 +31,21 @@ border-top: none !important;
 }
 .table td{
 background-color: white;
+}
+.form-control:focus {
+border-color: #352671;
+box-shadow: 0 0 0 0.2rem #352671;
+}
+.btn-main{
+background-color: #352671;
+color:white !important;
+
+}
+.btn-main:hover{
+background-color: #4b34a7;
+}
+.btn-main:active, .btn-primary:visited {
+background-color: #4b34a7 !important;
+box-shadow: 0 0 0 0.2rem #6651bd !important;
+
 }

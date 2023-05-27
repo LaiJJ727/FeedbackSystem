@@ -15,7 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -40,8 +40,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                     <img src="{{ asset('images') }}/UpKeepLogo.svg" alt=""
-                                    width="150" class="img-fluid">
+                    <img src="{{ asset('images') }}/UpKeepLogo.svg" alt="" width="150" class="img-fluid">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -75,7 +74,7 @@
                                 @csrf
                                 <input class="form-control mr-sm-2" name="keyword" type="search" placeholder="Search"
                                     aria-label="Search">
-                                <button class="btn btn-primary" type="submit">Search</button>
+                                <button class="btn btn-main" type="submit">Search</button>
                             </form>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -87,13 +86,13 @@
                                     <a class="dropdown-item" href="{{ route('feedback_index') }}">All Feedback</a>
                                     <a class="dropdown-item" href="{{ route('my_feedback') }}">My Feedback</a>
                                     <a class="dropdown-item" href="{{ route('feedback_select_branch') }}">Add Feedback</a>
-                                    @if (Auth::user()->role != "Staff")
+                                    @if (Auth::user()->role != 'Staff')
                                         <a class="dropdown-item" href="{{ route('feedback_index_complete') }}">Complete
                                             Feedback</a>
                                     @endif
                                 </div>
                             </li>
-                            @if (Auth::user()->role == "Admin")
+                            @if (Auth::user()->role == 'Admin')
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -117,8 +116,9 @@
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#"
+                                        role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false" v-pre>
                                         Title
                                     </a>
 
@@ -137,23 +137,23 @@
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                                        @if (Auth::user()->role == "Admin")
-                                            <a class="dropdown-item" href="{{route('profile_view')}}">Profile</a>
-                                            <a class="dropdown-item" href="{{ route('view_register') }}">Register
-                                                Staff/Admin</a>
-                                            <a class="dropdown-item" href="{{ route('user_view') }}">User Manage</a>
-                                            <a class="dropdown-item" href="{{ route('api_setting') }}">API Setting</a>
-                                        @endif
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
+                                    @if (Auth::user()->role == 'Admin')
+                                        <a class="dropdown-item" href="{{ route('profile_view') }}">Profile</a>
+                                        <a class="dropdown-item" href="{{ route('view_register') }}">Register
+                                            Staff/Admin</a>
+                                        <a class="dropdown-item" href="{{ route('user_view') }}">User Manage</a>
+                                        <a class="dropdown-item" href="{{ route('api_setting') }}">API Setting</a>
+                                    @endif
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
+                                        {{ __('Logout') }}
+                                    </a>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                            class="d-none">
-                                            @csrf
-                                        </form>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        class="d-none">
+                                        @csrf
+                                    </form>
                                 </div>
                             </li>
                         @endguest
