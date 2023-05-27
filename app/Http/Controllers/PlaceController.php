@@ -27,7 +27,7 @@ class PlaceController extends Controller
         $addPlace = Place::create([
             'zone' => $request->zoneName,
             'c_name' => $request->placeCname,
-            'e_name' => $request->placeEname ? $request->placeEname:null,
+            'e_name' => $request->placeEname ? $request->placeEname : null,
             'branch_id' => $request->branch,
             'image' => $imageName,
             'status' => 'exist',
@@ -38,7 +38,6 @@ class PlaceController extends Controller
     public function view()
     {
         $branches = Branch::all();
-
         return view('/place/view')->with('branches', $branches);
     }
     public function edit($id)
@@ -95,5 +94,10 @@ class PlaceController extends Controller
         $reactivatePlace->save();
 
         return redirect()->route('place_view');
+    }
+    public function search(Request $request)
+    {
+        $searchBranches = Branch::where('name','like','%'.$request->keyword.'%')->get();
+        return view('/place/view')->with('branches', $searchBranches);
     }
 }

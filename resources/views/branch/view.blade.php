@@ -3,7 +3,6 @@
      <div class="container">
          <div class="row">
              <div class="col-sm-1"></div>
-
              <div class="col-sm-10 mt-sm-5">
                  <div class="table-responsive">
                      <table class="table table-borderless shadow-sm" id="myTable">
@@ -19,7 +18,7 @@
                                              <span class="input-group-text" id="basic-addon1"><i
                                                      class="fa fa-search"></i></span>
                                          </div>
-                                         <input type="text" class="form-control" id="searchKey" placeholder="Search by name"  onkeyup="searchFunction()"
+                                         <input type="text" class="form-control" id="searchKey" placeholder="搜索名字 Search by name"  onkeyup="searchFunction()"
                                              aria-describedby="basic-addon1">
                                      </div>
 

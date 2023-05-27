@@ -7,7 +7,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="{{ asset('images') }}/logo.png">
+    <link rel="shortcut icon" href="{{ asset('images') }}/logo.png" type="image/icon type">
     <title>Feedback System</title>
 
     <!-- Fonts -->

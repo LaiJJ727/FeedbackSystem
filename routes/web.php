@@ -115,6 +115,7 @@ Route::prefix('isSuperAdmin')
             Route::post('place/update', 'update')->name('place_update');
             Route::get('/deactivatePlace/{id}', 'deactivate')->name('place_deactivate');
             Route::get('/reactivatePlace/{id}', 'reactivate')->name('place_reactivate');
+            Route::post('/place/view/search', 'search')->name('place_search');
         });
 
     });
