@@ -34,7 +34,7 @@ background-color: white;
 }
 .form-control:focus {
 border-color: #352671;
-box-shadow: 0 0 0 0.2rem #352671;
+box-shadow: 0 0 0 1px #352671;
 }
 .btn-main{
 background-color: #352671;
@@ -50,12 +50,21 @@ box-shadow: 0 0 0 0.2rem #6651bd !important;
 
 }
 .card{
-    border: 5px !important;
-    background-color: #ffffff !important;
+border: 5px !important;
+background-color: #ffffff !important;
 }
 .card-header{
-    background-color: #181829 !important;
-    color:white !important;
-    border-radius: 13px 13px 0px 0px !important;
+background-color: #0c0333 !important;
+color:white !important;
+border-radius: 13px 13px 0px 0px !important;
+border-bottom: 0 !important;
 }
+.input-group-text{
+background-color: #6651bd !important;
+color:white !important;
+border: 0 !important;
 
+}
+.clear-border{
+border: 0 !important;
+}

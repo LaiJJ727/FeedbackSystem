@@ -41,7 +41,7 @@
                                                              <span class="input-group-text" id="basic-addon1"><i
                                                                      class="fa fa-search"></i></span>
                                                          </div>
-                                                         <input type="text" class="form-control"
+                                                         <input type="text" class="form-control clear-border"
                                                              id="searchKey{{ $branch->id }}"
                                                              placeholder="搜索中文名字 Search by name"
                                                              onkeyup="searchFunction({{ $branch->id }})"

@@ -18,7 +18,7 @@
                                              <span class="input-group-text" id="basic-addon1"><i
                                                      class="fa fa-search"></i></span>
                                          </div>
-                                         <input type="text" class="form-control" id="searchKey" placeholder="搜索名字 Search by name"  onkeyup="searchFunction()"
+                                         <input type="text" class="form-control clear-border" id="searchKey" placeholder="搜索名字 Search by name"  onkeyup="searchFunction()"
                                              aria-describedby="basic-addon1">
                                      </div>
 

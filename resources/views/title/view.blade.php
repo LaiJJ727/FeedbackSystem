@@ -18,7 +18,7 @@
                                              <span class="input-group-text" id="basic-addon1"><i
                                                      class="fa fa-search"></i></span>
                                          </div>
-                                         <input type="text" class="form-control" id="searchKey"
+                                         <input type="text" class="form-control clear-border" id="searchKey"
                                              placeholder="搜索中文名字 Search by chinese name" onkeyup="searchFunction()"
                                              aria-describedby="basic-addon1">
                                      </div>
