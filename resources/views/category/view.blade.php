@@ -9,7 +9,7 @@
                          <thead>
                              <tr>
                                  <th colspan="7" style="font-size:30px;  border-bottom: 2px solid white !important;"
-                                     scope="col">标题 Title</th>
+                                     scope="col">类别 Category</th>
                              </tr>
                              <tr>
                                  <th colspan="7" style="border-bottom: 2px solid white !important;" scope="col">
@@ -27,40 +27,30 @@
                              </tr>
                              <tr>
                                  <th>#</th>
-                                 <th>类别 Category</th>
                                  <th>中文名称 Chinese Name</th>
                                  <th>英文名称 English Name</th>
-                                 <th>图片 Image</th>
                                  <th class="text-center" colspan="2">操作 Operate</th>
                              </tr>
                          </thead>
                          <tbody>
-                             @foreach ($titles as $key => $title)
+                             @foreach ($categories as $key => $category)
                                  <tr>
                                      <th>{{ $key + 1 }}</th>
-                                     <td>{{ $title->categories->c_name}} {{$title->categories->e_name }}</td>
-                                     <td>{{ $title->c_name }}</td>
-                                     <td>{{ $title->e_name }}</td>
-                                     @if (isset($title->image))
-                                         <td><a class="viewImage" data-toggle="modal"
-                                                 data-id="{{ asset('title_images') }}/{{ $title->image }}"
-                                                 data-target="#imageModal">{{ $title->image }}</a></td>
-                                     @else
-                                         <td style="color:grey;">-</td>
-                                     @endif
+                                     <td>{{ $category->c_name }}</td>
+                                     <td>{{ $category->e_name }}</td>
                                      <td>
-                                         <a href="{{ route('title_edit', ['id' => $title->id]) }}"
+                                         <a href="{{ route('category_edit', ['id' => $category->id]) }}"
                                              class="btn btn-warning btn-xs">Edit</a>
                                      </td>
-                                     @if ($title->status == 'exist')
+                                     @if ($category->status == 'exist')
                                          <td>
-                                             <a href="{{ route('title_deactivate', ['id' => $title->id]) }}"
+                                             <a href="{{ route('category_deactivate', ['id' => $category->id]) }}"
                                                  class="btn btn-danger btn-xs"
                                                  onClick="return confirm('Are you sure to deactivate?')">Deactivate</a>
                                          </td>
                                  </tr>
                              @else
-                                 <td><a href="{{ route('title_reactivate', ['id' => $title->id]) }}"
+                                 <td><a href="{{ route('category_reactivate', ['id' => $category->id]) }}"
                                          class="btn btn-success btn-xs"
                                          onClick="return confirm('Are you sure to reactivate?')">Reactivate</a></td>
                                  </tr>
@@ -74,34 +64,8 @@
              <div class="col-sm-1"></div>
          </div>
      </div>
-
-     <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-         <div class="modal-dialog">
-             <div class="modal-content">
-                 <div class="modal-header">
-                     <h1 class="modal-title fs-5">Title Image</h1>
-                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                 </div>
-                 <div class="modal-body">
-                     <img id="image" alt="" class="img-fluid image">
-                 </div>
-             </div>
-         </div>
-     </div>
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
      <script>
-         //for using bootstrap js need to use '$(document).ready(function (){' and above src to call
-         $(document).ready(function() {
-             //id should be unique so instead of using id it is better to use class
-             $('.viewImage').click(function() {
-
-                 var image = $(this).data('id');
-                 console.log(image);
-                 $('.image').attr('src', image);
-                 $('#imageModal').modal('show');
-             });
-         });
-
          function searchFunction() {
              // Declare variables
              var input, filter, table, tr, td, i, txtValue;

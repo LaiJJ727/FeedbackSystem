@@ -37,7 +37,7 @@
                             <br>
                         @enderror
                         <label for="branch">Branch</label>
-                        <select name="branch" id="branch" class="form-control" value="{{ $place->branch_id }}" readonly>
+                        <select name="branch" id="branch" class="form-control" value="{{ $place->branch_id }}" required>
                             @foreach ($branches as $branch)
                                 @if ($place->branch_id == $branch->id)
                                     <option value="{{ $branch->id }}"selected>{{ $branch->name }}</option>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Title;
+use App\Models\Category;
 
 class TitleController extends Controller
 {
@@ -16,7 +17,7 @@ class TitleController extends Controller
         ]);
         $image = $request->file('titleImg') ? $request->file('titleImg') : null;
         $imageName = null;
-        
+
         if ($image) {
             $imageName = $image->getClientOriginalName();
             $destinationPath = public_path('title_images');
@@ -27,6 +28,7 @@ class TitleController extends Controller
             'c_name' => $request->titleName,
             'e_name' => $request->titleEngName,
             'image' => $imageName,
+            'category_id' => $request->category,
             'status' => 'exist',
         ]);
         return redirect()->route('title_view');
@@ -41,16 +43,20 @@ class TitleController extends Controller
     {
         $titles = Title::all()->where('id', $id);
 
-        return view('title/edit')->with('titles', $titles);
+        $categories = Category::whereNot('status', '=', 'close')->get();
+
+        return view('title/edit', compact('titles', 'categories'));
     }
     public function add_view()
     {
-        return view('title/add');
+        $data['categories'] = Category::whereNot('status', '=', 'close')->get();
+
+        return view('title/add', $data);
     }
 
     //update branch
-    public function update(Request $request){
-
+    public function update(Request $request)
+    {
         $validated = $request->validate([
             'titleName' => 'required|string',
             'engTitleName' => 'string',
@@ -58,19 +64,19 @@ class TitleController extends Controller
         ]);
         $image = $request->file('titleImg') ? $request->file('titleImg') : null;
         $imageName = null;
-        
+
         if ($image) {
             $imageName = $image->getClientOriginalName();
             $destinationPath = public_path('title_images');
             $image->move($destinationPath, $imageName); //images is the location
         }
 
+        $editTitle = Title::find($request->titleId);
 
-        $editTitle=Title::find($request->titleId);
-
-        $editTitle->c_name=$request->titleName;
-        $editTitle->e_name=$request->engTitleName;
-        $editTitle->image=$imageName;
+        $editTitle->c_name = $request->titleName;
+        $editTitle->e_name = $request->engTitleName;
+        $editTitle->image = $imageName ? $imageName : $editTitle->image;
+        $editTitle->category_id = $request->category;
 
         $editTitle->save();
 
@@ -78,8 +84,9 @@ class TitleController extends Controller
     }
 
     //deactivate the Branch
-    public function deactivate($id){
-        $deactivateTitle=Title::find($id);
+    public function deactivate($id)
+    {
+        $deactivateTitle = Title::find($id);
 
         $deactivateTitle->status = 'close';
         $deactivateTitle->save();
@@ -87,14 +94,13 @@ class TitleController extends Controller
         return redirect()->route('title_view');
     }
     //reactivate the Branch
-    public function reactivate($id){
-
-        $reactivateTitle=Title::find($id);
+    public function reactivate($id)
+    {
+        $reactivateTitle = Title::find($id);
 
         $reactivateTitle->status = 'exist';
         $reactivateTitle->save();
 
         return redirect()->route('title_view');
     }
-
 }

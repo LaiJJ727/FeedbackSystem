@@ -13,8 +13,6 @@
                     </span>
                     <br>
                 @enderror
-            </div>
-            <div class="form-group">
                 <label for="titleEngName">英文标题名称 English Title Name</label>
                 <input class="form-control" type="text" id="titleEngName" name="titleEngName">
                 @error('titleEngName')
@@ -23,8 +21,12 @@
                     </span>
                     <br>
                 @enderror
-            </div>
-            <div class="form-group">
+            <label for="category">Category</label>
+            <select name="category" id="category" class="form-control" required>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->c_name }} {{ $category->e_name }}</option>
+                @endforeach
+            </select>
                 <label for="titleImg">图片 Image</label>
                 <input type="file" name="titleImg" id="titleImg" class="form-control" />
                 @error('titleImg')

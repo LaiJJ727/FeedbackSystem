@@ -15,6 +15,18 @@
                         <label for="engTitleName">英文标题名称 English Title Name</label>
                         <input class="form-control" type="text" id="engTitleName" name="engTitleName"
                             value="{{ $title->e_name }}">
+                        <label for="category">Category</label>
+                        <select name="category" id="category" class="form-control" value="{{ $title->category_id }}" required>
+                            @foreach ($categories as $category)
+                                @if ($title->category_id == $category->id)
+                                    <option value="{{ $category->id }}" selected>{{ $category->c_name }}
+                                        {{ $category->e_name }}</option>
+                                @else
+                                    <option value="{{ $category->id }}">{{ $category->c_name }} {{ $category->e_name }}
+                                    </option>
+                                @endif
+                            @endforeach
+                        </select>
                         <label for="titleImg">图片 Image</label>
                         <input type="file" name="titleImg" id="titleImg" class="form-control" />
                         @error('titleImg')

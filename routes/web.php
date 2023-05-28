@@ -21,7 +21,7 @@ Route::post('/login', 'App\Http\Controllers\Auth\LoginController@login')->name('
 Route::get('/login', 'App\Http\Controllers\Auth\LoginController@show')->name('login.show');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function () {
     /**
      * Logout Routes
      */
@@ -41,14 +41,12 @@ Route::prefix('user')
             Route::get('feedback/edit_feedback/{id}', 'editFeedback')->name('edit_feedback');
             Route::post('feedback/edit_done', 'updateFeedback')->name('update_feedback');
             Route::post('feedback/index', 'searchFeedback')->name('search_feedback');
-
-
         });
     });
-    Route::controller(App\Http\Controllers\CommentController::class)->group(function () {
-        Route::get('feedback/comment/{id}', 'indexComment')->name('feedback_index_comment');
-        Route::post('feedback/comment_create', 'addComment')->name('add_comment');
-    });
+Route::controller(App\Http\Controllers\CommentController::class)->group(function () {
+    Route::get('feedback/comment/{id}', 'indexComment')->name('feedback_index_comment');
+    Route::post('feedback/comment_create', 'addComment')->name('add_comment');
+});
 
 //agent
 Route::prefix('admin')
@@ -91,9 +89,8 @@ Route::prefix('isSuperAdmin')
         });
         Route::controller(App\Http\Controllers\UserController::class)->group(function () {
             Route::get('/user/profile', 'profile')->name('profile_view');
-            Route::get('/user/profile/{id}','profileUser')->name('profile_user_view');
+            Route::get('/user/profile/{id}', 'profileUser')->name('profile_user_view');
             Route::post('/user/profile/update', 'profileUpdate')->name('profile_update');
-
         });
 
         // title
@@ -106,8 +103,8 @@ Route::prefix('isSuperAdmin')
             Route::get('/deactivateTitle/{id}', 'deactivate')->name('title_deactivate');
             Route::get('/reactivateTitle/{id}', 'reactivate')->name('title_reactivate');
         });
-          // place
-          Route::controller(App\Http\Controllers\PlaceController::class)->group(function () {
+        // place
+        Route::controller(App\Http\Controllers\PlaceController::class)->group(function () {
             Route::get('/place/add', 'add_view')->name('place_add_view');
             Route::get('/place/view', 'view')->name('place_view');
             Route::post('/place/view', 'add')->name('place_add');
@@ -117,5 +114,14 @@ Route::prefix('isSuperAdmin')
             Route::get('/reactivatePlace/{id}', 'reactivate')->name('place_reactivate');
             Route::post('/place/view/search', 'search')->name('place_search');
         });
-
+        // category
+        Route::controller(App\Http\Controllers\CategoryController::class)->group(function () {
+            Route::get('/category/add', 'add_view')->name('category_add_view');
+            Route::get('/category/view', 'view')->name('category_view');
+            Route::post('/category/view', 'add')->name('category_add');
+            Route::get('category/edit{id}', 'edit')->name('category_edit');
+            Route::post('category/update', 'update')->name('category_update');
+            Route::get('/deactivateCategory/{id}', 'deactivate')->name('category_deactivate');
+            Route::get('/reactivateCategory/{id}', 'reactivate')->name('category_reactivate');
+        });
     });

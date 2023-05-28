@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Branch;
-
 class Place extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['zone','c_name', 'e_name', 'image', 'branch_id', 'status'];
+    protected $fillable = ['zone','c_name', 'e_name', 'image', 'branch_id','status'];
 
     protected $table = 'places';
 
@@ -18,5 +17,7 @@ class Place extends Model
     {
         return $this->hasOne(Branch::class,'id','branch_id');
     }
+
+
 
 }

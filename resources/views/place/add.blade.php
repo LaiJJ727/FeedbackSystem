@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container col-sm-12   mt-3">
+    <div class="container col-sm-12 mt-3">
         <h3>Add New Place</h3>
         <form action="{{ route('place_add') }}" method="POST" enctype="multipart/form-data">
             @CSRF
@@ -24,8 +24,8 @@
                     <br>
                 @enderror
                 <label for="placeEname">English Place Name</label>
-                <input class="form-control" type="text" id="placeEname"
-                    name="placeEname" value="{{ old('placeEname') }}">
+                <input class="form-control" type="text" id="placeEname" name="placeEname"
+                    value="{{ old('placeEname') }}">
                 <label for="branch">Branch</label>
                 <select name="branch" id="branch" class="form-control" required>
                     @foreach ($branches as $branch)
@@ -33,7 +33,7 @@
                     @endforeach
                 </select>
                 <label for="placeImage">Image</label>
-                <input type="file" name="placeImage" id="placeImage" class="form-control"/>
+                <input type="file" name="placeImage" id="placeImage" class="form-control" />
                 @error('placeImage')
                     <span class="invalid-message" style="color:red;" role="alert">
                         <strong>{{ $message }}</strong>
