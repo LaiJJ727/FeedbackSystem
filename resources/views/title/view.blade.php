@@ -5,26 +5,23 @@
              <div class="col-sm-1"></div>
              <div class="col-sm-10 mt-sm-5">
                  <div class="table-responsive">
+                     <section class="table_header">
+                         <h1 class="table_header_body" colspan="7"
+                             style="font-size:30px;  border-bottom: 2px solid white !important;" scope="col">
+                             <b>标题 Title</b>
+                         </h1>
+                         <div class="input-group table_header_body">
+                             <div class="input-group-prepend">
+                                 <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
+                             </div>
+                             <input type="text" class="form-control clear-border" id="searchKey"
+                                 placeholder="搜索中文名字 Search by chinese name" onkeyup="searchFunction()"
+                                 aria-describedby="basic-addon1">
+                         </div>
+                     </section>
+                     <section class="table_body">
                      <table class="table  table-borderless shadow-sm" id="myTable">
                          <thead>
-                             <tr>
-                                 <th colspan="7" style="font-size:30px;  border-bottom: 2px solid white !important;"
-                                     scope="col">标题 Title</th>
-                             </tr>
-                             <tr>
-                                 <th colspan="7" style="border-bottom: 2px solid white !important;" scope="col">
-                                     <div class="input-group">
-                                         <div class="input-group-prepend">
-                                             <span class="input-group-text" id="basic-addon1"><i
-                                                     class="fa fa-search"></i></span>
-                                         </div>
-                                         <input type="text" class="form-control clear-border" id="searchKey"
-                                             placeholder="搜索中文名字 Search by chinese name" onkeyup="searchFunction()"
-                                             aria-describedby="basic-addon1">
-                                     </div>
-
-                                 </th>
-                             </tr>
                              <tr>
                                  <th>#</th>
                                  <th>类别 Category</th>
@@ -38,7 +35,7 @@
                              @foreach ($titles as $key => $title)
                                  <tr>
                                      <th>{{ $key + 1 }}</th>
-                                     <td>{{ $title->categories->c_name}} {{$title->categories->e_name }}</td>
+                                     <td>{{ $title->categories->c_name }} {{ $title->categories->e_name }}</td>
                                      <td>{{ $title->c_name }}</td>
                                      <td>{{ $title->e_name }}</td>
                                      @if (isset($title->image))
@@ -68,6 +65,7 @@
                              @endforeach
                          </tbody>
                      </table>
+                     </section>
                  </div>
 
              </div>

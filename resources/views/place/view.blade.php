@@ -7,8 +7,8 @@
                      <div class="d-flex w-100">
                          <h2 class="text-center mb-md-3 mt-md-3">分行 Branch</h2>
                          <div class="ms-auto align-self-center">
-                             <form action="{{ route('place_search')}}" method="POST" enctype="multipart/form-data">
-                                @csrf
+                             <form action="{{ route('place_search') }}" method="POST" enctype="multipart/form-data">
+                                 @csrf
                                  <div class="input-group">
                                      <input type="text" name="keyword" class="form-control" placeholder="搜索分行"
                                          aria-describedby="button-addon2">
@@ -25,82 +25,77 @@
                          <div class="col-sm-12 mt-sm-5">
                              <div class="table-responsive">
                                  @foreach ($branches as $branch)
-                                     <table class="table table-borderless shadow-sm mb-sm-5"
-                                         id="myTable{{ $branch->id }}">
-                                         <thead>
-                                             <tr>
-                                                 <th colspan="8"
-                                                     style="font-size:20px;  border-bottom: 2px solid white !important;"
-                                                     scope="col">{{ $branch->name }}</th>
-                                             </tr>
-                                             <tr>
-                                                 <th colspan="8" style="border-bottom: 2px solid white !important;"
-                                                     scope="col">
-                                                     <div class="input-group">
-                                                         <div class="input-group-prepend">
-                                                             <span class="input-group-text" id="basic-addon1"><i
-                                                                     class="fa fa-search"></i></span>
-                                                         </div>
-                                                         <input type="text" class="form-control clear-border"
-                                                             id="searchKey{{ $branch->id }}"
-                                                             placeholder="搜索中文名字 Search by name"
-                                                             onkeyup="searchFunction({{ $branch->id }})"
-                                                             aria-describedby="basic-addon1">
-                                                     </div>
-
-                                                 </th>
-                                             </tr>
-                                             <tr>
-                                                 <th>#</th>
-                                                 <th>区 Zone</th>
-                                                 <th>中文名 Chinese name</th>
-                                                 <th>英文名 English name</th>
-                                                 <th>分行名字 Branch name</th>
-                                                 <th>照片 Image</th>
-                                                 <th colspan="2" class="text-center">操作 Operate</th>
-                                             </tr>
-                                         </thead>
-                                         <tbody>
-                                             @if ($branch->places->isNotEmpty())
-                                                 @foreach ($branch->places as $key => $place)
-                                                     <tr>
-                                                         <th>{{ $key + 1 }}</th>
-                                                         <td>{{ $place->zone }}</td>
-                                                         <td>{{ $place->c_name }}</td>
-                                                         <td>{{ $place->e_name ? $place->e_name : '-' }}</td>
-                                                         <td>{{ $place->branches->name }}</td>
-                                                         @if (isset($place->image))
-                                                             <td><a class="viewImage" data-toggle="modal"
-                                                                     data-id="{{ asset('place_images') }}/{{ $place->image }}"
-                                                                     data-target="#imageModal">{{ $place->image }}</a>
-                                                             </td>
-                                                         @else
-                                                             <td style="color:grey;">-</td>
-                                                         @endif
-                                                         <td><a href="{{ route('place_edit', ['id' => $place->id]) }}"
-                                                                 class="btn btn-warning btn-xs">Edit</a>
-                                                         </td>
-                                                         @if ($place->status == 'exist')
-                                                             <td>
-                                                                 <a href="{{ route('place_deactivate', ['id' => $place->id]) }}"
-                                                                     class="btn btn-danger btn-xs"
-                                                                     onClick="return confirm('Are you sure to deactivate?')">Deactivate</a>
-                                                             </td>
-                                                         @else
-                                                             <td><a href="{{ route('place_reactivate', ['id' => $place->id]) }}"
-                                                                     class="btn btn-success btn-xs"
-                                                                     onClick="return confirm('Are you sure to reactivate?')">Reactivate</a>
-                                                             </td>
-                                                         @endif
-                                                     </tr>
-                                                 @endforeach
-                                             @else
+                                     <section class="table_header">
+                                         <h1 class="table_header_body"
+                                             style="font-size:20px;  border-bottom: 2px solid white !important;"
+                                             scope="col"><b>{{ $branch->name }}</b></h1>
+                                         <div class="input-group table_header_body">
+                                             <div class="input-group-prepend">
+                                                 <span class="input-group-text" id="basic-addon1"><i
+                                                         class="fa fa-search"></i></span>
+                                             </div>
+                                             <input type="text" class="form-control clear-border"
+                                                 id="searchKey{{ $branch->id }}" placeholder="搜索中文名字 Search by name"
+                                                 onkeyup="searchFunction({{ $branch->id }})"
+                                                 aria-describedby="basic-addon1">
+                                         </div>
+                                     </section>
+                                     <section class="table_body">
+                                         <table class="table table-borderless shadow-sm mb-sm-5"
+                                             id="myTable{{ $branch->id }}">
+                                             <thead>
                                                  <tr>
-                                                     <td colspan="8" class="text-center">Empty Place</td>
+                                                     <th>#</th>
+                                                     <th>区 Zone</th>
+                                                     <th>中文名 Chinese name</th>
+                                                     <th>英文名 English name</th>
+                                                     <th>分行名字 Branch name</th>
+                                                     <th>照片 Image</th>
+                                                     <th colspan="2" class="text-center">操作 Operate</th>
                                                  </tr>
-                                             @endif
-                                         </tbody>
-                                     </table>
+                                             </thead>
+                                             <tbody>
+                                                 @if ($branch->places->isNotEmpty())
+                                                     @foreach ($branch->places as $key => $place)
+                                                         <tr>
+                                                             <th>{{ $key + 1 }}</th>
+                                                             <td>{{ $place->zone }}</td>
+                                                             <td>{{ $place->c_name }}</td>
+                                                             <td>{{ $place->e_name ? $place->e_name : '-' }}</td>
+                                                             <td>{{ $place->branches->name }}</td>
+                                                             @if (isset($place->image))
+                                                                 <td><a class="viewImage" data-toggle="modal"
+                                                                         data-id="{{ asset('place_images') }}/{{ $place->image }}"
+                                                                         data-target="#imageModal">{{ $place->image }}</a>
+                                                                 </td>
+                                                             @else
+                                                                 <td style="color:grey;">-</td>
+                                                             @endif
+                                                             <td><a href="{{ route('place_edit', ['id' => $place->id]) }}"
+                                                                     class="btn btn-warning btn-xs">Edit</a>
+                                                             </td>
+                                                             @if ($place->status == 'exist')
+                                                                 <td>
+                                                                     <a href="{{ route('place_deactivate', ['id' => $place->id]) }}"
+                                                                         class="btn btn-danger btn-xs"
+                                                                         onClick="return confirm('Are you sure to deactivate?')">Deactivate</a>
+                                                                 </td>
+                                                             @else
+                                                                 <td><a href="{{ route('place_reactivate', ['id' => $place->id]) }}"
+                                                                         class="btn btn-success btn-xs"
+                                                                         onClick="return confirm('Are you sure to reactivate?')">Reactivate</a>
+                                                                 </td>
+                                                             @endif
+                                                         </tr>
+                                                     @endforeach
+                                                 @else
+                                                     <tr>
+                                                         <td colspan="8" class="text-center">Empty Place</td>
+                                                     </tr>
+                                                 @endif
+                                             </tbody>
+                                         </table>
+                                     </section>
                                  @endforeach
                                  <div>
                                  </div>
