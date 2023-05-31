@@ -5,18 +5,18 @@
         <form action="{{ route('category_add') }}" method="POST" enctype="multipart/form-data">
             @CSRF
             <div class="form-group">
-                <label for="categoryCname">Chinese Category Name</label>
-                <input class="form-control  @error('categoryCname') is-invalid @enderror" type="text" id="categoryCname"
-                    name="categoryCname" value="{{ old('categoryCname') }}">
-                @error('categoryCname')
+                <label for="categoryCnName">Chinese Category Name</label>
+                <input class="form-control  @error('categoryCnName') is-invalid @enderror" type="text" id="categoryCnName"
+                    name="categoryCnName" value="{{ old('categoryCnName') }}">
+                @error('categoryCnName')
                     <span class="invalid-message" style="color:red;" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                     <br>
                 @enderror
-                <label for="categoryEname">English Category Name</label>
-                <input class="form-control" type="text" id="categoryEname" name="categoryEname"
-                    value="{{ old('categoryEname') }}">
+                <label for="categoryEngName">English Category Name</label>
+                <input class="form-control" type="text" id="categoryEngName" name="categoryEngName"
+                    value="{{ old('categoryEngName') }}">
             </div>
 
             <button type="submit" class="btn btn-primary">Add New Category</button>

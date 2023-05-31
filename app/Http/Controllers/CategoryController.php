@@ -11,13 +11,13 @@ class CategoryController extends Controller
     public function add(Request $request)
     {
         $validated = $request->validate([
-            'categoryCname' => 'required|string',
+            'categoryCnName' => 'required|string',
         ]);
 
 
         $addCategory = Category::create([
-            'c_name' => $request->categoryCname,
-            'e_name' => $request->categoryEname ? $request->categoryEname : null,
+            'c_name' => $request->categoryCnName,
+            'e_name' => $request->categoryEngName ? $request->categoryEngName : null,
             'status' => 'exist',
         ]);
 
@@ -44,13 +44,13 @@ class CategoryController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'categoryCname' => 'required|string',
+            'categoryCnName' => 'required|string',
         ]);
         
         $editCategory = Category::find($request->categoryId);
         
-        $editCategory->c_name = $request->categoryCname;
-        $editCategory->e_name = $request->categoryEname ? $request->categoryEname : null;
+        $editCategory->c_name = $request->categoryCnName;
+        $editCategory->e_name = $request->categoryEngName ? $request->categoryEngName : $editCategory->e_name;
         $editCategory->save();
 
         return redirect()->route('category_view');

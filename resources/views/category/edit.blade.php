@@ -10,17 +10,17 @@
                     <div class="form-group">
                         <input type="hidden" name="categoryId" value="{{ $category->id }}">
                         <div class="form-group">
-                            <label for="categoryCname">Chinese Category Name</label>
-                            <input class="form-control  @error('categoryCname') is-invalid @enderror" type="text"
-                                id="categoryCname" name="categoryCname"  value="{{ $category->c_name }}">
-                            @error('categoryCname')
+                            <label for="categoryCnName">Chinese Category Name</label>
+                            <input class="form-control  @error('categoryCnName') is-invalid @enderror" type="text"
+                                id="categoryCnName" name="categoryCnName"  value="{{ $category->c_name }}">
+                            @error('categoryCnName')
                                 <span class="invalid-message" style="color:red;" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 <br>
                             @enderror
-                            <label for="categoryEname">English Category Name</label>
-                            <input class="form-control" type="text" id="categoryEname" name="categoryEname" 
+                            <label for="categoryEngName">English Category Name</label>
+                            <input class="form-control" type="text" id="categoryEngName" name="categoryEngName" 
                                 value="{{ $category->e_name }}">
                         </div>
                     </div>
