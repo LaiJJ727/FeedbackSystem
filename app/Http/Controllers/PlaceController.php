@@ -11,7 +11,7 @@ class PlaceController extends Controller
     {
         $validated = $request->validate([
             'zoneName' => 'required|string',
-            'placeCname' => 'required|string',
+            'placeCnName' => 'required|string',
             'placeImage' => 'image|mimes:png,jpg,jpeg,gif,svg',
         ]);
 
@@ -26,8 +26,8 @@ class PlaceController extends Controller
 
         $addPlace = Place::create([
             'zone' => $request->zoneName,
-            'c_name' => $request->placeCname,
-            'e_name' => $request->placeEname ? $request->placeEname : null,
+            'c_name' => $request->placeCnName,
+            'e_name' => $request->placeEngName ? $request->placeEngName : null,
             'branch_id' => $request->branch,
             'image' => $imageName,
             'status' => 'exist',
@@ -66,8 +66,8 @@ class PlaceController extends Controller
         $editPlace = Place::find($request->placeId);
 
         $editPlace->zone = $request->zoneName;
-        $editPlace->c_name = $request->placeCname;
-        $editPlace->e_name = $request->placeEname ? $request->placeEname : null;
+        $editPlace->c_name = $request->placeCnName;
+        $editPlace->e_name = $request->placeEngName ? $request->placeEngName : null;
         $editPlace->branch_id = $request->branch;
 
         $editPlace->save();

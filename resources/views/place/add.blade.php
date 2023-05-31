@@ -14,18 +14,18 @@
                     </span>
                     <br>
                 @enderror
-                <label for="placeCname">Chinese Place Name</label>
-                <input class="form-control  @error('placeCname') is-invalid @enderror" type="text" id="placeCname"
-                    name="placeCname" value="{{ old('placeCname') }}">
-                @error('placeCname')
+                <label for="placeCnName">Chinese Place Name</label>
+                <input class="form-control  @error('placeCnName') is-invalid @enderror" type="text" id="placeCnName"
+                    name="placeCname" value="{{ old('placeCnName') }}">
+                @error('placeCnName')
                     <span class="invalid-message" style="color:red;" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                     <br>
                 @enderror
-                <label for="placeEname">English Place Name</label>
-                <input class="form-control" type="text" id="placeEname" name="placeEname"
-                    value="{{ old('placeEname') }}">
+                <label for="placeEngName">English Place Name</label>
+                <input class="form-control" type="text" id="placeEngName" name="placeEngName"
+                    value="{{ old('placeEngName') }}">
                 <label for="branch">Branch</label>
                 <select name="branch" id="branch" class="form-control" required>
                     @foreach ($branches as $branch)

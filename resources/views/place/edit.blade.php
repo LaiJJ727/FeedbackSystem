@@ -18,19 +18,19 @@
                             </span>
                             <br>
                         @enderror
-                        <label for="placeCname">Chinese Place Name</label>
-                        <input class="form-control @error('placeCname') is-invalid @enderror" type="text" id="placeCname"
-                            name="placeCname" value="{{ $place->c_name }}" required>
-                        @error('placeCname')
+                        <label for="placeCnName">Chinese Place Name</label>
+                        <input class="form-control @error('placeCnName') is-invalid @enderror" type="text" id="placeCnName"
+                            name="placeCnName" value="{{ $place->c_name }}" required>
+                        @error('placeCnName')
                             <span class="invalid-message" style="color:red;" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                             <br>
                         @enderror
-                        <label for="placeEname">English Place Name</label>
-                        <input class="form-control @error('placeEname') is-invalid @enderror" type="text" id="placeEname"
-                            name="placeEname" value="{{ $place->e_name }}">
-                        @error('placeEname')
+                        <label for="placeEngName">English Place Name</label>
+                        <input class="form-control @error('placeEngName') is-invalid @enderror" type="text" id="placeEngName"
+                            name="placeEngName" value="{{ $place->e_name }}">
+                        @error('placeEngName')
                             <span class="invalid-message" style="color:red;" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
