@@ -9,11 +9,11 @@
                 @foreach ($titles as $title)
                     <div class="form-group">
                         <input type="hidden" name="titleId" value="{{ $title->id }}">
-                        <label for="titleName">中文标题名称 Chinese Title Name</label>
-                        <input class="form-control" type="text" id="titleName" name="titleName"
+                        <label for="titleCnName">中文标题名称 Chinese Title Name</label>
+                        <input class="form-control" type="text" id="titleCnName" name="titleCnName"
                             value="{{ $title->c_name }}" requiered>
-                        <label for="engTitleName">英文标题名称 English Title Name</label>
-                        <input class="form-control" type="text" id="engTitleName" name="engTitleName"
+                        <label for="titleEngName">英文标题名称 English Title Name</label>
+                        <input class="form-control" type="text" id="titleEngName" name="titleEngName"
                             value="{{ $title->e_name }}">
                         <label for="category">Category</label>
                         <select name="category" id="category" class="form-control" value="{{ $title->category_id }}" required>
