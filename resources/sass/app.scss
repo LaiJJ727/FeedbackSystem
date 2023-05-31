@@ -85,27 +85,15 @@ border-bottom: 2px solid white !important;
 overflow: auto;
 }
 .slides-effect {
-    border-color: #202020;
-    border-style: solid;
-    border-width: 2px;
-}
-.slides-effect:focus {
-    border-color: #202020;
-    border-style: solid;
-    border-width: 2px;
+    color: black;
+    text-decoration: dotted;
 }
 .slides-effect:active {
-    border-color: #00ff51;
-    border-style: solid;
-    border-width: 2px;
+    color: #352671 !important;
 }
 .select{
-    border-color: #6651bd !important;
+    color: #6651bd !important;
 }
-.select:focus {
-    border-color: #6651bd !important;
-}
-.select:active {
-    border-color: #00ff51 !important;
-}
+
+
 

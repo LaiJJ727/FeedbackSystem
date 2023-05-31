@@ -26,15 +26,17 @@
                             @endif
                         @endif
                     @endif
-                    <div class="row">
+                    <div class="row text-center">
                         <div class="col-2">
                         </div>
                         @foreach ($branch as $data)
-                            <div class="col-4 py-2 slides-effect mr-3 @if ($data['id'] == Auth::user()->branch_id) select @endif">
-                                <a style="color: black;text-decoration: none;" href="{{ route('feedback_add_view', ['id' => $data['id']]) }}">
-                                    <img class="text-center d-block w-100 h-75"
-                                        src="{{ asset('branch_images') }}/{{ $data['image'] ? $data['image'] : 'null.png' }}">
-                                    <div class="text-center">{{ $data['name'] }}</div>
+                        {{-- slides-effect @if ($data['id'] == Auth::user()->branch_id) select @endif --}}
+                            <div class="col-4">
+                                <a class="slides-effect @if ($data['id'] == Auth::user()->branch_id) select @endif --}}"
+                                    href="{{ route('feedback_add_view', ['id' => $data['id']]) }}">
+                                        <img class="text-center d-block w-100 h-75"
+                                            src="{{ asset('branch_images') }}/{{ $data['image'] ? $data['image'] : 'null.png' }}">
+                                        <div class="text-center ">{{ $data['name'] }}</div>
                                 </a>
                             </div>
                         @endforeach
