@@ -60,14 +60,14 @@ class PlaceController extends Controller
     {
         $validated = $request->validate([
             'zoneName' => 'required|string',
-            'placeCname' => 'required|string',
+            'placeCnName' => 'required|string',
         ]);
 
         $editPlace = Place::find($request->placeId);
 
         $editPlace->zone = $request->zoneName;
         $editPlace->c_name = $request->placeCnName;
-        $editPlace->e_name = $request->placeEngName ? $request->placeEngName : null;
+        $editPlace->e_name = $request->placeEngName ? $request->placeEngName : $editPlace->e_name;
         $editPlace->branch_id = $request->branch;
 
         $editPlace->save();
