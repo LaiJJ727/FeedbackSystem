@@ -49,7 +49,7 @@
                                                      <th>区 Zone</th>
                                                      <th>中文名 Chinese name</th>
                                                      <th>英文名 English name</th>
-                                                     <th>分行名字 Branch name</th>
+                                                     <th>分行名 Branch name</th>
                                                      <th>照片 Image</th>
                                                      <th colspan="2" class="text-center">操作 Operate</th>
                                                  </tr>

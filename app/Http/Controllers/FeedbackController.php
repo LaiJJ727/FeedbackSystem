@@ -18,8 +18,19 @@ class FeedbackController extends Controller
     {
         //select all branch data
         $branches = Branch::whereNot('status', '=', 'close')->get();
-
-        return view('feedback/selectBranch')->with('branches', $branches);
+        $data['branches'] = [[]];
+        $a = 0;
+        foreach ($branches as $key => $branch) {
+            if (count($data['branches'][$a]) >= 2) {
+                $a++;
+                array_push($data['branches'],[]);
+            } 
+            array_push($data['branches'][$a],['id' => $branch->id,'name' => $branch->name, 'image' => $branch->image]); 
+        }
+        // foreach($data['branches'] as $key => $branch){
+        //     dd($branch[$key]['id']);
+        // }
+        return view('feedback/selectBranch',$data);
     }
 
     public function add_view()

@@ -1,18 +1,73 @@
 @extends('layouts.app')
 @section('content')
     <div class="container col-sm-12   mt-3">
-        <h3>Select Branch</h3>
-        <form action="{{ route('feedback_add_view') }}" method="POST" enctype="multipart/form-data">
-            @CSRF
-            <div class="form-group">
-                <label for="branch">Branch</label>
-                <select name="branch" id="branch" class="form-control" required>
-                    @foreach ($branches as $branch)
-                        <option value="{{ $branch->id }}">{{ $branch->name }}</option>
-                    @endforeach
-                </select>
+        <h3 class="text-center">选择分行 Select Branch</h3>
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-touch="false">
+            <div class="carousel-inner">
+                @foreach ($branches as $key => $branch)
+                    @if (Auth::user()->branch_id == 'all')
+                        @if ($key == 0)
+                            <div class="carousel-item active">
+                            @else
+                                <div class="carousel-item">
+                        @endif
+                    @else
+                        @if (count($branch) >= 2)
+                            @if ($branch[0]['id'] == Auth::user()->branch_id || $branch[1]['id'] == Auth::user()->branch_id)
+                                <div class="carousel-item active">
+                                @else
+                                    <div class="carousel-item">
+                            @endif
+                        @else
+                            @if ($branch[0]['id'] == Auth::user()->branch_id)
+                                <div class="carousel-item active">
+                                @else
+                                    <div class="carousel-item">
+                            @endif
+                        @endif
+                    @endif
+                    <div class="row">
+                        <div class="col-2">
+                        </div>
+                        @foreach ($branch as $data)
+                            <div class="col-4 py-2 slides-effect mr-3 @if ($data['id'] == Auth::user()->branch_id) select @endif">
+                                <a style="color: black;text-decoration: none;" href="{{ route('feedback_add_view', ['id' => $data['id']]) }}">
+                                    <img class="text-center d-block w-100 h-75"
+                                        src="{{ asset('branch_images') }}/{{ $data['image'] ? $data['image'] : 'null.png' }}">
+                                    <div class="text-center">{{ $data['name'] }}</div>
+                                </a>
+                            </div>
+                        @endforeach
+                        <div class="col-2">
+                        </div>
+                    </div>
             </div>
+            @endforeach
+        </div>
+    </div>
+    <a class="carousel-control-prev py-2" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon rounded" aria-hidden="true"
+            style="background-color:black !important"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next py-2" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon rounded" aria-hidden="true"
+            style="background-color:black !important"></span>
+        <span class="sr-only">Next</span>
+    </a>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
+    </script>
 
-            <button type="submit" class="btn btn-primary">Enter</button>
-        </form>
-    @endsection
+    <script>
+        $(document).ready(function() {
+            $('.carousel').carousel({
+                interval: false,
+                wrap: false,
+            });
+        });
+    </script>
+@endsection

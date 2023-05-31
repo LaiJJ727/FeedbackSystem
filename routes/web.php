@@ -34,7 +34,7 @@ Route::prefix('user')
     ->group(function () {
         Route::controller(App\Http\Controllers\FeedbackController::class)->group(function () {
             Route::get('feedback/select_branch', 'select_branch_view')->name('feedback_select_branch');
-            Route::post('/feedback/add', 'add_view')->name('feedback_add_view');
+            Route::get('/feedback/add/{id}', 'add_view')->name('feedback_add_view');
             Route::post('/feedback/add_done', 'add')->name('feedback_add');
             Route::get('feedback/index', 'index')->name('feedback_index');
             Route::get('feedback/my_feedback', 'myFeedback')->name('my_feedback');

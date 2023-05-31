@@ -67,7 +67,6 @@ border: 0 !important;
 .clear-border{
 border: 0 !important;
 }
-
 .table_header {
 border-top-left-radius: 15px;
 border-top-right-radius: 15px;
@@ -85,3 +84,28 @@ border-bottom: 2px solid white !important;
 .table_body {
 overflow: auto;
 }
+.slides-effect {
+    border-color: #202020;
+    border-style: solid;
+    border-width: 2px;
+}
+.slides-effect:focus {
+    border-color: #202020;
+    border-style: solid;
+    border-width: 2px;
+}
+.slides-effect:active {
+    border-color: #00ff51;
+    border-style: solid;
+    border-width: 2px;
+}
+.select{
+    border-color: #6651bd !important;
+}
+.select:focus {
+    border-color: #6651bd !important;
+}
+.select:active {
+    border-color: #00ff51 !important;
+}
+
