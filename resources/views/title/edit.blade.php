@@ -11,12 +11,25 @@
                         <input type="hidden" name="titleId" value="{{ $title->id }}">
                         <label for="titleCnName">中文标题名称 Chinese Title Name</label>
                         <input class="form-control" type="text" id="titleCnName" name="titleCnName"
-                            value="{{ $title->c_name }}" requiered>
+                            value="{{ $title->c_name }}" required>
+                        @error('titleCnName')
+                            <span class="invalid-message" style="color:red;" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            <br>
+                        @enderror
                         <label for="titleEngName">英文标题名称 English Title Name</label>
                         <input class="form-control" type="text" id="titleEngName" name="titleEngName"
                             value="{{ $title->e_name }}">
+                        @error('titleEngName')
+                            <span class="invalid-message" style="color:red;" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            <br>
+                        @enderror
                         <label for="category">Category</label>
-                        <select name="category" id="category" class="form-control" value="{{ $title->category_id }}" required>
+                        <select name="category" id="category" class="form-control" value="{{ $title->category_id }}"
+                            required>
                             @foreach ($categories as $category)
                                 @if ($title->category_id == $category->id)
                                     <option value="{{ $category->id }}" selected>{{ $category->c_name }}

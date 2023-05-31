@@ -11,7 +11,7 @@ class TitleController extends Controller
     public function add(Request $request)
     {
         $validated = $request->validate([
-            'titlCnName' => 'required|string',
+            'titleCnName' => 'required|string',
             'titleEngName' => 'string',
             'titleImg' => 'image|mimes:png,jpg,jpeg,gif,svg',
         ]);
@@ -25,7 +25,7 @@ class TitleController extends Controller
         }
 
         $addTitle = Title::create([
-            'c_name' => $request->titlCnName,
+            'c_name' => $request->titleCnName,
             'e_name' => $request->titleEngName ? $request->titleEngName : null,
             'image' => $imageName,
             'category_id' => $request->category,
@@ -58,7 +58,7 @@ class TitleController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'titlCnName' => 'required|string',
+            'titleCnName' => 'required|string',
             'titleEngName' => 'string',
             'titleImg' => 'image|mimes:png,jpg,jpeg,gif,svg',
         ]);
@@ -73,7 +73,7 @@ class TitleController extends Controller
 
         $editTitle = Title::find($request->titleId);
 
-        $editTitle->c_name = $request->titlCnName;
+        $editTitle->c_name = $request->titleCnName;
         $editTitle->e_name = $request->titleEngName ? $request->titleEngName:$editTitle->e_name;
         $editTitle->image = $imageName ? $imageName : $editTitle->image;
         $editTitle->category_id = $request->category;

@@ -16,7 +16,7 @@
                 @enderror
                 <label for="placeCnName">Chinese Place Name</label>
                 <input class="form-control  @error('placeCnName') is-invalid @enderror" type="text" id="placeCnName"
-                    name="placeCname" value="{{ old('placeCnName') }}">
+                    name="placeCnName" value="{{ old('placeCnName') }}">
                 @error('placeCnName')
                     <span class="invalid-message" style="color:red;" role="alert">
                         <strong>{{ $message }}</strong>

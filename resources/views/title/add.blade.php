@@ -5,9 +5,9 @@
         <form action="{{ route('title_add') }}" method="POST" enctype="multipart/form-data">
             @CSRF
             <div class="form-group">
-                <label for="titlCnName">中文标题名称 Chinese Title Name</label>
-                <input class="form-control" type="text" id="titlCnName" name="titlCnName">
-                @error('titlCnName')
+                <label for="titleCnName">中文标题名称 Chinese Title Name</label>
+                <input class="form-control" type="text" id="titleCnName" name="titleCnName">
+                @error('titleCnName')
                     <span class="invalid-message" style="color:red;" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>

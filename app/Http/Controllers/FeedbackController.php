@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\API;
 use App\Models\Title;
 use App\Models\Place;
+use App\Models\Category;
 use Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -27,21 +28,17 @@ class FeedbackController extends Controller
             } 
             array_push($data['branches'][$a],['id' => $branch->id,'name' => $branch->name, 'image' => $branch->image]); 
         }
-        // foreach($data['branches'] as $key => $branch){
-        //     dd($branch[$key]['id']);
-        // }
         return view('feedback/selectBranch',$data);
     }
 
-    public function add_view()
+    public function add_view(Request $request,$branch_id)
     {
-        $r = request();
-        $branchId = $r->branch;
-        $places = Place::where('branch_id', $r->branch)->get();
+        $branch = Branch::where('id', $branch_id)->first();
+        $places = Place::where('branch_id', $branch_id)->get();
+        $categories = Category::whereNot('status', 'close')->get();
+        $titles = Title::whereNot('status','close')->get();
 
-        $titles = Title::whereNot('status', '=', 'close')->get();
-
-        return view('feedback/add', compact('titles', 'places', 'branchId'));
+        return view('feedback/add', compact('titles', 'places', 'categories','branch'));
     }
     //add new feedback
     public function add()

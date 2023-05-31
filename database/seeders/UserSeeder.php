@@ -45,7 +45,7 @@ class UserSeeder extends Seeder
             'email' => 'housekeep@gmail.com',
             'role' => 'Housekeep',
             'branch_id' => '1',
-            'language' => 'Chinese',
+            'language' => 'English',
             'phone' => '0143826279',
             'password' => Hash::make('housekeep1234'),
         ]);
