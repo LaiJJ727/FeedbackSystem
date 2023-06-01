@@ -16,23 +16,23 @@
                         {{-- {{ __('You are logged in!') }} --}}
                         <div class="grid_rows">
                             <div class="grid_rows grid_columns">
-                                <a class="btn btn-primary" href="{{ route('feedback_select_branch') }}">
+                                <a class="btn btn-primary btn-lg" href="{{ route('feedback_select_branch') }}">
                                     <b>新反馈 Add New Feedback</b>
                                 </a>
                             </div>
                             <div class="grid_rows grid_columns">
-                                <a class="btn btn-primary" href="{{ route('my_feedback') }}">
+                                <a class="btn btn-primary btn-lg" href="{{ route('my_feedback') }}">
                                     <b>我的反馈 My Feedback</b>
                                 </a>
                             </div>
                         </div>
                         <div class="grid_rows">
                             <div class="grid_columns">
-                                <a class="btn btn-primary" href="{{ route('feedback_index') }}"><b>查看全部 All Feedback</b>
+                                <a class="btn btn-primary btn-lg" href="{{ route('feedback_index') }}"><b>查看全部 All Feedback</b>
                                 </a>
                             </div>
                             <div class="grid_columns">
-                                <a class="btn btn-primary" href="{{ route('logout.perform') }}"><b>退出 Logout</b>
+                                <a class="btn btn-primary btn-lg" href="{{ route('logout.perform') }}"><b>退出 Logout</b>
                                 </a>
                             </div>
                         </div>
@@ -59,15 +59,21 @@
         flex: 1;
         display: block;
         text-align: center;
-        min-height: 50px;
         justify-content: center;
     }
-    @media(max-width: 1000px){
-        .grid_rows{
+
+    @media(max-width: 1000px) {
+        .grid_rows {
             display: block;
         }
-        .grid_columns{
-            width:100%;
+
+        .grid_columns {
+            width: 100%;
         }
+    }
+
+    b {
+        justify-content: center;
+
     }
 </style>
