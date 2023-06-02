@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->id();
             $table->string('user_id');
-            $table->string('place')->nullable();
+            $table->string('place_id')->nullable();
             $table->string('feedback_to')->nullable();
             $table->string('title_id')->nullable();
             $table->string('description')->nullable();

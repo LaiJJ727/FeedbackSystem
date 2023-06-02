@@ -18,7 +18,7 @@ class BranchSeeder extends Seeder
             'name' => '绵裕亭 MYT',
             'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
             'description' => null,
-            'image' => null,
+            'image' => 'disney.jpeg',
             'status' => 'exist',
         ]);
         Branch::create([

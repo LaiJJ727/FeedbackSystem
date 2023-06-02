@@ -12,7 +12,6 @@ class TitleController extends Controller
     {
         $validated = $request->validate([
             'titleCnName' => 'required|string',
-            'titleEngName' => 'string',
             'titleImg' => 'image|mimes:png,jpg,jpeg,gif,svg',
         ]);
         $image = $request->file('titleImg') ? $request->file('titleImg') : null;
@@ -59,7 +58,6 @@ class TitleController extends Controller
     {
         $validated = $request->validate([
             'titleCnName' => 'required|string',
-            'titleEngName' => 'string',
             'titleImg' => 'image|mimes:png,jpg,jpeg,gif,svg',
         ]);
         $image = $request->file('titleImg') ? $request->file('titleImg') : null;

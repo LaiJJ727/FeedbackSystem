@@ -12,7 +12,7 @@ use App\Models\Place;
 class Feedback extends Model
 {
     use HasFactory;
-    protected $fillable = [ 'user_id', 'place','feedback_to','title_id','description','status','image','branch_id'];
+    protected $fillable = [ 'user_id', 'place_id','feedback_to','title_id','description','status','image','branch_id'];
     protected $table = 'feedbacks';
 
     public function branches()
@@ -29,10 +29,10 @@ class Feedback extends Model
     }
     public function titles()
     {
-        return $this->hasOne(Title::class,'id','title');
+        return $this->hasOne(Title::class,'id','title_id');
     }
     public function places()
     {
-        return $this->hasOne(Place::class,'id','place');
+        return $this->hasOne(Place::class,'id','place_id');
     }
 }

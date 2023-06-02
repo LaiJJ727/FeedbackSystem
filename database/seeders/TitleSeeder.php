@@ -35,8 +35,8 @@ class TitleSeeder extends Seeder
             'status'=> 'exist',
         ]);
         Title::create([
-            'category_id' => '1',
-            'c_name' => '洗手盆水阀漏水',
+            'category_id' => '2',
+            'c_name' => '电脑桌脚损坏',
             'e_name' => '-',
             'image' => 'test1.jpeg',
             'status'=> 'exist',

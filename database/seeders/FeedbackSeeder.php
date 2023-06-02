@@ -15,7 +15,7 @@ class FeedbackSeeder extends Seeder
     {
         Feedback::create([
             'user_id' => '4',
-            'place' => '1',
+            'place_id' => '1',
             'feedback_to' => 'General',
             'title_id' => '3',
             'description' => '灯泡a1 和 a2',
@@ -25,7 +25,7 @@ class FeedbackSeeder extends Seeder
         ]);
         Feedback::create([
             'user_id' => '4',
-            'place' => '2',
+            'place_id' => '2',
             'feedback_to' => 'Emergency',
             'title_id' => '3',
             'description' => '灯泡a1 和 a2',
@@ -35,7 +35,7 @@ class FeedbackSeeder extends Seeder
         ]);
         Feedback::create([
             'user_id' => '4',
-            'place' => '3',
+            'place_id' => '3',
             'feedback_to' => 'Housekeeping',
             'title_id' => '3',
             'description' => '灯泡a1 和 a2',

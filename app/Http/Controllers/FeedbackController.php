@@ -34,52 +34,48 @@ class FeedbackController extends Controller
     public function add_view(Request $request,$branch_id)
     {
         $branch = Branch::where('id', $branch_id)->first();
-        $places = Place::where('branch_id', $branch_id)->get();
+        $places = Place::where([['branch_id', $branch_id],['status','exist']])->get();
         $categories = Category::whereNot('status', 'close')->get();
         $titles = Title::whereNot('status','close')->get();
 
         return view('feedback/add', compact('titles', 'places', 'categories','branch'));
     }
     //add new feedback
-    public function add()
+    public function add(Request $request)
     {
-        $r = request();
         // valdiate
-        $r->validate([
-            'image' => 'required',
+        $request->validate([
+            'image' => 'required|image|mimes:png,jpg,jpeg,gif,svg',
+            'category' => 'required',
             'place' => 'required',
             'title' => 'required',
             'description' => 'required',
-            'branch' => 'required',
+            'feedbackTo' => 'required',
         ]);
 
-        $image = $r->file('image');
-        $image->move('images', $image->getClientOriginalName()); //images is the location
+        $image = $request->file('image');
         $imageName = $image->getClientOriginalName();
+        $destinationPath = public_path('images');
+        $image->move($destinationPath, $imageName); //images is the location
 
         $addFeedback = Feedback::create([
             'user_id' => Auth::id(),
-            'place' => $r->place,
-            'level' => $r->level, //0 is Emergency 1 is General
-            'title' => $r->title,
-            'description' => $r->description,
+            'place_id' => $request->place,
+            'feedback_to' => $request->feedbackTo, //0 is Emergency 1 is General
+            'title' => $request->title,
+            'description' => $request->description,
             'status' => '',
             'image' => $imageName,
-            'branch_id' => $r->branch,
+            'branch_id' => $request->branch,
         ]);
         //send notification to whatsapp
         if (API::find(1) != null) {
             $api = API::find(1)->first();
             $apiKey = $api->api;
 
-            if ($r->level == 1) {
-                $level = 'Emergency';
-            } else {
-                $level = 'General';
-            }
-            $FullMessage = 'Feedback Case ID: ' . $addFeedback->id . "\nBranch: " . $addFeedback->branches->name . "\nPlace:" . $addFeedback->places->name . "\nLevel: " . $level . "\nTitle: " . $addFeedback->titles->name . "\nDescription: " . $r->description;
+            $FullMessage = 'Feedback Case ID: ' . $addFeedback->id . "\nBranch: " . $addFeedback->branches->name . "\nPlace:" . $addFeedback->places->c_name . "\nLevel: " . $addFeedback->feedback_to . "\nTitle: " . $addFeedback->titles->c_name . "\nDescription: " . $request->description;
 
-            $users = User::whereNot('role', 0)->get();
+            $users = User::whereNot('role', 'Staff')->get();
             foreach ($users as $user) {
                 $data = [
                     'phone_number' => $user->phone,
