@@ -9,37 +9,28 @@
 @endsection
 
 @section('content')
-    @inject('carbon', 'Carbon\Carbon')
-
     <div class="container mt-3">
         <h1 style="text-align:center;">Emergency</h1>
         <div class="row">
             @foreach ($feedbacks as $feedback)
-                @if ($feedback->level == 1)
-                    <div class="col-sm-3">
+                @if ($feedback->feedback_to == 'Emergency')
+                    <div class="col-sm-4">
                         <div class="card mb-3">
                             <div class="card-header">
-                                <p style="margin-bottom:5px !important;">Feedback Id: {{ $feedback->id }}</p>
-                                <p style="margin-bottom:5px !important;">{{$carbon::parse($feedback->created_at)->format('Y-m-d g:i A')}}</p>
-                                <p style="margin-bottom:5px !important;">Branch: {{ $feedback->branches->name }}</p>
-                                 <p style="margin-bottom:5px !important;">Title: {{ $feedback->titles->name }}</p>
+                                <img src="{{ asset('images') }}/{{ $feedback->image }}" alt="" class="img-fluid">
                             </div>
-                            <div class="card-body"><img src="{{ asset('images') }}/{{ $feedback->image }}" alt=""
-                                    height="150 !important" width="300" class="img-fluid">
-                                <p style="margin-bottom:5px !important;">Place:{{ $feedback->places->name }}</p>
+                            <div class="card-body">
+                                <p>Feedback Id: {{ $feedback->id }}</p>
+                                <p>Date: {{ $feedback->createdAtDiff }}</p>
+                                <p>Branch: {{ $feedback->branches->name }}</p>
+                                <p>Place: {{ $feedback->places->c_name }} {{ $feedback->places->e_name }}</p>
+                                <p>Title: {{ $feedback->titles->c_name }} {{ $feedback->titles->e_name }}</p>
+                                <p>Description: {{ $feedback->description }}</p>
+                                <p>Report Person: {{ $feedback->users->name }}</p>
                             </div>
                             <div class="card-footer">
-                                <p style="margin-bottom:5px !important;">Description: {{ $feedback->description }}</p>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <p style="margin-bottom:5px !important;">Report Person: {{ $feedback->users->name }}</p>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
-                                                class="btn btn-primary">Comment</button></a>
-                                    </div>
-                                </div>
-
+                                <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
+                                        class="btn btn-main clear-radius btn-block">Comment</button></a>
                             </div>
                         </div>
                     </div>
@@ -50,32 +41,52 @@
         <h1 style="text-align:center;">General</h1>
         <div class="row">
             @foreach ($feedbacks as $feedback)
-                @if ($feedback->level == 2)
-                    <div class="col-sm-3">
+                @if ($feedback->feedback_to == 'General')
+                    <div class="col-sm-4">
                         <div class="card mb-3">
                             <div class="card-header">
-                                <p style="margin-bottom:5px !important;">Feedback Id: {{ $feedback->id }}</p>
-                                <p style="margin-bottom:5px !important;">{{$carbon::parse($feedback->created_at)->format('Y-m-d g:i A')}}</p>
-                                <p style="margin-bottom:5px !important;">Branch: {{ $feedback->branches->name }}</p>
-                                <p style="margin-bottom:5px !important;">Title: {{ $feedback->titles->name }}</p>
+                                <img src="{{ asset('images') }}/{{ $feedback->image }}" alt="" class="img-fluid">
                             </div>
-                            <div class="card-body"><img src="{{ asset('images/'.$feedback->image) }}" alt=""
-                                    height="150 !important" width="300" class="img-fluid">
-                                <p style="margin-bottom:5px !important;">Place:{{ $feedback->places->name }}</p>
+                            <div class="card-body">
+                                <p>Feedback Id: {{ $feedback->id }}</p>
+                                <p>Date: {{ $feedback->createdAtDiff }}</p>
+                                <p>Branch: {{ $feedback->branches->name }}</p>
+                                <p>Place: {{ $feedback->places->c_name }} {{ $feedback->places->e_name }}</p>
+                                <p>Title: {{ $feedback->titles->c_name }} {{ $feedback->titles->e_name }}</p>
+                                <p>Description: {{ $feedback->description }}</p>
+                                <p>Report Person: {{ $feedback->users->name }}</p>
                             </div>
                             <div class="card-footer">
-                                <p style="margin-bottom:5px !important;">Description: {{ $feedback->description }}</p>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <p style="margin-bottom:5px !important;">Report Person: {{ $feedback->users->name }}
-                                        </p>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
-                                                class="btn btn-primary">Comment</button></a>
-                                    </div>
-                                </div>
+                                <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
+                                        class="btn btn-main clear-radius btn-block">Comment</button></a>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+        </div>
 
+        <h1 style="text-align:center;">Housekeeping</h1>
+        <div class="row">
+            @foreach ($feedbacks as $feedback)
+                @if ($feedback->feedback_to == 'Housekeeping')
+                    <div class="col-sm-4">
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <img src="{{ asset('images') }}/{{ $feedback->image }}" alt="" class="img-fluid">
+                            </div>
+                            <div class="card-body">
+                                <p>Feedback Id: {{ $feedback->id }}</p>
+                                <p>Date: {{ $feedback->createdAtDiff }}</p>
+                                <p>Branch: {{ $feedback->branches->name }}</p>
+                                <p>Place: {{ $feedback->places->c_name }} {{ $feedback->places->e_name }}</p>
+                                <p>Title: {{ $feedback->titles->c_name }} {{ $feedback->titles->e_name }}</p>
+                                <p>Description: {{ $feedback->description }}</p>
+                                <p>Report Person: {{ $feedback->users->name }}</p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
+                                        class="btn btn-main clear-radius btn-block">Comment</button></a>
                             </div>
                         </div>
                     </div>
