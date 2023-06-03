@@ -62,7 +62,7 @@ class FeedbackController extends Controller
             'user_id' => Auth::id(),
             'place_id' => $request->place,
             'feedback_to' => $request->feedbackTo, //0 is Emergency 1 is General
-            'title' => $request->title,
+            'title_id' => $request->title,
             'description' => $request->description,
             'status' => '',
             'image' => $imageName,
