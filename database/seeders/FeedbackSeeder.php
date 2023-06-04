@@ -19,7 +19,7 @@ class FeedbackSeeder extends Seeder
             'feedback_to' => 'General',
             'title_id' => '3',
             'description' => '灯泡a1 和 a2',
-            'status' => null,
+            'status' => 0,
             'image' => 'example.jpeg',
             'branch_id' => '1',
         ]);
@@ -29,7 +29,7 @@ class FeedbackSeeder extends Seeder
             'feedback_to' => 'Emergency',
             'title_id' => '3',
             'description' => '灯泡a1 和 a2',
-            'status' => null,
+            'status' => 0,
             'image' => 'example.jpeg',
             'branch_id' => '1',
         ]);
@@ -39,7 +39,7 @@ class FeedbackSeeder extends Seeder
             'feedback_to' => 'Housekeeping',
             'title_id' => '3',
             'description' => '灯泡a1 和 a2',
-            'status' => null,
+            'status' => 0,
             'image' => 'example.jpeg',
             'branch_id' => '1',
         ]);

@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
             PlaceSeeder::class,
             TitleSeeder::class,
             CategorySeeder::class,
+            ZoneSeeder::class,
+
         ]);
     }
 }

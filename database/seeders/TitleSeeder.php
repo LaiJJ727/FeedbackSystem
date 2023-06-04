@@ -23,7 +23,7 @@ class TitleSeeder extends Seeder
         Title::create([
             'category_id' => '1',
             'c_name' => '马桶盖坏了',
-            'e_name' => '-',
+            'e_name' => null,
             'image' => '2.png',
             'status'=> 'exist',
         ]);
@@ -37,7 +37,7 @@ class TitleSeeder extends Seeder
         Title::create([
             'category_id' => '2',
             'c_name' => '电脑桌脚损坏',
-            'e_name' => '-',
+            'e_name' => null,
             'image' => 'test1.jpeg',
             'status'=> 'exist',
         ]);
