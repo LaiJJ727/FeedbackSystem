@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Place;
 use App\Models\Branch;
+use App\Models\Zone;
+
 class PlaceController extends Controller
 {
     public function add(Request $request)
     {
         $validated = $request->validate([
-            'zoneName' => 'required|string',
+            'branch' => 'required',
+            'zone' => 'required',
             'placeCnName' => 'required|string',
             'placeImage' => 'image|mimes:png,jpg,jpeg,gif,svg',
         ]);
@@ -25,7 +28,7 @@ class PlaceController extends Controller
         }
 
         $addPlace = Place::create([
-            'zone' => $request->zoneName,
+            'zone' => $request->zone,
             'c_name' => $request->placeCnName,
             'e_name' => $request->placeEngName ? $request->placeEngName : null,
             'branch_id' => $request->branch,
@@ -42,30 +45,34 @@ class PlaceController extends Controller
     }
     public function edit($id)
     {
-        $places = Place::all()->where('id', $id);
+        $data['places'] = Place::all()->where('id', $id);
 
-        $branches = Branch::whereNot('status', '=', 'close')->get();
+        $data['branches'] = Branch::whereNot('status', '=', 'close')->get();
 
-        return view('place/edit', compact('places', 'branches'));
+        $data['zones'] = Zone::whereNot('status', '=', 'close')->get();
+
+        return view('place/edit', $data);
     }
     public function add_view()
     {
-        $branches = Branch::whereNot('status', '=', 'close')->get();
-
-        return view('place/add')->with('branches', $branches);
+        $data['branches'] = Branch::whereNot('status', '=', 'close')->get();
+        $data['zones'] = Zone::whereNot('status', '=', 'close')->get();
+        //dd($data);
+        return view('place/add',$data);
     }
 
     //update branch
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'zoneName' => 'required|string',
+            'branch' => 'required',
+            'zone' => 'required',
             'placeCnName' => 'required|string',
         ]);
 
         $editPlace = Place::find($request->placeId);
 
-        $editPlace->zone = $request->zoneName;
+        $editPlace->zone_id = $request->zone;
         $editPlace->c_name = $request->placeCnName;
         $editPlace->e_name = $request->placeEngName ? $request->placeEngName : $editPlace->e_name;
         $editPlace->branch_id = $request->branch;

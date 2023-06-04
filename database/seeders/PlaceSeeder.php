@@ -14,7 +14,7 @@ class PlaceSeeder extends Seeder
     public function run(): void
     {
         Place::create([
-            'zone' => '行政楼 Admin Building',
+            'zone_id' => 1,
             'c_name' => '行政楼底楼男厕所',
             'e_name' => null,
             'branch_id' => '1',
@@ -22,7 +22,7 @@ class PlaceSeeder extends Seeder
             'status'=> 'exist',
         ]);
         Place::create([
-            'zone' => '酒店 Hotel',
+            'zone_id' => 2,
             'c_name' => '酒店8号房',
             'e_name' => null,
             'branch_id' => '1',
@@ -30,7 +30,7 @@ class PlaceSeeder extends Seeder
             'status'=> 'exist',
         ]);
         Place::create([
-            'zone' => '大伯公庙  Tokong',
+            'zone_id' => 3,
             'c_name' => '大伯公庙储藏室',
             'e_name' => null,
             'branch_id' => '2',

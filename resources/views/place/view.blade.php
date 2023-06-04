@@ -59,7 +59,7 @@
                                                      @foreach ($branch->places as $key => $place)
                                                          <tr>
                                                              <th>{{ $key + 1 }}</th>
-                                                             <td>{{ $place->zone }}</td>
+                                                             <td>{{ $place->zones->c_name }} {{ $place->zones->e_name }}</td>
                                                              <td>{{ $place->c_name }}</td>
                                                              <td>{{ $place->e_name ? $place->e_name : '-' }}</td>
                                                              <td>{{ $place->branches->name }}</td>

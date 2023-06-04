@@ -5,10 +5,25 @@
         <form action="{{ route('place_add') }}" method="POST" enctype="multipart/form-data">
             @CSRF
             <div class="form-group">
-                <label for="zoneName">Zone Name</label>
-                <input class="form-control  @error('zoneName') is-invalid @enderror" type="text" id="zoneName"
-                    name="zoneName" value="{{ old('zoneName') }}">
-                @error('zoneName')
+                <label for="branch">分行 Branch</label>
+                <select name="branch" id="branch" class="form-control @error('branch') is-invalid @enderror">
+                    @foreach ($branches as $branch)
+                        <option value="{{ $branch->id }}">{{ $branch->name }}</option>
+                    @endforeach
+                </select>
+                 @error('branch')
+                    <span class="invalid-message" style="color:red;" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    <br>
+                @enderror
+                <label for="zone">区名 Zone Name</label>
+                 <select name="zone" id="zone" class="form-control @error('zone') is-invalid @enderror"> 
+                    @foreach ($zones as $zone)
+                        <option value="{{ $zone->id }}">{{ $zone->c_name }} {{$zone->e_name}}</option>
+                    @endforeach
+                </select>
+                @error('zone')
                     <span class="invalid-message" style="color:red;" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -26,12 +41,6 @@
                 <label for="placeEngName">English Place Name</label>
                 <input class="form-control" type="text" id="placeEngName" name="placeEngName"
                     value="{{ old('placeEngName') }}">
-                <label for="branch">Branch</label>
-                <select name="branch" id="branch" class="form-control" required>
-                    @foreach ($branches as $branch)
-                        <option value="{{ $branch->id }}">{{ $branch->name }}</option>
-                    @endforeach
-                </select>
                 <label for="placeImage">Image</label>
                 <input type="file" name="placeImage" id="placeImage" class="form-control" />
                 @error('placeImage')
