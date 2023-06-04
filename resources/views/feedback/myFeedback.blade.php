@@ -12,38 +12,42 @@
     @inject('carbon', 'Carbon\Carbon')
 
     <div class="container mt-3">
-        <h1 style="text-align:center;">My Feeback</h1>
+        <h1 style="text-align:center;">我的反馈 My Feeback</h1>
         <div class="row">
-                @foreach ($feedbacks as $feedback)
-                        <div class="col-sm-3">
-                            <div class="card mb-3">
-                               <div class="card-header">
-                                <p style="margin-bottom:5px !important;">Id: {{ $feedback->id }}</p>
-                                <p style="margin-bottom:5px !important;">Date: {{$carbon::parse($feedback->created_at)->format('Y-m-d g:i A')}}</p>
-                                <p style="margin-bottom:5px !important;">Place: {{ $feedback->places->name }}</p>
-                                <p style="margin-bottom:5px !important;">Branch: {{ $feedback->branches->name }}</p>
-                                 <p style="margin-bottom:5px !important;">Title: {{ $feedback->titles->name }}</p>
-                            </div>
-                                <div class="card-body"><img src="{{ asset('images') }}/{{ $feedback->image }}" alt=""
-                                        width="300" class="img-fluid"></div>
-                                <div class="card-footer">
-                                    <p style="margin-bottom:5px !important;">Description: {{ $feedback->description }}</p>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <p style="margin-bottom:5px !important;"></p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <a href="{{ route('edit_feedback', ['id' => $feedback->id]) }}"><button
-                                                    class="btn btn-primary">Edit</button></a>
-                                        </div>
-                                    </div>
-
+            @foreach ($feedbacks as $feedback)
+                <div class="col-sm-4">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <img src="{{ asset('images') }}/{{ $feedback->image }}" alt="" class="img-fluid">
+                        </div>
+                        <div class="card-body">
+                            <p>Feedback Id: {{ $feedback->id }}</p>
+                            <p>Date: {{ $feedback->createdAtDiff }}</p>
+                            <p>Branch: {{ $feedback->branches->name }}</p>
+                            <p>Place: {{ $feedback->places->c_name }} {{ $feedback->places->e_name }}</p>
+                            <p>Title: {{ $feedback->titles->c_name }} {{ $feedback->titles->e_name }}</p>
+                            <p>Description: {{ $feedback->description }}</p>
+                            <p>Report Person: {{ $feedback->users->name }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-12">
+                                    <a href="{{ route('edit_feedback', ['id' => $feedback->id]) }}"
+                                        class="btn btn-warning clear-radius btn-block">更改
+                                        Edit</a>
+                                </div>
+                                <div class="col-12">
+                                    <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"
+                                        class="btn btn-main bottom-radius btn-block">评论 Comment</a>
                                 </div>
                             </div>
+
                         </div>
-                @endforeach
+                    </div>
+                </div>
+            @endforeach
         </div>
-        </div>
+    </div>
 
     </div>
 @endsection

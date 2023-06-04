@@ -30,7 +30,7 @@
                             </div>
                             <div class="card-footer">
                                 <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
-                                        class="btn btn-main clear-radius btn-block">Comment</button></a>
+                                        class="btn btn-main bottom-radius btn-block">Comment</button></a>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
                             </div>
                             <div class="card-footer">
                                 <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
-                                        class="btn btn-main clear-radius btn-block">Comment</button></a>
+                                        class="btn btn-main bottom-radius btn-block">Comment</button></a>
                             </div>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                             </div>
                             <div class="card-footer">
                                 <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
-                                        class="btn btn-main clear-radius btn-block">Comment</button></a>
+                                        class="btn btn-main bottom-radius btn-block">Comment</button></a>
                             </div>
                         </div>
                     </div>

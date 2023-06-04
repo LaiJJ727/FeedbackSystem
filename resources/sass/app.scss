@@ -102,8 +102,11 @@ overflow: auto;
     background-color: white !important;
     padding: 0px !important;
 }
-.clear-radius{
+.bottom-radius{
     border-radius: 0px 0px 10px 10px !important;
+}
+.clear-radius{
+    border-radius: 0px !important;
 }
 .card-body p{
     margin-bottom:5px;
