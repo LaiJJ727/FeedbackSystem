@@ -33,7 +33,7 @@ class BranchSeeder extends Seeder
             'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
             'description' => null,
             'image' => null,
-            'status' => 'close',
+            'status' => 'exist',
         ]);
         Branch::create([
             'name' => '行政 WISMA',

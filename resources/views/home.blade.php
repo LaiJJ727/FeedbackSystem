@@ -16,7 +16,7 @@
                         {{-- {{ __('You are logged in!') }} --}}
                         <div class="grid_rows">
                             <div class="grid_rows grid_columns">
-                                <a class="btn btn-main btn-lg" href="{{ route('feedback_select_branch') }}">
+                                <a class="btn btn-main btn-lg" href="{{ route('feedback_add_view') }}">
                                     <b>新反馈 Add New Feedback</b>
                                 </a>
                             </div>

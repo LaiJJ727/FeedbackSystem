@@ -35,6 +35,22 @@ background-color: white;
 border-color: #352671;
 box-shadow: 0 0 0 1px #352671;
 }
+.btn-secondary {
+    color:black; 
+    text-align:left; 
+    border: 1px solid #ced4da;
+}
+.btn-secondary:active, .btn-primary:visited {
+    border-color: #352671 !important;
+    box-shadow: 0 0 0 1px #352671 !important;   
+    border: 1px solid #352671 !important; 
+}
+.btn-secondary:focus {
+    border-color: #352671 !important;
+    box-shadow: 0 0 0 1px #352671 !important;
+    border: 1px solid #352671 !important;
+
+}
 .btn-main{
 background-color: #352671;
 color:white !important;

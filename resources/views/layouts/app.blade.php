@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
         integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.css" />
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     @yield('styles')
@@ -84,7 +84,7 @@
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('feedback_index') }}">All Feedback</a>
                                     <a class="dropdown-item" href="{{ route('my_feedback') }}">My Feedback</a>
-                                    <a class="dropdown-item" href="{{ route('feedback_select_branch') }}">Add Feedback</a>
+                                    <a class="dropdown-item" href="{{ route('feedback_add_view') }}">Add Feedback</a>
                                     @if (Auth::user()->role != 'Staff')
                                         <a class="dropdown-item" href="{{ route('feedback_index_complete') }}">Complete
                                             Feedback</a>

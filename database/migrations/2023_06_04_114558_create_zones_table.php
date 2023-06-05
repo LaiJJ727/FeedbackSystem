@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('zones', function (Blueprint $table) {
             $table->id();
+            $table->string('branch_id');
             $table->string('c_name');
             $table->string('e_name')->nullable();
             $table->string('status');

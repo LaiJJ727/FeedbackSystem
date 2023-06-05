@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Branch;
 use App\Models\Zone;
 
 class ZoneController extends Controller
@@ -10,11 +11,13 @@ class ZoneController extends Controller
     public function add(Request $request)
     {
         $validated = $request->validate([
+            'branch' => 'required',
             'zoneCnName' => 'required|string',
         ]);
 
 
         $addCategory = Zone::create([
+            'branch_id' => $request->branch,
             'c_name' => $request->zoneCnName,
             'e_name' => $request->zoneEngName ? $request->zoneEngName : null,
             'status' => 'exist',
@@ -31,23 +34,28 @@ class ZoneController extends Controller
     public function edit($id)
     {
         $data['zones'] = Zone::all()->where('id', $id);
+        $data['branches'] = Branch::whereNot('status', '=', 'close')->get();
 
         return view('zone/edit', $data);
     }
     public function add_view()
     {
-        return view('zone/add');
+        $data['branches'] = Branch::whereNot('status', '=', 'close')->get();
+
+        return view('zone/add',$data);
     }
 
     //update branch
     public function update(Request $request)
     {
         $validated = $request->validate([
+            'branch' => 'required',
             'zoneCnName' => 'required|string',
         ]);
         
         $editZone = Zone::find($request->zoneId);
         
+        $editZone->branch_id = $request->branch;
         $editZone->c_name = $request->zoneCnName;
         $editZone->e_name = $request->zoneEngName ? $request->zoneEngName : $editZone->e_name;
         $editZone->save();

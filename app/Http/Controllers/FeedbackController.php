@@ -10,35 +10,45 @@ use App\Models\API;
 use App\Models\Title;
 use App\Models\Place;
 use App\Models\Category;
+use App\Models\Zone;
 use Auth;
-use Illuminate\Support\Facades\Validator;
 
 class FeedbackController extends Controller
 {
-    public function select_branch_view()
-    {
-        //select all branch data
-        $branches = Branch::whereNot('status', '=', 'close')->get();
-        $data['branches'] = [[]];
-        $a = 0;
-        foreach ($branches as $key => $branch) {
-            if (count($data['branches'][$a]) >= 2) {
-                $a++;
-                array_push($data['branches'],[]);
-            } 
-            array_push($data['branches'][$a],['id' => $branch->id,'name' => $branch->name, 'image' => $branch->image]); 
-        }
-        return view('feedback/selectBranch',$data);
-    }
+    // public function select_branch_view()
+    // {
+    //     //select all branch data
+    //     $branches = Branch::whereNot('status', '=', 'close')->get();
+    //     $data['branches'] = [[]];
+    //     $a = 0;
+    //     foreach ($branches as $key => $branch) {
+    //         if (count($data['branches'][$a]) >= 2) {
+    //             $a++;
+    //             array_push($data['branches'],[]);
+    //         } 
+    //         array_push($data['branches'][$a],['id' => $branch->id,'name' => $branch->name, 'image' => $branch->image]); 
+    //     }
+    //     return view('feedback/selectBranch',$data);
+    // }
 
-    public function add_view(Request $request,$branch_id)
+    public function add_view(Request $request)
     {
-        $branch = Branch::where('id', $branch_id)->first();
-        $places = Place::where([['branch_id', $branch_id],['status','exist']])->get();
-        $categories = Category::whereNot('status', 'close')->get();
-        $titles = Title::whereNot('status','close')->get();
+        $data['branches'] = Branch::whereNot('status', '=', 'close')->get();
+        // $data['branches'] = [[]];
+        // $a = 0;
+        // foreach ($branches as $key => $branch) {
+        //     if (count($data['branches'][$a]) >= 2) {
+        //         $a++;
+        //         array_push($data['branches'],[]);
+        //     } 
+        //     array_push($data['branches'][$a],['id' => $branch->id,'name' => $branch->name, 'image' => $branch->image]); 
+        // }
+        $data['zones'] = Zone::whereNot('status','close')->get();
+        $data['places'] = Place::where('status','exist')->get();
+        $data['categories'] = Category::whereNot('status', 'close')->get();
+        $data['titles'] = Title::whereNot('status','close')->get();
 
-        return view('feedback/add', compact('titles', 'places', 'categories','branch'));
+        return view('feedback/add', $data);
     }
     //add new feedback
     public function add(Request $request)
@@ -64,31 +74,31 @@ class FeedbackController extends Controller
             'feedback_to' => $request->feedbackTo, //0 is Emergency 1 is General
             'title_id' => $request->title,
             'description' => $request->description,
-            'status' => '',
+            'status' => 0,
             'image' => $imageName,
             'branch_id' => $request->branch,
         ]);
         //send notification to whatsapp
-        if (API::find(1) != null) {
-            $api = API::find(1)->first();
-            $apiKey = $api->api;
+        // if (API::find(1) != null) {
+        //     $api = API::find(1)->first();
+        //     $apiKey = $api->api;
 
-            $FullMessage = 'Feedback Case ID: ' . $addFeedback->id . "\nBranch: " . $addFeedback->branches->name . "\nPlace:" . $addFeedback->places->c_name . "\nLevel: " . $addFeedback->feedback_to . "\nTitle: " . $addFeedback->titles->c_name . "\nDescription: " . $request->description;
+        //     $FullMessage = 'Feedback Case ID: ' . $addFeedback->id . "\nBranch: " . $addFeedback->branches->name . "\nPlace:" . $addFeedback->places->c_name . "\nLevel: " . $addFeedback->feedback_to . "\nTitle: " . $addFeedback->titles->c_name . "\nDescription: " . $request->description;
 
-            $users = User::whereNot('role', 'Staff')->get();
-            foreach ($users as $user) {
-                $data = [
-                    'phone_number' => $user->phone,
-                    'message' => $FullMessage,
-                ];
+        //     $users = User::whereNot('role', 'Staff')->get();
+        //     foreach ($users as $user) {
+        //         $data = [
+        //             'phone_number' => $user->phone,
+        //             'message' => $FullMessage,
+        //         ];
 
-                $response = \Illuminate\Support\Facades\Http::accept('application/json')
-                    ->withToken($apiKey)
-                    ->post('https://onsend.io/api/v1/send', $data);
+        //         $response = \Illuminate\Support\Facades\Http::accept('application/json')
+        //             ->withToken($apiKey)
+        //             ->post('https://onsend.io/api/v1/send', $data);
 
-                //dump($response->body());//check only
-            }
-        }
+        //         //dump($response->body());//check only
+        //     }
+        // }
 
         return redirect()->route('feedback_index');
     }
@@ -100,10 +110,7 @@ class FeedbackController extends Controller
     }
     public function myFeedback()
     {
-        $r = request();
-
-        $feedbacks = Feedback::where([['user_id', Auth::id()], ['status', '!=', 2]])->get();
-
+        $feedbacks = Feedback::where([['user_id', Auth::id()], ['status', '!=', 3]])->get();
         return view('feedback/myFeedback')->with('feedbacks', $feedbacks);
     }
     public function editFeedback($id)

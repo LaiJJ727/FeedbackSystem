@@ -25,6 +25,7 @@
                              <thead>
                                  <tr>
                                      <th>#</th>
+                                     <th>分行 Branch</th>
                                      <th>中文名称 Chinese Name</th>
                                      <th>英文名称 English Name</th>
                                      <th class="text-center" colspan="2">操作 Operate</th>
@@ -34,6 +35,7 @@
                                  @foreach ($zones as $key => $zone)
                                      <tr>
                                          <th>{{ $key + 1 }}</th>
+                                         <td>{{ $zone->branches->name }}</td>
                                          <td>{{ $zone->c_name }}</td>
                                          <td>{{ $zone->e_name }}</td>
                                          <td>
@@ -75,7 +77,7 @@
 
              // Loop through all table rows, and hide those who don't match the search query
              for (i = 0; i < tr.length; i++) {
-                 td = tr[i].getElementsByTagName("td")[0];
+                 td = tr[i].getElementsByTagName("td")[1];
                  if (td) {
                      txtValue = td.textContent || td.innerText;
                      if (txtValue.toUpperCase().indexOf(filter) > -1) {
