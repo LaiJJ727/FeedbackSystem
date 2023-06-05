@@ -79,8 +79,8 @@
                                                 <select name="status" id="status" class="form-control"
                                                     value="{{ $feedback->status }}" required>
                                                     <option value="1">On Hold</option>
-                                                    <option value="2">Complete</option>
-                                                    <option value="3">Pending</option>
+                                                    <option value="2">Pending</option>
+                                                    <option value="3">Complete</option>
                                                 </select>
                                             @endif
                                             <input type="hidden" name="id" value="{{ $feedback->id }}">
@@ -97,7 +97,8 @@
                                             @endforeach
                                             <!--end for loop-->
                                             <label for="description">Comment</label>
-                                            <input class="form-control" id="description" name="description" value="" required>
+                                            <input class="form-control" id="description" name="description" value=""
+                                                required>
                                             <label for="image">Image</label>
                                             <input class="form-control" type="file" id="image" name="image">
                                             <button class="btn btn-primary  btn-lg btn-block mt-3 mb-3">Save</button>

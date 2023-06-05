@@ -12,7 +12,6 @@
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         @if (Auth::user()->branch_id == 'all')
                             @if (old('branch_id'))
-                                <input type="hidden" id="branch_id" name="branch_id" value="{{ old('branch_id') }}">
                                 @foreach ($branches as $branch)
                                     @if (old('branch_id') == $branch->id)
                                         <input type="hidden" id="branch_id" name="branch_id" value="{{ $branch->id }}">
@@ -126,7 +125,7 @@
                     <option disabled selected value>-- 选择一个情况 Select one situation --</option>
                     <option value="Emergency" @if (old('feedbackTo') == 'Emergency') selected @endif>紧急 Emergency</option>
                     <option value="General" @if (old('feedbackTo') == 'General') selected @endif>普通 General</option>
-                    <option value="Housekeeping" @if (old('feedbackTo') == 'General') selected @endif>保洁 Housekeeping
+                    <option value="Housekeeping" @if (old('feedbackTo') == 'Housekeeping') selected @endif>保洁 Housekeeping
                     </option>
                 </select>
                 @error('feedbackTo')
@@ -182,14 +181,12 @@
                 if (oldInput.branch_id == zoneData[i].branch_id) {
                     var option = document.createElement("option");
                     option.value = zoneData[i].id;
-                    if (option.value == oldInput.zone_id) {
+                    if (option.value == oldInput.zone) {
                         option.selected = true;
                     }
                     option.text = userData.language == 'Chinese' ? zoneData[i].c_name : zoneData[i]
                         .e_name;
                     document.getElementById("zone").appendChild(option);
-                    document.getElementById("zone").selectedIndex = oldInput.zone;
-
                 }
             }
         }
@@ -253,6 +250,7 @@
             for (let i = 0; i < branchesData.length; i++) {
                 if (branchesData[i].id == branch_id) {
                     document.getElementById('branch_id').value = branch_id;
+                    console.log("branch_id(change to): " + branch_id);
                     document.getElementById("branch").innerHTML = branchesData[i].name;
 
                     var zoneData = {!! json_encode($zones->toArray()) !!};
