@@ -27,12 +27,10 @@
                             </div>
                         </div>
                         <div class="grid_rows">
-                            @if(Auth::user()->role != "Staff")
                             <div class="grid_columns">
                                 <a class="btn btn-main btn-lg" href="{{ route('feedback_index') }}"><b>查看全部 All Feedback</b>
                                 </a>
                             </div>
-                            @endif
                             <div class="grid_columns">
                                 <a class="btn btn-main btn-lg" href="{{ route('logout.perform') }}"><b>退出 Logout</b>
                                 </a>

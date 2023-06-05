@@ -55,6 +55,8 @@ class FeedbackController extends Controller
     {
         // valdiate
         $request->validate([
+            'branch_id' => 'required',
+            'zone' => 'required',
             'image' => 'required|image|mimes:png,jpg,jpeg,gif,svg',
             'category' => 'required',
             'place' => 'required',
