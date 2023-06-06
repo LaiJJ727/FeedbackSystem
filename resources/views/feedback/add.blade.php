@@ -24,9 +24,16 @@
                             @endif
                         @else
                             @foreach ($branches as $branch)
-                                @if ($branch->id == Auth::user()->branch_id)
-                                    <input type="hidden" id="branch_id" name="branch_id" value="{{ $branch->id }}">
-                                    <a id="branch">{{ $branch->name }}</a>
+                                @if (old('branch_id'))
+                                    @if (old('branch_id') == $branch->id)
+                                        <input type="hidden" id="branch_id" name="branch_id" value="{{ $branch->id }}">
+                                        <a id="branch">{{ $branch->name }}</a>
+                                    @endif
+                                @else
+                                    @if ($branch->id == Auth::user()->branch_id)
+                                        <input type="hidden" id="branch_id" name="branch_id" value="{{ $branch->id }}">
+                                        <a id="branch">{{ $branch->name }}</a>
+                                    @endif
                                 @endif
                             @endforeach
                         @endif
@@ -167,7 +174,7 @@
 
         var userData = {!! json_encode(Auth::user()->toArray()) !!};
         //return old value checking
-        if (oldInput.branch_id) {
+        if (document.getElementById("branch_id").value) {
             console.log("branch_id: " + document.getElementById('branch_id').value);
             var zoneData = {!! json_encode($zones->toArray()) !!};
             document.getElementById("zone").disabled = false;
@@ -178,7 +185,7 @@
                 options[i].remove(); // remove the current option
             }
             for (let i = 0; i < zoneData.length; i++) {
-                if (oldInput.branch_id == zoneData[i].branch_id) {
+                if (document.getElementById("branch_id").value == zoneData[i].branch_id) {
                     var option = document.createElement("option");
                     option.value = zoneData[i].id;
                     if (option.value == oldInput.zone) {
@@ -191,7 +198,7 @@
             }
         }
         //return old value checking
-        if(oldInput.zone) {
+        if (oldInput.zone) {
             var selectPlaceElement = document.getElementById("place");
             document.getElementById("place").disabled = false;
             var options = selectPlaceElement.options; // get the options of the select element
@@ -207,7 +214,7 @@
                 if (oldInput.zone == placeData[i].zone_id) {
                     var option = document.createElement("option");
                     option.value = placeData[i].id;
-                    if(option.value == oldInput.place){
+                    if (option.value == oldInput.place) {
                         option.selected = true;
                     }
                     option.text = userData.language == 'Chinese' ? placeData[i].c_name : placeData[i]

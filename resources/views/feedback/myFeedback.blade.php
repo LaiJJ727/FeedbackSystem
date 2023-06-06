@@ -12,7 +12,7 @@
     @inject('carbon', 'Carbon\Carbon')
 
     <div class="container mt-3">
-        <h1 style="text-align:center;">我的反馈 My Feeback</h1>
+        <h1 style="text-align:center;">我的反馈 My Feedback</h1>
         <div class="row">
             @foreach ($feedbacks as $feedback)
                 <div class="col-sm-4">
