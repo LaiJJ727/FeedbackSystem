@@ -124,8 +124,8 @@ Route::prefix('isSuperAdmin')
             Route::get('/deactivateCategory/{id}', 'deactivate')->name('category_deactivate');
             Route::get('/reactivateCategory/{id}', 'reactivate')->name('category_reactivate');
         });
-         // zone
-         Route::controller(App\Http\Controllers\ZoneController::class)->group(function () {
+        // zone
+        Route::controller(App\Http\Controllers\ZoneController::class)->group(function () {
             Route::get('/zone/add', 'add_view')->name('zone_add_view');
             Route::get('/zone/view', 'view')->name('zone_view');
             Route::post('/zone/view', 'add')->name('zone_add');
@@ -133,5 +133,10 @@ Route::prefix('isSuperAdmin')
             Route::post('zone/update', 'update')->name('zone_update');
             Route::get('/deactivateZone/{id}', 'deactivate')->name('zone_deactivate');
             Route::get('/reactivateZone/{id}', 'reactivate')->name('zone_reactivate');
+        });
+
+        // report
+        Route::controller(App\Http\Controllers\ReportController::class)->group(function () {
+            Route::get('/report/view', 'view')->name('report_view');
         });
     });

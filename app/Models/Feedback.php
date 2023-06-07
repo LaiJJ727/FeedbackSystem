@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\Comment;
 use App\Models\Title;
 use App\Models\Place;
+use App\Models\Caegory;
+use App\Models\Zone;
 class Feedback extends Model
 {
     use HasFactory;
@@ -38,5 +40,11 @@ class Feedback extends Model
     public function places()
     {
         return $this->hasOne(Place::class, 'id', 'place_id');
+    }
+    public function categories(){
+        return $this->hasOne(Category::class,'id','category_id');
+    }
+    public function zones(){
+        return $this->hasOne(Zone::class,'id','zone_id');
     }
 }

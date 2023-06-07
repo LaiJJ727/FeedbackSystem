@@ -1,5 +1,18 @@
 @extends('layouts.app')
-
+<?php
+$branches = [];
+$levels = [];
+$statuses = [];
+foreach ($feedbacks as $feedback) {
+    $branches[] = $feedback->branches->name;
+    $levels[] = $feedback->feedback_to;
+    //later change to status
+    $statuses[] = $feedback->places->c_name;
+}
+$branches = array_unique($branches);
+$levels = array_unique($levels);
+$statuses = array_unique($statuses);
+?>
 @section('styles')
     <style>
         .container {
@@ -9,90 +22,170 @@
 @endsection
 
 @section('content')
-    <div class="container mt-3">
-        <h1 style="text-align:center;">Emergency</h1>
-        <div class="row">
-            @foreach ($feedbacks as $feedback)
-                @if ($feedback->feedback_to == 'Emergency')
-                    <div class="col-sm-4">
-                        <div class="card mb-3">
-                            <div class="card-header">
-                                <img src="{{ asset('images') }}/{{ $feedback->image }}" alt="" class="img-fluid">
-                            </div>
-                            <div class="card-body">
-                                <p>Feedback Id: {{ $feedback->id }}</p>
-                                <p>Date: {{ $feedback->createdAtDiff }}</p>
-                                <p>Branch: {{ $feedback->branches->name }}</p>
-                                <p>Place: {{ $feedback->places->c_name }} {{ $feedback->places->e_name }}</p>
-                                <p>Title: {{ $feedback->titles->c_name }} {{ $feedback->titles->e_name }}</p>
-                                <p>Description: {{ $feedback->description }}</p>
-                                <p>Report Person: {{ $feedback->users->name }}</p>
-                            </div>
-                            <div class="card-footer">
-                                <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
-                                        class="btn btn-main bottom-radius btn-block">Comment</button></a>
-                            </div>
-                        </div>
+    <div class="container py-2">
+        <div class="row" style="background-color:white">
+            <div class="card-header">
+                <div class="input-group table_header_body">
+                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
+                    <input type="text" class="form-control clear-border" id="searchKey"
+                        placeholder="搜索反馈ID Search by feedback ID" onkeyup="searchFunction()"
+                        aria-describedby="basic-addon1">
+                </div>
+                <div class="row pl-sm-2 pr-sm-2 pl-3 pr-3">
+                    <div class="col-12 col-sm-4 p-2 p-sm-3">
+                        <select id="ddlBranch" class="form-select" onchange="searchFunction()">
+                            <option>全部分行 All Branches</option>
+                            @foreach ($branches as $branch)
+                                <option> {{ $branch }} </option>
+                            @endforeach
+                        </select>
                     </div>
-                @endif
-            @endforeach
-
-        </div>
-        <h1 style="text-align:center;">General</h1>
-        <div class="row">
-            @foreach ($feedbacks as $feedback)
-                @if ($feedback->feedback_to == 'General')
-                    <div class="col-sm-4">
-                        <div class="card mb-3">
-                            <div class="card-header">
-                                <img src="{{ asset('images') }}/{{ $feedback->image }}" alt="" class="img-fluid">
-                            </div>
-                            <div class="card-body">
-                                <p>Feedback Id: {{ $feedback->id }}</p>
-                                <p>Date: {{ $feedback->createdAtDiff }}</p>
-                                <p>Branch: {{ $feedback->branches->name }}</p>
-                                <p>Place: {{ $feedback->places->c_name }} {{ $feedback->places->e_name }}</p>
-                                <p>Title: {{ $feedback->titles->c_name }} {{ $feedback->titles->e_name }}</p>
-                                <p>Description: {{ $feedback->description }}</p>
-                                <p>Report Person: {{ $feedback->users->name }}</p>
-                            </div>
-                            <div class="card-footer">
-                                <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
-                                        class="btn btn-main bottom-radius btn-block">Comment</button></a>
-                            </div>
-                        </div>
+                    <div class="col-12 col-sm-4 p-2 p-sm-3">
+                        <select id="ddlLevel" class="form-select" onchange="searchFunction()">
+                            <option>-</option>
+                            @foreach ($levels as $level)
+                                <option> {{ $level }} </option>
+                            @endforeach
+                        </select>
                     </div>
-                @endif
-            @endforeach
-        </div>
-
-        <h1 style="text-align:center;">Housekeeping</h1>
-        <div class="row">
-            @foreach ($feedbacks as $feedback)
-                @if ($feedback->feedback_to == 'Housekeeping')
-                    <div class="col-sm-4">
-                        <div class="card mb-3">
-                            <div class="card-header">
-                                <img src="{{ asset('images') }}/{{ $feedback->image }}" alt="" class="img-fluid">
-                            </div>
-                            <div class="card-body">
-                                <p>Feedback Id: {{ $feedback->id }}</p>
-                                <p>Date: {{ $feedback->createdAtDiff }}</p>
-                                <p>Branch: {{ $feedback->branches->name }}</p>
-                                <p>Place: {{ $feedback->places->c_name }} {{ $feedback->places->e_name }}</p>
-                                <p>Title: {{ $feedback->titles->c_name }} {{ $feedback->titles->e_name }}</p>
-                                <p>Description: {{ $feedback->description }}</p>
-                                <p>Report Person: {{ $feedback->users->name }}</p>
-                            </div>
-                            <div class="card-footer">
-                                <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
-                                        class="btn btn-main bottom-radius btn-block">Comment</button></a>
-                            </div>
-                        </div>
+                    <div class="col-12 col-sm-4 p-2 p-sm-3">
+                        <select id="ddlStatus" class="form-select" onchange="searchFunction()">
+                            <option>-</option>
+                            @foreach ($statuses as $status)
+                                <option> {{ $status }} </option>
+                            @endforeach
+                        </select>
                     </div>
-                @endif
-            @endforeach
-        </div>
+                </div>
+            </div>
+            <div id="myCard" class="container mt-3" style="background-color:white;">
+                <div class="row" id="divEmergency">
+                    <h1 style="text-align:center;">Emergency</h1>
+                    @foreach ($feedbacks as $feedback)
+                        @if ($feedback->feedback_to == 'Emergency')
+                            <div class="col-sm-4">
+                                <div class="card mb-3">
+                                    <section class="card-header">
+                                        <img src="{{ asset('images') }}/{{ $feedback->image }}" alt=""
+                                            class="img-fluid">
+                                    </section>
+                                    <div class="card-body">
+                                        <p class="my_id">Feedback Id: {{ $feedback->id }}</p>
+                                        <p>Date: {{ $feedback->createdAtDiff }}</p>
+                                        <p class="my_branch">Branch: {{ $feedback->branches->name }}</p>
+                                        <p class="my_place">Place: {{ Auth::user()->language == "Chinese" ? $feedback->places->c_name : $feedback->places->e_name }}
+                                        </p>
+                                        <p>Title: {{ Auth::user()->language == "Chinese" ? $feedback->titles->c_name : $feedback->titles->e_name }}</p>
+                                        <p>Description: {{ $feedback->description }}</p>
+                                        <p>Report Person: {{ $feedback->users->name }}</p>
+                                        <p class="my_level" style="display: none;">{{ $feedback->feedback_to }}</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
+                                                class="btn btn-main bottom-radius btn-block">Comment</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
 
+                </div>
+                <div class="row" id="divGeneral">
+                    <h1 style="text-align:center;">General</h1>
+                    @foreach ($feedbacks as $feedback)
+                        @if ($feedback->feedback_to == 'General')
+                            <div class="col-sm-4">
+                                <div class="card mb-3">
+                                    <section class="card-header">
+                                        <img src="{{ asset('images') }}/{{ $feedback->image }}" alt=""
+                                            class="img-fluid">
+                                    </section>
+                                    <div class="card-body">
+                                        <p class="my_id">Feedback Id: {{ $feedback->id }}</p>
+                                        <p>Date: {{ $feedback->createdAtDiff }}</p>
+                                        <p class="my_branch">Branch: {{ $feedback->branches->name }}</p>
+                                        <p class="my_place">Place: {{ $feedback->places->c_name }}
+                                            {{ $feedback->places->e_name }}
+                                        </p>
+                                        <p>Title: {{ Auth::user()->language == "Chinese" ? $feedback->titles->c_name : $feedback->titles->e_name }}</p>
+                                        <p>Description: {{ $feedback->description }}</p>
+                                        <p>Report Person: {{ $feedback->users->name }}</p>
+                                        <p class="my_level" style="display: none;">{{ $feedback->feedback_to }}</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
+                                                class="btn btn-main bottom-radius btn-block">Comment</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+                <div class="row" id="divHousekeeping">
+                    <h1 style="text-align:center;">Housekeeping</h1>
+                    @foreach ($feedbacks as $feedback)
+                        @if ($feedback->feedback_to == 'Housekeeping')
+                            <div class="col-sm-4">
+                                <div class="card mb-3">
+                                    <section class="card-header">
+                                        <img src="{{ asset('images') }}/{{ $feedback->image }}" alt=""
+                                            class="img-fluid">
+                                    </section>
+                                    <div class="card-body">
+                                        <p class="my_id">Feedback Id: {{ $feedback->id }}</p>
+                                        <p>Date: {{ $feedback->createdAtDiff }}</p>
+                                        <p class="my_branch">Branch: {{ $feedback->branches->name }}</p>
+                                        <p class="my_place">Place: {{ $feedback->places->c_name }}
+                                            {{ $feedback->places->e_name }}
+                                        </p>
+                                        <p>Title: {{ $feedback->titles->c_name }} {{ $feedback->titles->e_name }}</p>
+                                        <p>Description: {{ $feedback->description }}</p>
+                                        <p>Report Person: {{ $feedback->users->name }}</p>
+                                        <p class="my_level" style="display: none;">{{ $feedback->feedback_to }}</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
+                                                class="btn btn-main bottom-radius btn-block">Comment</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                </div>
+
+            </div>
+        </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script>
+        //devlare level
+        var all_levels = <?php echo json_encode($levels); ?> ;
+        function searchFunction() {
+            // get values
+            var value = $('#searchKey').val().toLowerCase();
+            var branch = $('#ddlBranch').val().toLowerCase();
+            var level = $('#ddlLevel').val().toLowerCase();
+            var status = $('#ddlStatus').val().toLowerCase();
+            // start filtering items in div
+            $('#myCard div').filter(function() {
+                // my_place my_branch
+                $(this).toggle($(this).find('.my_id').text().toLowerCase().indexOf(value) > -1 &&
+                    (branch === '全部分行 all branches' ? true :
+                        $(this).find('.my_branch').text().toLowerCase().indexOf(branch) > -1) &&
+                    (level === '-' ? true :
+                        $(this).find('.my_level').text().toLowerCase().indexOf(level) > -1) &&
+                    (status === '-' ? true :
+                        $(this).find('.my_place').text().toLowerCase().indexOf(status) > -1)
+                )
+            });
+            //hide levels if empty
+            all_levels.includes("Emergency") ? '' : $('#divEmergency').hide();
+            all_levels.includes("General") ? '' : $('#divGeneral').hide();
+            all_levels.includes("Housekeeping") ? '' : $('#divHousekeeping').hide();
+        }
+        //hide levels if empty
+        all_levels.includes("Emergency") ? '' : $('#divEmergency').hide();
+        all_levels.includes("General") ? '' : $('#divGeneral').hide();
+        all_levels.includes("Housekeeping") ? '' : $('#divHousekeeping').hide();
+    </script>
 @endsection

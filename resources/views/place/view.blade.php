@@ -59,7 +59,8 @@
                                                      @foreach ($branch->places as $key => $place)
                                                          <tr>
                                                              <th>{{ $key + 1 }}</th>
-                                                             <td>{{ $place->zones->c_name }} {{ $place->zones->e_name }}</td>
+                                                             <td>{{ $place->zones->c_name }} {{ $place->zones->e_name }}
+                                                             </td>
                                                              <td>{{ $place->c_name }}</td>
                                                              <td>{{ $place->e_name ? $place->e_name : '-' }}</td>
                                                              <td>{{ $place->branches->name }}</td>
@@ -107,7 +108,8 @@
                  </div>
 
              </div>
-
+         </div>
+     </div>
              <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
                  <div class="modal-dialog">
                      <div class="modal-content">
