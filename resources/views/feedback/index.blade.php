@@ -73,8 +73,11 @@ $statuses = array_unique($statuses);
                                         <p class="my_id">Feedback Id: {{ $feedback->id }}</p>
                                         <p>Date: {{ $feedback->createdAtDiff }}</p>
                                         <p class="my_branch">Branch: {{ $feedback->branches->name }}</p>
+                                        <p>Zone:  {{ Auth::user()->language == "Chinese" ?  $feedback->zones->c_name : $feedback->zones->e_name }}</p>
                                         <p class="my_place">Place: {{ Auth::user()->language == "Chinese" ? $feedback->places->c_name : $feedback->places->e_name }}
                                         </p>
+                                        <p class="my_branch">Branch: {{ $feedback->branches->name }}</p>
+                                        <p>Category: {{ Auth::user()->language == "Chinese" ? $feedback->categories->c_name : $feedback->categories->e_name }}</p>
                                         <p>Title: {{ Auth::user()->language == "Chinese" ? $feedback->titles->c_name : $feedback->titles->e_name }}</p>
                                         <p>Description: {{ $feedback->description }}</p>
                                         <p>Report Person: {{ $feedback->users->name }}</p>
@@ -159,7 +162,8 @@ $statuses = array_unique($statuses);
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script>
         //devlare level
-        var all_levels = <?php echo json_encode($levels); ?> ;
+        var all_levels = {!! json_encode($levels) !!};
+        
         function searchFunction() {
             // get values
             var value = $('#searchKey').val().toLowerCase();

@@ -15,33 +15,39 @@ class FeedbackSeeder extends Seeder
     {
         Feedback::create([
             'user_id' => '4',
+            'branch_id' => '1',
+            'zone_id' => '1',
             'place_id' => '1',
+            'category_id' => '1',
+            'title_id' => '3',
             'feedback_to' => 'General',
-            'title_id' => '3',
             'description' => '灯泡a1 和 a2',
             'status' => 0,
             'image' => 'example.jpeg',
-            'branch_id' => '1',
         ]);
         Feedback::create([
             'user_id' => '4',
+            'branch_id' => '1',
+            'zone_id' => '1',
             'place_id' => '2',
-            'feedback_to' => 'Emergency',
+            'category_id' => '1',
             'title_id' => '3',
+            'feedback_to' => 'Emergency',
             'description' => '灯泡a1 和 a2',
             'status' => 0,
             'image' => 'example.jpeg',
-            'branch_id' => '1',
         ]);
         Feedback::create([
             'user_id' => '4',
+            'branch_id' => '1',
+            'zone_id' => '1',
+            'category_id' => '1',
             'place_id' => '3',
-            'feedback_to' => 'Housekeeping',
             'title_id' => '3',
+            'feedback_to' => 'Housekeeping',
             'description' => '灯泡a1 和 a2',
             'status' => 0,
             'image' => 'example.jpeg',
-            'branch_id' => '1',
         ]);
     }
 }

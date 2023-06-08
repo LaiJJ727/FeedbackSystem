@@ -14,7 +14,7 @@ use App\Models\Zone;
 class Feedback extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'place_id', 'feedback_to', 'title_id', 'description', 'status', 'image', 'branch_id'];
+    protected $fillable = ['user_id', 'branch_id', 'zone_id','place_id', 'category_id', 'title_id', 'feedback_to', 'description', 'status', 'image'];
     protected $table = 'feedbacks';
 
     public function getCreatedAtDiffAttribute()

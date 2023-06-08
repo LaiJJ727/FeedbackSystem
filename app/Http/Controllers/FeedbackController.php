@@ -15,34 +15,9 @@ use Auth;
 
 class FeedbackController extends Controller
 {
-    // public function select_branch_view()
-    // {
-    //     //select all branch data
-    //     $branches = Branch::whereNot('status', '=', 'close')->get();
-    //     $data['branches'] = [[]];
-    //     $a = 0;
-    //     foreach ($branches as $key => $branch) {
-    //         if (count($data['branches'][$a]) >= 2) {
-    //             $a++;
-    //             array_push($data['branches'],[]);
-    //         } 
-    //         array_push($data['branches'][$a],['id' => $branch->id,'name' => $branch->name, 'image' => $branch->image]); 
-    //     }
-    //     return view('feedback/selectBranch',$data);
-    // }
-
     public function add_view(Request $request)
     {
         $data['branches'] = Branch::whereNot('status', '=', 'close')->get();
-        // $data['branches'] = [[]];
-        // $a = 0;
-        // foreach ($branches as $key => $branch) {
-        //     if (count($data['branches'][$a]) >= 2) {
-        //         $a++;
-        //         array_push($data['branches'],[]);
-        //     } 
-        //     array_push($data['branches'][$a],['id' => $branch->id,'name' => $branch->name, 'image' => $branch->image]); 
-        // }
         $data['zones'] = Zone::whereNot('status','close')->get();
         $data['places'] = Place::where('status','exist')->get();
         $data['categories'] = Category::whereNot('status', 'close')->get();
@@ -81,26 +56,26 @@ class FeedbackController extends Controller
             'branch_id' => $request->branch,
         ]);
         //send notification to whatsapp
-        // if (API::find(1) != null) {
-        //     $api = API::find(1)->first();
-        //     $apiKey = $api->api;
+        if (API::find(1) != null) {
+            $api = API::find(1)->first();
+            $apiKey = $api->api;
 
-        //     $FullMessage = 'Feedback Case ID: ' . $addFeedback->id . "\nBranch: " . $addFeedback->branches->name . "\nPlace:" . $addFeedback->places->c_name . "\nLevel: " . $addFeedback->feedback_to . "\nTitle: " . $addFeedback->titles->c_name . "\nDescription: " . $request->description;
+            $FullMessage = 'Feedback Case ID: ' . $addFeedback->id . "\nBranch: " . $addFeedback->branches->name . "\nPlace:" . $addFeedback->places->c_name . "\nLevel: " . $addFeedback->feedback_to . "\nTitle: " . $addFeedback->titles->c_name . "\nDescription: " . $request->description;
 
-        //     $users = User::whereNot('role', 'Staff')->get();
-        //     foreach ($users as $user) {
-        //         $data = [
-        //             'phone_number' => $user->phone,
-        //             'message' => $FullMessage,
-        //         ];
+            $users = User::whereNot('role', 'Staff')->get();
+            foreach ($users as $user) {
+                $data = [
+                    'phone_number' => $user->phone,
+                    'message' => $FullMessage,
+                ];
 
-        //         $response = \Illuminate\Support\Facades\Http::accept('application/json')
-        //             ->withToken($apiKey)
-        //             ->post('https://onsend.io/api/v1/send', $data);
+                $response = \Illuminate\Support\Facades\Http::accept('application/json')
+                    ->withToken($apiKey)
+                    ->post('https://onsend.io/api/v1/send', $data);
 
-        //         //dump($response->body());//check only
-        //     }
-        // }
+                //dump($response->body());//check only
+            }
+        }
 
         return redirect()->route('feedback_index');
     }
