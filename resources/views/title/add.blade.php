@@ -15,7 +15,7 @@
                 @enderror
                 <label for="titleEngName">英文标题名称 English Title Name</label>
                 <input class="form-control" type="text" id="titleEngName" name="titleEngName">
-            <label for="category">Category</label>
+            <label for="category">类别 Category</label>
             <select name="category" id="category" class="form-control" required>
                 @foreach ($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->c_name }} {{ $category->e_name }}</option>
@@ -30,7 +30,7 @@
                     <br>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-primary">填加 Add</button>
+            <button type="submit" class="btn btn-primary">提交 Submit</button>
         </form>
         <div>
         @endsection

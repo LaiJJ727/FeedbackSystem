@@ -27,7 +27,7 @@
                             </span>
                             <br>
                         @enderror
-                        <label for="category">Category</label>
+                        <label for="category">类别 Category</label>
                         <select name="category" id="category" class="form-control" value="{{ $title->category_id }}"
                             required>
                             @foreach ($categories as $category)
@@ -49,7 +49,7 @@
                             <br>
                         @enderror
                     </div>
-                    <button type="submit" class="btn btn-primary">编辑 Edit</button>
+                    <button type="submit" class="btn btn-primary">提交 Submit</button>
                 @endforeach
             </form>
         </div>

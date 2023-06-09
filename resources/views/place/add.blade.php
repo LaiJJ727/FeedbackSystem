@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container col-sm-12 mt-3">
-        <h3>Add New Place</h3>
+        <h3>添加新的地点 Add New Place</h3>
         <form action="{{ route('place_add') }}" method="POST" enctype="multipart/form-data">
             @CSRF
             <div class="form-group">
@@ -17,7 +17,7 @@
                     </span>
                     <br>
                 @enderror
-                <label for="zone">区名 Zone Name</label>
+                <label for="zone">区 Zone</label>
                  <select name="zone" id="zone" class="form-control @error('zone') is-invalid @enderror"> 
                     @foreach ($zones as $zone)
                         <option value="{{ $zone->id }}">{{ $zone->c_name }} {{$zone->e_name}}</option>
@@ -29,7 +29,7 @@
                     </span>
                     <br>
                 @enderror
-                <label for="placeCnName">Chinese Place Name</label>
+                <label for="placeCnName">中文地点名称 Chinese Place Name</label>
                 <input class="form-control  @error('placeCnName') is-invalid @enderror" type="text" id="placeCnName"
                     name="placeCnName" value="{{ old('placeCnName') }}">
                 @error('placeCnName')
@@ -38,10 +38,10 @@
                     </span>
                     <br>
                 @enderror
-                <label for="placeEngName">English Place Name</label>
+                <label for="placeEngName">英文地点名称 English Place Name</label>
                 <input class="form-control" type="text" id="placeEngName" name="placeEngName"
                     value="{{ old('placeEngName') }}">
-                <label for="placeImage">Image</label>
+                <label for="placeImage">图片 Image</label>
                 <input type="file" name="placeImage" id="placeImage" class="form-control" />
                 @error('placeImage')
                     <span class="invalid-message" style="color:red;" role="alert">

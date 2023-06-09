@@ -26,7 +26,7 @@
                             </span>
                             <br>
                         @enderror
-                        <label for="zoneCnName">中文区名 Chinese Zone Name</label>
+                        <label for="zoneCnName">中文区名称 Chinese Zone Name</label>
                         <input class="form-control  @error('zoneCnName') is-invalid @enderror" type="text"
                             id="zoneCnName" name="zoneCnName" value="{{ $zone->c_name }}">
                         @error('zoneCnName')
@@ -35,7 +35,7 @@
                             </span>
                             <br>
                         @enderror
-                        <label for="zoneEngName">英文区名 English Zone Name</label>
+                        <label for="zoneEngName">英文区名称 English Zone Name</label>
                         <input class="form-control" type="text" id="zoneEngName" name="zoneEngName"
                             value="{{ $zone->e_name }}">
                     </div>

@@ -70,12 +70,23 @@ class PlaceController extends Controller
             'placeCnName' => 'required|string',
         ]);
 
+        $image = $request->file('placeImage') ? $request->file('placeImage') : null;
+        $imageName = null;
+
+        if ($image) {
+            $imageName = $image->getClientOriginalName();
+            $destinationPath = public_path('place_images');
+            $image->move($destinationPath, $imageName); //images is the location
+        }
+
+
         $editPlace = Place::find($request->placeId);
 
         $editPlace->zone_id = $request->zone;
         $editPlace->c_name = $request->placeCnName;
         $editPlace->e_name = $request->placeEngName ? $request->placeEngName : $editPlace->e_name;
         $editPlace->branch_id = $request->branch;
+        $editPlace->image = $imageName ? $imageName : $editPlace->image;
 
         $editPlace->save();
 
