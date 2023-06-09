@@ -1,11 +1,6 @@
 @extends('layouts.app')
 
 @section('styles')
-    <style>
-        .container {
-            background-color: ;
-        }
-    </style>
 @endsection
 
 @section('content')
@@ -13,35 +8,36 @@
 
     <div class="container mt-3">
         <h1 style="text-align:center;">我的反馈 My Feedback</h1>
-        <div class="row">
+        <div class="row equal">
             @foreach ($feedbacks as $feedback)
-                <div class="col-sm-4">
-                    <div class="card mb-3">
-                        <div class="card-header">
+                <div class="col-sm-4 d-flex">
+                    <div class="card mb-3 ">
+                        <section class="card-header">
                             <img src="{{ asset('images') }}/{{ $feedback->image }}" alt="" class="img-fluid">
-                        </div>
-                        <div class="card-body">
-                            <p>Feedback Id: {{ $feedback->id }}</p>
+                        </section>
+                        <div class="card-body flex-fill">
+                            <p class="my_id">反馈编号 Feedback Id: {{ $feedback->id }}</p>
                             <p>Date: {{ $feedback->createdAtDiff }}</p>
-                            <p>Branch: {{ $feedback->branches->name }}</p>
-                            <p>Place: {{ $feedback->places->c_name }} {{ $feedback->places->e_name }}</p>
-                            <p>Title: {{ $feedback->titles->c_name }} {{ $feedback->titles->e_name }}</p>
-                            <p>Description: {{ $feedback->description }}</p>
-                            <p>Report Person: {{ $feedback->users->name }}</p>
+                            <p class="my_branch">分行 Branch: {{ $feedback->branches->name }}</p>
+                            <p>区 Zone:
+                                {{ Auth::user()->language == 'Chinese' ? $feedback->zones->c_name : $feedback->zones->e_name }}
+                            </p>
+                            <p class="my_place">地点 Place:
+                                {{ Auth::user()->language == 'Chinese' ? $feedback->places->c_name : $feedback->places->e_name }}
+                            </p>
+                            <p>种类 Category:
+                                {{ Auth::user()->language == 'Chinese' ? $feedback->categories->c_name : $feedback->categories->e_name }}
+                            </p>
+                            <p>标题 Title:
+                                {{ Auth::user()->language == 'Chinese' ? $feedback->titles->c_name : $feedback->titles->e_name }}
+                            </p>
+                            <p>描述 Description: {{ $feedback->description }}</p>
+                            <p>创建人 Created By: {{ $feedback->users->username }}</p>
+                            <p class="my_level" style="display: none;">{{ $feedback->feedback_to }}</p>
                         </div>
                         <div class="card-footer">
-                            <div class="row">
-                                <div class="col-12">
-                                    <a href="{{ route('edit_feedback', ['id' => $feedback->id]) }}"
-                                        class="btn btn-warning clear-radius btn-block">更改
-                                        Edit</a>
-                                </div>
-                                <div class="col-12">
-                                    <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"
-                                        class="btn btn-main bottom-radius btn-block">评论 Comment</a>
-                                </div>
-                            </div>
-
+                            <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
+                                    class="btn btn-main bottom-radius btn-block">评论 Comment</button></a>
                         </div>
                     </div>
                 </div>

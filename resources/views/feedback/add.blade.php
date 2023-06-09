@@ -167,7 +167,6 @@
     </script>
     <script>
         var oldInput = @json(old());
-        console.log(oldInput);
         document.getElementById("zone").disabled = true;
         document.getElementById("place").disabled = true;
         document.getElementById("title").disabled = true;

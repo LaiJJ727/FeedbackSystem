@@ -18,10 +18,10 @@ class FeedbackController extends Controller
     public function add_view(Request $request)
     {
         $data['branches'] = Branch::whereNot('status', '=', 'close')->get();
-        $data['zones'] = Zone::whereNot('status','close')->get();
-        $data['places'] = Place::where('status','exist')->get();
+        $data['zones'] = Zone::whereNot('status', 'close')->get();
+        $data['places'] = Place::where('status', 'exist')->get();
         $data['categories'] = Category::whereNot('status', 'close')->get();
-        $data['titles'] = Title::whereNot('status','close')->get();
+        $data['titles'] = Title::whereNot('status', 'close')->get();
 
         return view('feedback/add', $data);
     }
@@ -47,33 +47,58 @@ class FeedbackController extends Controller
 
         $addFeedback = Feedback::create([
             'user_id' => Auth::id(),
+            'branch_id' => $request->branch_id,
+            'zone_id' => $request->zone,
             'place_id' => $request->place,
-            'feedback_to' => $request->feedbackTo, //0 is Emergency 1 is General
+            'category_id' => $request->category,
             'title_id' => $request->title,
+            'feedback_to' => $request->feedbackTo, //0 is Emergency 1 is General
             'description' => $request->description,
             'status' => 0,
             'image' => $imageName,
-            'branch_id' => $request->branch,
         ]);
         //send notification to whatsapp
         if (API::find(1) != null) {
             $api = API::find(1)->first();
             $apiKey = $api->api;
+            $engZoneName = $addFeedback->zones->e_name ? $addFeedback->zones->e_name : ' ';
+            $engPlaceName = $addFeedback->places->e_name ? $addFeedback->places->e_name : ' ';
+            $engCategoryName = $addFeedback->categories->e_name ? $addFeedback->categories->e_name : ' ';
+            $engTitleName = $addFeedback->titles->e_name ? $addFeedback->titles->e_name : ' ';
+            $FullMessage = 'Feedback Case ID: ' . $addFeedback->id . "\nBranch: " . $addFeedback->branches->name . "\nZone: " . $addFeedback->zones->c_name . ' ' . $engZoneName . "\nPlace:" . $addFeedback->places->c_name . ' ' . $engPlaceName . "\nCategory: " . $addFeedback->categories->c_name . ' ' . $engCategoryName . "\nTitle: " . $addFeedback->titles->c_name . ' ' . $engTitleName . "\nFeedback To: " . $addFeedback->feedback_to . "\nDescription: " . $request->description;
 
-            $FullMessage = 'Feedback Case ID: ' . $addFeedback->id . "\nBranch: " . $addFeedback->branches->name . "\nPlace:" . $addFeedback->places->c_name . "\nLevel: " . $addFeedback->feedback_to . "\nTitle: " . $addFeedback->titles->c_name . "\nDescription: " . $request->description;
+            if ($addFeedback->feedback_to === 'Housekeeping') {
+                $users = User::where('role', 'Admin')
+                    ->orWhere('role', 'Housekeep')
+                    ->get();
+                foreach ($users as $user) {
+                    $data = [
+                        'phone_number' => $user->phone,
+                        'message' => $FullMessage,
+                    ];
 
-            $users = User::whereNot('role', 'Staff')->get();
-            foreach ($users as $user) {
-                $data = [
-                    'phone_number' => $user->phone,
-                    'message' => $FullMessage,
-                ];
+                    $response = \Illuminate\Support\Facades\Http::accept('application/json')
+                        ->withToken($apiKey)
+                        ->post('https://onsend.io/api/v1/send', $data);
 
-                $response = \Illuminate\Support\Facades\Http::accept('application/json')
-                    ->withToken($apiKey)
-                    ->post('https://onsend.io/api/v1/send', $data);
+                    //dump($response->body());//check only
+                }
+            } else {
+                $users = User::where('role', 'Admin')
+                    ->orWhere('role', 'Agent')
+                    ->get();
+                foreach ($users as $user) {
+                    $data = [
+                        'phone_number' => $user->phone,
+                        'message' => $FullMessage,
+                    ];
 
-                //dump($response->body());//check only
+                    $response = \Illuminate\Support\Facades\Http::accept('application/json')
+                        ->withToken($apiKey)
+                        ->post('https://onsend.io/api/v1/send', $data);
+
+                    //dump($response->body());//check only
+                }
             }
         }
 
@@ -81,47 +106,71 @@ class FeedbackController extends Controller
     }
     public function index()
     {
-        $feedbacks = Feedback::all()->where('status', '!=', 2);
+        $data['feedbacks'] = Feedback::all()->where('status', '!=', 2);
+        $data['branches'] = [];
+        $data['levels'] = [];
+        $data['place'] = [];
 
-        return view('feedback/index')->with('feedbacks', $feedbacks);
+        foreach ($data['feedbacks'] as $feedback) {
+            array_push($data['branches'],$feedback->branches->name);
+            // $data['branches'] = $feedback->branches->name;
+            // $data['levels']= $feedback->feedback_to;
+            array_push($data['levels'],$feedback->feedback_to);
+            array_push($data['place'],$feedback->places->c_name);
+
+            //later change to status
+            //$data['place']  = $feedback->places->c_name;
+        }
+
+        $data['branches']  = array_unique($data['branches']);
+        $data['levels']  = array_unique($data['levels']);
+        $data['place']  = array_unique($data['place']);
+
+        return view('feedback/index', $data);
     }
     public function myFeedback()
     {
         $feedbacks = Feedback::where([['user_id', Auth::id()], ['status', '!=', 3]])->get();
         return view('feedback/myFeedback')->with('feedbacks', $feedbacks);
     }
-    public function editFeedback($id)
-    {
-        $feedback = Feedback::find($id);
+    // public function editFeedback($id)
+    // {
+    //     $data['feedback'] = Feedback::find($id)->first();
 
-        if ($feedback->user_id != Auth::id()) {
-            redirect()->route('feedback_index');
-        }
-        $places = Place::where('branch_id', $feedback->branch_id)->get();
+    //     if ($data['feedback']->user_id != Auth::id()) {
+    //         redirect()->route('feedback_index');
+    //     }
+    //     $places = Place::where('branch_id', $data['feedback']->branch_id)->get();
 
-        $titles = Title::whereNot('status', '=', 'close')->get();
+    //     $titles = Title::whereNot('status', '=', 'close')->get();
 
-        return view('feedback/edit', compact('feedback', 'titles', 'places'));
-    }
-    public function updateFeedback()
-    {
-        $r = request();
+    //     // $data['branches'] = Branch::whereNot('status', '=', 'close')->get();
+    //     // $data['zones'] = Zone::whereNot('status', 'close')->get();
+    //     // $data['places'] = Place::where('status', 'exist')->get();
+    //     // $data['categories'] = Category::whereNot('status', 'close')->get();
+    //     // $data['titles'] = Title::whereNot('status', 'close')->get();
 
-        $feedback = Feedback::find($r->id);
-        if ($r->file('image') != '' && $feedback->image != $r->file('image')->getClientOriginalName()) {
-            $image = $r->file('image');
-            $image->move('images', $image->getClientOriginalName()); //images is the location
-            $imageName = $image->getClientOriginalName();
-            $feedback->image = $imageName;
-        }
-        $feedback->place = $r->place;
-        $feedback->level = $r->level;
-        $feedback->title = $r->title;
-        $feedback->description = $r->description;
-        $feedback->save();
+    //     return view('feedback/edit', compact('feedback', 'titles', 'places'));
+    // }
+    // public function updateFeedback()
+    // {
+    //     $r = request();
 
-        return redirect()->route('my_feedback');
-    }
+    //     $feedback = Feedback::find($r->id);
+    //     if ($r->file('image') != '' && $feedback->image != $r->file('image')->getClientOriginalName()) {
+    //         $image = $r->file('image');
+    //         $image->move('images', $image->getClientOriginalName()); //images is the location
+    //         $imageName = $image->getClientOriginalName();
+    //         $feedback->image = $imageName;
+    //     }
+    //     $feedback->place = $r->place;
+    //     $feedback->level = $r->level;
+    //     $feedback->title = $r->title;
+    //     $feedback->description = $r->description;
+    //     $feedback->save();
+
+    //     return redirect()->route('my_feedback');
+    // }
     public function searchFeedback()
     {
         $r = request();

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="container col-sm-12   mt-3">
-        <h3>Edit Feedback</h3>
+        <h3>更改反馈 Edit Feedback</h3>
         <form action="{{ route('update_feedback') }}" method="POST" enctype="multipart/form-data">
             @CSRF
             <div class="form-group">
@@ -42,7 +42,8 @@
                 <label for="image">Image</label>
                 <input class="form-control" type="file" id="image" name="image">
             </div>
-
-            <button type="submit" class="btn btn-primary">Edit Feedback</button>
+            <button type="submit" class="btn btn-main btn-block">提交 Submit</button>
         </form>
+        <script>
+        <script>
     @endsection
