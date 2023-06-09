@@ -12,7 +12,7 @@
                             @csrf
 
                             <div class="row mb-3">
-                                <label for="username" class="col-md-4 col-form-label text-md-end">Email Address or
+                                <label for="username" class="col-md-4 col-form-label text-md-end">电子邮箱或者用户名 Email Address or
                                     Username</label>
                                 <div class="col-md-6">
                                     <input id="username" type="text"
@@ -28,7 +28,7 @@
 
                             <div class="row mb-3">
                                 <label for="password"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">密码 {{ __('Password') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password" velue=""

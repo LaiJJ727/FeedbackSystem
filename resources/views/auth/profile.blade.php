@@ -1,19 +1,19 @@
 @extends('layouts.app')
 @section('content')
     <div class="container col-sm-12   mt-3">
-        <h3>Profile</h3>
+        <h3>简介 Profile</h3>
         <form action="{{ route('profile_update') }}" method="POST" enctype="multipart/form-data">
             @CSRF
             <div class="form-group">
 
                 <input class="form-control" type="hidden" id="id" name="id" value="{{ $profile->id }}">
-                <label for="username">Username</label>
+                <label for="username">用户名字 Username</label>
                 <input class="form-control" type="text" id="username" name="username" value="{{ $profile->username }}"
                     required>
-                <label for="name">Name</label>
+                <label for="name">名字 Name</label>
                 <input class="form-control" type="text" id="name" name="name" value="{{ $profile->name }}"
                     required>
-                <label for="role">Employee Type</label>
+                <label for="role">员工类型 Employee Type</label>
                 @if ($profile->role == 'Staff')
                     <input class="form-control" type="text" id="role" name="role" value="Staff" disabled>
                 @elseif($profile->role == 'Agent')
@@ -24,19 +24,19 @@
                     <input class="form-control" type="text" id="role" name="role" value="Admin" disabled>
                 @endif
                 @if ($profile->role != 'Admin')
-                    <label for="language">Language</label>
+                    <label for="language">语言 Language</label>
 
                     <select name="language" id="language"class="form-control" required>
                         @if ($profile->language == 'Chinese')
-                            <option value="Chinese" selected>Chinese</option>
-                            <option value="English">English</option>
+                            <option value="Chinese" selected>中文 Chinese</option>
+                            <option value="English">英文 English</option>
                         @else
                             <option value="Chinese">Chinese</option>
                             <option value="English" selected>English</option>
                         @endif
                     </select>
 
-                    <label for="branch_id">Branch</label>
+                    <label for="branch_id">分行 Branch</label>
                     <select name="branch_id" id="branch_id" class="form-control" required>
                         @foreach ($branches as $branch)
                             @if ($branch->id == $profile->branch_id)
@@ -47,10 +47,10 @@
                         @endforeach
                     </select>
                 @endif
-                <label for="email">Email</label>
+                <label for="email">电子邮箱 Email</label>
                 <input class="form-control" type="text" id="email" name="email" value="{{ $profile->email }}"
                     disabled>
-                <label for="phone">Phone Number</label>
+                <label for="phone">电话号码 Phone Number</label>
                 <input id="phone" type="phone" class="form-control @error('phone') is-invalid @enderror"
                     name="phone" value="{{ $profile->phone }}" required autocomplete="phone">
                 @error('phone')
@@ -60,7 +60,7 @@
                 @enderror
             </div>
 
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-primary">更新 Update</button>
         </form>
         <div>
         @endsection

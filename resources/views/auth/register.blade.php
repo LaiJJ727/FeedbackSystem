@@ -11,13 +11,13 @@
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
                             <div class="row mb-3">
-                                <label for="role" class="col-md-4 col-form-label text-md-end">Employee Type</label>
+                                <label for="role" class="col-md-4 col-form-label text-md-end">员工类型 Employee Type</label>
 
                                 <div class="col-md-2">
                                     <select name="role" id="role"class="form-control" required>
-                                        <option value="Staff" selected>Staff</option>
-                                        <option value="Agent">Agent</option>
-                                        <option value="Housekeep">Housekeep</option>
+                                        <option value="Staff" selected>员工 Staff</option>
+                                        <option value="Agent">代理人 Agent</option>
+                                        <option value="Housekeep">保洁 Housekeep</option>
                                     </select>
                                 </div>
                             </div>
@@ -26,13 +26,13 @@
 
                                 <div class="col-md-2">
                                     <select name="language" id="language"class="form-control" required>
-                                        <option value="Chinese" selected>Chinese</option>
-                                        <option value="English">English</option>
+                                        <option value="Chinese" selected>中文 Chinese</option>
+                                        <option value="English">英文 English</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="branch_id" class="col-md-4 col-form-label text-md-end">Branch</label>
+                                <label for="branch_id" class="col-md-4 col-form-label text-md-end">分行 Branch</label>
                                 <div class="col-md-2">
                                     <select name="branch_id" id="branch_id" class="form-control" required>
                                         @foreach ($branches as $branch)
@@ -43,7 +43,7 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="username" class="col-md-4 col-form-label text-md-end">Username</label>
+                                <label for="username" class="col-md-4 col-form-label text-md-end">用户名 Username</label>
 
                                 <div class="col-md-6">
                                     <input id="username" type="text"
@@ -59,7 +59,7 @@
                             </div>
                             <div class="row mb-3">
                                 <label for="name"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">名字 {{ __('Name') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text"
@@ -76,7 +76,7 @@
 
                             <div class="row mb-3">
                                 <label for="email"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">电子邮箱 {{ __('Email Address') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="email" type="email"
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="email" class="col-md-4 col-form-label text-md-end">Phone Number</label>
+                                <label for="email" class="col-md-4 col-form-label text-md-end">电话号码 Phone Number</label>
 
                                 <div class="col-md-6">
                                     <input id="phone" type="phone"
@@ -107,7 +107,7 @@
                             </div>
                             <div class="row mb-3">
                                 <label for="password"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">密码 {{ __('Password') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="password" type="password"
@@ -124,7 +124,7 @@
 
                             <div class="row mb-3">
                                 <label for="password-confirm"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">确认密码 {{ __('Confirm Password') }}</label>
 
                                 <div class="col-md-6">
                                     <input id="password-confirm" type="password" class="form-control"
@@ -135,7 +135,7 @@
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        Register
+                                       注册 Register
                                     </button>
                                 </div>
                             </div>

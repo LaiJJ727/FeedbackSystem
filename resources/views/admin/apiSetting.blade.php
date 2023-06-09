@@ -12,7 +12,7 @@
                         readonly>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Edit</button>
+                <button type="submit" class="btn btn-primary">编辑 Edit</button>
 
 
             </form>
@@ -24,7 +24,7 @@
                     <input class="form-control" type="text" id="key" name="key" value="{{ $api }}">
                 </div>
 
-                <button type="submit" class="btn btn-primary">Update</button>
+                <button type="submit" class="btn btn-primary">更新 Update</button>
             </form>
         @endif
         <div>
