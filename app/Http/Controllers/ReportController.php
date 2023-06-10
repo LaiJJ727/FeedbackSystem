@@ -14,8 +14,19 @@ class ReportController extends Controller
 {
     public function view()
     {
-        $feedbackData = Feedback::all();
-        return view('/report/view')->with('feedbacks', $feedbackData);
+        $feedbacks = Feedback::all();
+        $branches = Branch::all();
+
+        return view('/report/view', compact('feedbacks', 'branches'));
     }
 
+    public function view2(Request $request)
+    {
+        $startDate = $request->startDate;
+        $endDate = $request->endDate;
+        echo $startDate . ' ' . $endDate;
+        $feedbacks = Feedback::whereBetween('created_at', [$startDate, $endDate])->get();
+        $branches = Branch::all();
+        return view('/report/view', compact('feedbacks', 'branches', 'startDate', 'endDate'));
+    }
 }

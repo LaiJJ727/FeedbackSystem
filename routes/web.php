@@ -138,5 +138,6 @@ Route::prefix('isSuperAdmin')
         // report
         Route::controller(App\Http\Controllers\ReportController::class)->group(function () {
             Route::get('/report/view', 'view')->name('report_view');
+            Route::post('/report/view', 'view2')->name('report_search');
         });
     });
