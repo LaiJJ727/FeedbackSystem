@@ -12,7 +12,10 @@ class Comment extends Model
     protected $fillable = [ 'user_id', 'feedback_id','description','image','click_status'];
 
     protected $table = 'comments';
-
+    public function getCreatedAtDiffAttribute()
+    {
+        return $this->created_at->format('Y-m-d g:i A');
+    }
     public function users()
     {
         return $this->hasOne(User::class,'id','user_id');

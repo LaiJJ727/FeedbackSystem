@@ -41,7 +41,7 @@
             </div>
             <div id="myCard" class="container mt-3" style="background-color:white;">
                 <div class="row" id="divEmergency">
-                    <h1 style="text-align:center;">Emergency</h1>
+                    <h1 style="text-align:center;">紧急 Emergency</h1>
                     @foreach ($feedbacks as $feedback)
                         @if ($feedback->feedback_to == 'Emergency')
                             <div class="col-sm-4 d-flex">
@@ -51,21 +51,28 @@
                                             class="img-fluid">
                                     </section>
                                     <div class="card-body">
-                                        <p class="my_id">Feedback Id: {{ $feedback->id }}</p>
-                                        <p>Date: {{ $feedback->createdAtDiff }}</p>
-                                        <p class="my_branch">Branch: {{ $feedback->branches->name }}</p>
-                                        <p>Zone:  {{ Auth::user()->language == "Chinese" ?  $feedback->zones->c_name : $feedback->zones->e_name }}</p>
-                                        <p class="my_place">Place: {{ Auth::user()->language == "Chinese" ? $feedback->places->c_name : $feedback->places->e_name }}
+                                        <p class="my_id">反馈编号 Feedback Id: {{ $feedback->id }}</p>
+                                        <p>日期 Date: {{ $feedback->createdAtDiff }}</p>
+                                        <p class="my_branch">分行 Branch: {{ $feedback->branches->name }}</p>
+                                        <p>区 Zone:
+                                            {{ Auth::user()->language == 'Chinese' ? $feedback->zones->c_name : $feedback->zones->e_name }}
                                         </p>
-                                        <p>Category: {{ Auth::user()->language == "Chinese" ? $feedback->categories->c_name : $feedback->categories->e_name }}</p>
-                                        <p>Title: {{ Auth::user()->language == "Chinese" ? $feedback->titles->c_name : $feedback->titles->e_name }}</p>
-                                        <p>Description: {{ $feedback->description }}</p>
-                                        <p>Report Person: {{ $feedback->users->name }}</p>
+                                        <p class="my_place">地点 Place:
+                                            {{ Auth::user()->language == 'Chinese' ? $feedback->places->c_name : $feedback->places->e_name }}
+                                        </p>
+                                        <p>类别 Category:
+                                            {{ Auth::user()->language == 'Chinese' ? $feedback->categories->c_name : $feedback->categories->e_name }}
+                                        </p>
+                                        <p>标题 Title:
+                                            {{ Auth::user()->language == 'Chinese' ? $feedback->titles->c_name : $feedback->titles->e_name }}
+                                        </p>
+                                        <p>描述 Description: {{ $feedback->description }}</p>
+                                        <p>反馈人员 Report Person: {{ $feedback->users->name }}</p>
                                         <p class="my_level" style="display: none;">{{ $feedback->feedback_to }}</p>
                                     </div>
                                     <div class="card-footer">
                                         <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
-                                                class="btn btn-main bottom-radius btn-block">Comment</button></a>
+                                                class="btn btn-main bottom-radius btn-block">评论 Comment</button></a>
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +81,7 @@
 
                 </div>
                 <div class="row" id="divGeneral">
-                    <h1 style="text-align:center;">General</h1>
+                    <h1 style="text-align:center;">普通 General</h1>
                     @foreach ($feedbacks as $feedback)
                         @if ($feedback->feedback_to == 'General')
                             <div class="col-sm-4 d-flex">
@@ -84,20 +91,28 @@
                                             class="img-fluid">
                                     </section>
                                     <div class="card-body">
-                                        <p class="my_id">Feedback Id: {{ $feedback->id }}</p>
-                                        <p>Date: {{ $feedback->createdAtDiff }}</p>
-                                        <p class="my_branch">Branch: {{ $feedback->branches->name }}</p>
-                                        <p class="my_place">Place: {{ $feedback->places->c_name }}
-                                            {{ $feedback->places->e_name }}
+                                        <p class="my_id">反馈编号 Feedback Id: {{ $feedback->id }}</p>
+                                        <p>日期 Date: {{ $feedback->createdAtDiff }}</p>
+                                        <p class="my_branch">分行 Branch: {{ $feedback->branches->name }}</p>
+                                        <p>区 Zone:
+                                            {{ Auth::user()->language == 'Chinese' ? $feedback->zones->c_name : $feedback->zones->e_name }}
                                         </p>
-                                        <p>Title: {{ Auth::user()->language == "Chinese" ? $feedback->titles->c_name : $feedback->titles->e_name }}</p>
-                                        <p>Description: {{ $feedback->description }}</p>
-                                        <p>Report Person: {{ $feedback->users->name }}</p>
+                                        <p class="my_place">地点 Place:
+                                            {{ Auth::user()->language == 'Chinese' ? $feedback->places->c_name : $feedback->places->e_name }}
+                                        </p>
+                                        <p>类别 Category:
+                                            {{ Auth::user()->language == 'Chinese' ? $feedback->categories->c_name : $feedback->categories->e_name }}
+                                        </p>
+                                        <p>标题 Title:
+                                            {{ Auth::user()->language == 'Chinese' ? $feedback->titles->c_name : $feedback->titles->e_name }}
+                                        </p>
+                                        <p>描述 Description: {{ $feedback->description }}</p>
+                                        <p>反馈人员 Report Person: {{ $feedback->users->name }}</p>
                                         <p class="my_level" style="display: none;">{{ $feedback->feedback_to }}</p>
                                     </div>
                                     <div class="card-footer">
                                         <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
-                                                class="btn btn-main bottom-radius btn-block">Comment</button></a>
+                                                class="btn btn-main bottom-radius btn-block">评论 Comment</button></a>
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +120,7 @@
                     @endforeach
                 </div>
                 <div class="row" id="divHousekeeping">
-                    <h1 style="text-align:center;">Housekeeping</h1>
+                    <h1 style="text-align:center;">保洁 Housekeeping</h1>
                     @foreach ($feedbacks as $feedback)
                         @if ($feedback->feedback_to == 'Housekeeping')
                             <div class="col-sm-4 d-flex">
@@ -115,20 +130,28 @@
                                             class="img-fluid">
                                     </section>
                                     <div class="card-body">
-                                        <p class="my_id">Feedback Id: {{ $feedback->id }}</p>
-                                        <p>Date: {{ $feedback->createdAtDiff }}</p>
-                                        <p class="my_branch">Branch: {{ $feedback->branches->name }}</p>
-                                        <p class="my_place">Place: {{ $feedback->places->c_name }}
-                                            {{ $feedback->places->e_name }}
+                                        <p class="my_id">反馈编号 Feedback Id: {{ $feedback->id }}</p>
+                                        <p>日期 Date: {{ $feedback->createdAtDiff }}</p>
+                                        <p class="my_branch">分行 Branch: {{ $feedback->branches->name }}</p>
+                                        <p>区 Zone:
+                                            {{ Auth::user()->language == 'Chinese' ? $feedback->zones->c_name : $feedback->zones->e_name }}
                                         </p>
-                                        <p>Title: {{ $feedback->titles->c_name }} {{ $feedback->titles->e_name }}</p>
-                                        <p>Description: {{ $feedback->description }}</p>
-                                        <p>创建人 Created By: {{ $feedback->users->name }}</p>
+                                        <p class="my_place">地点 Place:
+                                            {{ Auth::user()->language == 'Chinese' ? $feedback->places->c_name : $feedback->places->e_name }}
+                                        </p>
+                                        <p>类别 Category:
+                                            {{ Auth::user()->language == 'Chinese' ? $feedback->categories->c_name : $feedback->categories->e_name }}
+                                        </p>
+                                        <p>标题 Title:
+                                            {{ Auth::user()->language == 'Chinese' ? $feedback->titles->c_name : $feedback->titles->e_name }}
+                                        </p>
+                                        <p>描述 Description: {{ $feedback->description }}</p>
+                                        <p>反馈人员 Report Person: {{ $feedback->users->name }}</p>
                                         <p class="my_level" style="display: none;">{{ $feedback->feedback_to }}</p>
                                     </div>
                                     <div class="card-footer">
                                         <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
-                                                class="btn btn-main bottom-radius btn-block">Comment</button></a>
+                                                class="btn btn-main bottom-radius btn-block">评论 Comment</button></a>
                                     </div>
                                 </div>
                             </div>
@@ -141,10 +164,9 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script>
-
         //declare level
         var all_levels = {!! json_encode($levels) !!};
-        
+
         function searchFunction() {
             // get values
             var value = $('#searchKey').val().toLowerCase();

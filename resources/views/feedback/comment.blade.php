@@ -9,106 +9,133 @@
 @endsection
 
 @section('content')
-    @inject('carbon', 'Carbon\Carbon')
-    <div class="container my-5 mt-3 ">
-        <div class="card">
-            <h2 style="text-align: center;">Feedback</h2>
-            <div class="row" style="text-align: center;">
-                <div class="col-sm-12">
-                    <div class="card m-3 ">
-                        @if ($feedback)
-                            <div class="card-header">
-                                <p style="margin-bottom:5px !important;">Date:
-                                    {{ $carbon::parse($feedback->created_at)->format('Y-m-d g:i A') }}</p>
-                                <p style="margin-bottom:5px !important;">Place: {{ $feedback->branches->name }}</p>
-                            </div>
-                            <div class="card-body"><img src="{{ asset('images') }}/{{ $feedback->image }}" alt=""
-                                    width="500" class="img-fluid">
-                                <p style="margin-bottom:5px !important;">Place: {{ $feedback->places->name }}</p>
-                                @if ($feedback->level == 1)
-                                    <p style="margin-bottom:5px !important;">Level: Emergency</p>
-                                @else
-                                    <p style="margin-bottom:5px !important;">Status: General</p>
-                                @endif
-                                <p style="margin-bottom:5px !important;">Description: {{ $feedback->description }}</p>
-                                <p style="margin-bottom:5px !important;">Report Person: {{ $feedback->users->name }}</p>
-
-                            </div>
-                    </div>
-                </div>
-                @endif
+    <div class="container">
+        <h2 class="text-center">反馈 Feedback</h2>
+        <div class="row">
+            <div class="col-sm-2">
             </div>
-            @if (Auth::user()->role == 0)
-                <div class="card m-3">
-                    <div class="row">
-                        <div class="col-sm-12">
+            <div class="col-12 col-sm-8">
+                @if ($feedback)
+                    <div class="card">
+                        <div class="card-header p-0">
+                            <img src="{{ asset('images') }}/{{ $feedback->image }}" alt="" class="img-fluid rounded">
+                        </div>
+                        <div class="card-body border-bottom">
+                            <h5><b>情况 Situation: {{ $feedback->feedback_to }}</b></h5>
+                            <p>反馈编号 Feedback Id: {{ $feedback->id }}</p>
+                            <p>日期 Date: {{ $feedback->createdAtDiff }}</p>
+                            <p>分行 Branch: {{ $feedback->branches->name }}</p>
+                            <p>区 Zone:
+                                {{ Auth::user()->language == 'Chinese' ? $feedback->zones->c_name : $feedback->zones->e_name }}
+                            </p>
+                            <p class="my_place">地点 Place:
+                                {{ Auth::user()->language == 'Chinese' ? $feedback->places->c_name : $feedback->places->e_name }}
+                            </p>
+                            <p>类别 Category:
+                                {{ Auth::user()->language == 'Chinese' ? $feedback->categories->c_name : $feedback->categories->e_name }}
+                            </p>
+                            <p>标题 Title:
+                                {{ Auth::user()->language == 'Chinese' ? $feedback->titles->c_name : $feedback->titles->e_name }}
+                            </p>
+                            <p>描述 Description: {{ $feedback->description }}</p>
+                            <p>反馈人员 Report Person: {{ $feedback->users->name }}</p>
+                            @if ($feedback->status == 0)
+                                <p>情况 Status: 新 New</p>
+                            @elseif($feedback->status == 1)
+                                <p>情况 Status: 搁置 On Hold</p>
+                            @elseif ($feedback->status == 2)
+                                <p>情况 Status: 待定 Pending</p>
+                            @else
+                                <p>情况 Status: 完成 Complete</p>
+                            @endif
+                        </div>
+                        <div class="card-footer m-3">
+                            <h4>添加新的评论 Add New Comment</h4>
                             <form action="{{ route('add_comment') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="id" value="{{ $feedback->id }}" required>
-                                <h2 style="text-align: center;">Comment</h2>
-                                <!--For Loop the exisiting comment-->
-                                @foreach ($feedback->comments as $comment)
-                                    <p>{{ $carbon::parse($comment->created_at)->format('Y-m-d g:i A') }}-
-                                        {{ $comment->users->name }}: {{ $comment->description }}</p>
-                                    @if ($comment->image != '')
-                                        <img src="{{ asset('comment_images/') }}/{{ $comment->image }}" alt=""
-                                            width="300" class="img">
-                                    @endif
-                                    <hr>
-                                @endforeach
-                                <!--end for loop-->
-                                <label for="description">Comment</label>
-                                <input class="form-control" id="description" name="description" value="">
-                                <label for="image">Image</label>
-                                <input class="form-control" type="file" id="image" name="image">
-                                <button class="btn btn-primary  btn-lg btn-block mt-3 mb-3">Save</button>
+                                <input type="hidden" name="id" value="{{ $feedback->id }}">
+                                @if ($feedback->feedback_to == 'Houskeeping' && Auth::user()->role == 'Housekeep')
+                                    <label for="status">Status</label>
+                                    <select name="status" id="status" class="form-control"
+                                        value="{{ $feedback->status }}">
+                                        <option disabled selected value>-- 选择一个情况 Select one stauts --</option>
+                                        <option value="1">搁置 On Hold</option>
+                                        <option value="2">待定 Pending</option>
+                                        <option value="3">完成 Complete</option>
+                                    </select>
+                                @elseif(
+                                    (Auth::user()->role == 'Admin' || Auth::user()->role == 'Agent') &&
+                                        ($feedback->feedback_to == 'General' || $feedback->feedback_to == 'Emergency'))
+                                    <label for="status">情况 Status</label> <small style="color:red"> 非必要选择 Non essential selection</small>
+                                    <select name="status" id="status" class="form-control"
+                                        value="{{ $feedback->status }}">
+                                        <option disabled selected value>-- 选择一个情况 Select one stauts --</option>
+                                        <option value="1">搁置 On Hold</option>
+                                        <option value="2">待定 Pending</option>
+                                        <option value="3">完成 Complete</option>
+                                    </select>
+                                @endif
+                                <label for="description">评论 Comment</label>
+                                <input class="form-control  @error('description') is-invalid @enderror" id="description" name="description" value="">
+                                @error('description')
+                                    <span class="invalid-message" style="color:red;" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    <br>
+                                @enderror
+                                <label for="image">图片 Image</label><small style="color:red"> 非必要选择 Non essential selection</small>
+                                <input class="form-control  @error('image') is-invalid @enderror" type="file" id="image" name="image"> 
+                                @error('image')
+                                    <span class="invalid-message" style="color:red;" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    <br>
+                                @enderror
+                                <button class="btn btn-main btn-lg btn-block mt-3 mb-3">发送 Send</button>
                                 <form>
-
                         </div>
-                        <div>
-                        </div>
-                    @else
-                        <div class="card m-3">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <form action="{{ route('add_comment') }}" method="POST" enctype="multipart/form-data">
-                                        @csrf
-                                        <div style="margin:2%;">
-                                            @if (Auth::user()->role == 1 || 2)
-                                                <label for="status">Status</label>
-                                                <select name="status" id="status" class="form-control"
-                                                    value="{{ $feedback->status }}" required>
-                                                    <option value="1">On Hold</option>
-                                                    <option value="2">Pending</option>
-                                                    <option value="3">Complete</option>
-                                                </select>
-                                            @endif
-                                            <input type="hidden" name="id" value="{{ $feedback->id }}">
-                                            <h2 style="margin-top: 15px;">Comment</h2>
-                                            <!--For Loop the exisiting comment-->
-                                            @foreach ($feedback->comments as $comment)
-                                                <p>{{ $carbon::parse($comment->created_at)->format('Y-m-d g:i A') }}-
-                                                    {{ $comment->users->name }}: {{ $comment->description }}</p>
-                                                @if ($comment->image != '')
-                                                    <img src="{{ asset('comment_images/') }}/{{ $comment->image }}"
-                                                        alt="" width="300" class="img">
-                                                @endif
-                                                <hr>
-                                            @endforeach
-                                            <!--end for loop-->
-                                            <label for="description">Comment</label>
-                                            <input class="form-control" id="description" name="description" value=""
-                                                required>
-                                            <label for="image">Image</label>
-                                            <input class="form-control" type="file" id="image" name="image">
-                                            <button class="btn btn-primary  btn-lg btn-block mt-3 mb-3">Save</button>
-                                        </div>
-                                        <form>
-
-                                </div>
-                                <div>
-                                    <div>
+                    </div>
+            </div>
             @endif
+            <div class="col-sm-2">
+            </div>
+            <div class="mb-2 mb-sm-3">
+            </div>
+            <div class="col-sm-2">
+            </div>
+            <div class="col-12 col-sm-8">
+                <h5><strong>历史评论 History Comment<strong></h5>
+                @if ($feedback)
+                    @foreach ($feedback->comments as $comment)
+                        <div class="card">
+                            <div class="card-header m-3">
+
+                                <div>{{ $comment->createdAtDiff }}
+                                    @if ($comment->click_status == 1)
+                                        <strong class="py-1" style="border: 5px; background-color:red;">#搁置 On
+                                            Hold</strong>
+                                    @elseif ($comment->click_status == 2)
+                                        <strong class="p-1" style="border: 5px; background-color:yellow; color:black">#待定
+                                            Pending</strong>
+                                    @elseif ($comment->click_status == 3)
+                                        <strong class="p-1" style="border: 5px; background-color:green;">#完成
+                                            Complete</strong>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                @if ($comment->image != '')
+                                    <img src="{{ asset('comment_images/') }}/{{ $comment->image }}" alt=""
+                                        class="img-fluid">
+                                @endif
+                                <p>{{ $comment->users->name }}: {{ $comment->description }}</p>
+                            </div>
+                        </div>
+                    @endforeach
+            </div>
+            @endif
+            <div class="col-sm-2">
+            </div>
         </div>
     </div>
 @endsection

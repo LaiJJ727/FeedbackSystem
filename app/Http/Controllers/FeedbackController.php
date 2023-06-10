@@ -112,19 +112,19 @@ class FeedbackController extends Controller
         $data['place'] = [];
 
         foreach ($data['feedbacks'] as $feedback) {
-            array_push($data['branches'],$feedback->branches->name);
+            array_push($data['branches'], $feedback->branches->name);
             // $data['branches'] = $feedback->branches->name;
             // $data['levels']= $feedback->feedback_to;
-            array_push($data['levels'],$feedback->feedback_to);
-            array_push($data['place'],$feedback->places->c_name);
+            array_push($data['levels'], $feedback->feedback_to);
+            array_push($data['place'], $feedback->places->c_name);
 
             //later change to status
             //$data['place']  = $feedback->places->c_name;
         }
 
-        $data['branches']  = array_unique($data['branches']);
-        $data['levels']  = array_unique($data['levels']);
-        $data['place']  = array_unique($data['place']);
+        $data['branches'] = array_unique($data['branches']);
+        $data['levels'] = array_unique($data['levels']);
+        $data['place'] = array_unique($data['place']);
 
         return view('feedback/index', $data);
     }
@@ -133,56 +133,28 @@ class FeedbackController extends Controller
         $feedbacks = Feedback::where([['user_id', Auth::id()], ['status', '!=', 3]])->get();
         return view('feedback/myFeedback')->with('feedbacks', $feedbacks);
     }
-    // public function editFeedback($id)
-    // {
-    //     $data['feedback'] = Feedback::find($id)->first();
-
-    //     if ($data['feedback']->user_id != Auth::id()) {
-    //         redirect()->route('feedback_index');
-    //     }
-    //     $places = Place::where('branch_id', $data['feedback']->branch_id)->get();
-
-    //     $titles = Title::whereNot('status', '=', 'close')->get();
-
-    //     // $data['branches'] = Branch::whereNot('status', '=', 'close')->get();
-    //     // $data['zones'] = Zone::whereNot('status', 'close')->get();
-    //     // $data['places'] = Place::where('status', 'exist')->get();
-    //     // $data['categories'] = Category::whereNot('status', 'close')->get();
-    //     // $data['titles'] = Title::whereNot('status', 'close')->get();
-
-    //     return view('feedback/edit', compact('feedback', 'titles', 'places'));
-    // }
-    // public function updateFeedback()
-    // {
-    //     $r = request();
-
-    //     $feedback = Feedback::find($r->id);
-    //     if ($r->file('image') != '' && $feedback->image != $r->file('image')->getClientOriginalName()) {
-    //         $image = $r->file('image');
-    //         $image->move('images', $image->getClientOriginalName()); //images is the location
-    //         $imageName = $image->getClientOriginalName();
-    //         $feedback->image = $imageName;
-    //     }
-    //     $feedback->place = $r->place;
-    //     $feedback->level = $r->level;
-    //     $feedback->title = $r->title;
-    //     $feedback->description = $r->description;
-    //     $feedback->save();
-
-    //     return redirect()->route('my_feedback');
-    // }
-    public function searchFeedback()
-    {
-        $r = request();
-        $keyword = $r->keyword;
-        $feedbacks = Feedback::where([['id', 'like', '%' . $keyword . '%'], ['status', '!=', 2]])->get();
-
-        return view('feedback/index')->with('feedbacks', $feedbacks);
-    }
     public function feedbackIndexComplete()
     {
-        $feedbacks = Feedback::all()->where('status', 2);
+        $data['feedbacks']= Feedback::all()->where('status', 2);
+        $data['branches'] = [];
+        $data['levels'] = [];
+        $data['place'] = [];
 
-        return view('feedback/index')->with('feedbacks', $feedbacks);
+        foreach ($data['feedbacks'] as $feedback) {
+            array_push($data['branches'], $feedback->branches->name);
+            // $data['branches'] = $feedback->branches->name;
+            // $data['levels']= $feedback->feedback_to;
+            array_push($data['levels'], $feedback->feedback_to);
+            array_push($data['place'], $feedback->places->c_name);
+
+            //later change to status
+            //$data['place']  = $feedback->places->c_name;
+        }
+
+        $data['branches'] = array_unique($data['branches']);
+        $data['levels'] = array_unique($data['levels']);
+        $data['place'] = array_unique($data['place']);
+
+        return view('feedback/index', $data);
     }
 }

@@ -11,33 +11,40 @@ class CommentController extends Controller
 {
     public function indexComment($id)
     {
-        $feedback = Feedback::find($id);
+        $data['feedback'] = Feedback::find($id);
 
-        return view('feedback/comment')->with('feedback', $feedback);
+        return view('feedback/comment',$data);
     }
-    public function addComment()
+    public function addComment(Request $request)
     {
-        $r = request();
+        // valdiate
+        $request->validate([
+            'description' => 'required',
+            'image' => 'image|mimes:png,jpg,jpeg,gif,svg',
+        ]);
 
-        $feedback = Feedback::find($r->id);
-        $feedback->status = $r->status ? $r->status : '';
+
+        $feedback = Feedback::find($request->id);
+        $feedback->status = $request->status ? $request->status : $feedback->status ;
         $feedback->save();
 
-        $image = $r->file('image');
+        $image = $request->file('image') ? $request->file('image') : null;
+        $imageName = null;
+
         if ($image) {
-            $image->move('public/comment_images', $image->getClientOriginalName()); //images is the location
             $imageName = $image->getClientOriginalName();
-        }else{
-            $imageName= "";
+            $destinationPath = public_path('comment_images');
+            $image->move($destinationPath, $imageName); //images is the location
         }
 
         $addComment = Comment::create([
             'user_id' => Auth::id(),
-            'feedback_id' => $r->id,
-            'description' => $r->description,
+            'feedback_id' => $request->id,
+            'description' => $request->description,
             'image' => $imageName,
+            'click_status' => $request->status ? $request->status: 0,
         ]);
 
-        return redirect()->route('feedback_index');
+        return back();
     }
 }
