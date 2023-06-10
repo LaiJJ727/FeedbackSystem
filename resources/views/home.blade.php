@@ -42,38 +42,4 @@
         </div>
     </div>
 @endsection
-<style>
-    .grid_rows {
-        display: flex;
-        /* margin: 10px; */
-    }
 
-    .grid_columns {
-        padding: 10px;
-        width: 50%;
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .grid_columns a {
-        flex: 1;
-        display: block;
-        text-align: center;
-        justify-content: center;
-    }
-
-    @media(max-width: 1000px) {
-        .grid_rows {
-            display: block;
-        }
-
-        .grid_columns {
-            width: 100%;
-        }
-    }
-
-    b {
-        justify-content: center;
-
-    }
-</style>

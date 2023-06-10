@@ -70,10 +70,10 @@
                                         <p>反馈人员 Report Person: {{ $feedback->users->name }}</p>
                                         <p class="my_level" style="display: none;">{{ $feedback->feedback_to }}</p>
                                     </div>
-                                    <div class="card-footer">
+                                    <section class="card-footer">
                                         <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
                                                 class="btn btn-main bottom-radius btn-block">评论 Comment</button></a>
-                                    </div>
+                                    </section>
                                 </div>
                             </div>
                         @endif
@@ -110,10 +110,10 @@
                                         <p>反馈人员 Report Person: {{ $feedback->users->name }}</p>
                                         <p class="my_level" style="display: none;">{{ $feedback->feedback_to }}</p>
                                     </div>
-                                    <div class="card-footer">
+                                    <section class="card-footer">
                                         <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
                                                 class="btn btn-main bottom-radius btn-block">评论 Comment</button></a>
-                                    </div>
+                                    </section>
                                 </div>
                             </div>
                         @endif
@@ -149,10 +149,10 @@
                                         <p>反馈人员 Report Person: {{ $feedback->users->name }}</p>
                                         <p class="my_level" style="display: none;">{{ $feedback->feedback_to }}</p>
                                     </div>
-                                    <div class="card-footer">
+                                    <section class="card-footer">
                                         <a href="{{ route('feedback_index_comment', ['id' => $feedback->id]) }}"><button
                                                 class="btn btn-main bottom-radius btn-block">评论 Comment</button></a>
-                                    </div>
+                                    </section>
                                 </div>
                             </div>
                         @endif
