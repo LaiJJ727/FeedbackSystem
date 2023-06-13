@@ -106,7 +106,7 @@ class FeedbackController extends Controller
     }
     public function index()
     {
-        $data['feedbacks'] = Feedback::all()->where('status', '!=', 2);
+        $data['feedbacks'] = Feedback::all()->where('status', '!=', 3);
         $data['branches'] = [];
         $data['levels'] = [];
         $data['place'] = [];
@@ -135,7 +135,7 @@ class FeedbackController extends Controller
     }
     public function feedbackIndexComplete()
     {
-        $data['feedbacks']= Feedback::all()->where('status', 2);
+        $data['feedbacks']= Feedback::all()->where('status', 3);
         $data['branches'] = [];
         $data['levels'] = [];
         $data['place'] = [];

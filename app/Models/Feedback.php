@@ -21,6 +21,10 @@ class Feedback extends Model
     {
         return $this->created_at->format('Y-m-d g:i A');
     }
+    public function getUpdateAtDiffAttribute()
+    {
+        return $this->updated_at->format('Y-m-d g:i A');
+    }
     public function branches()
     {
         return $this->hasOne(Branch::class, 'id', 'branch_id');

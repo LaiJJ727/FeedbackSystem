@@ -8,33 +8,55 @@
                     <div class="p-2">
                         <form action="{{ route('report_search') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div>
-                                <label for="startDate">From Date</label>
-                                <input id="startDate" name="startDate" type="date" value="{{ $startDate }}">
-                                <label for="endDate">To Date</label>
-                                <input id="endDate" name="endDate" type="date" value="{{ $endDate }}">
-                                <button class="btn btn-primary" type="submit" id="button-addon2">Search</button>
-
+                            <div class="form-group row">
+                                <div class="col-4 col-sm-3">
+                                    <label for="startDate">开始日期 From Date</label>
+                                    <input class="form-control" id="startDate" name="startDate" type="date"
+                                        value="{{ isset($startDate) ? $startDate : '' }}">
+                                </div>
+                                <div class="col-4 col-sm-3">
+                                    <label for="endDate">结束日期 To Date</label>
+                                    <input class="form-control" id="endDate" name="endDate" type="date"
+                                        value="{{ isset($endDate) ? $endDate : '' }}">
+                                </div>
+                                <div class="col-3">
+                                    <br>
+                                    <button class="btn btn-main" style="margin-top: 8px" type="submit"
+                                        id="button-addon2">搜索 Search</button>
+                                </div>
                             </div>
                         </form>
                     </div>
 
                     <section class="table_header">
                         <h1 class="table_header_body" style="font-size:30px;"><b>报告 Report</b></h1>
-                        {{-- <div class="input-group table_header_body">
-                            <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
-                            <input type="text" class="form-control clear-border" id="searchKey"
-                                placeholder="搜索名字 Search by name" onkeyup="searchFunction()"
-                                aria-describedby="basic-addon1">
-                        </div> --}}
                     </section>
                     <section class="table_body">
                         <table class="table table-borderless shadow-sm" id="myTable">
                             <thead>
                                 <tr>
                                     {{-- 分行<br>区域<br>地方<br>类别<br>标题<br>图片<br>反馈日<br> --}}
-                                    <th scope="col">Branch Name</th>
+                                    <th scope="col">分行名字 Branch Name</th>
                                     @foreach ($branches as $branch)
+                                        <th scope="col">{{ $branch->name }}</th>
+                                    @endforeach
+                                     @foreach ($branches as $branch)
+                                        <th scope="col">{{ $branch->name }}</th>
+                                    @endforeach
+
+                                     @foreach ($branches as $branch)
+                                        <th scope="col">{{ $branch->name }}</th>
+                                    @endforeach
+
+                                     @foreach ($branches as $branch)
+                                        <th scope="col">{{ $branch->name }}</th>
+                                    @endforeach
+                                     @foreach ($branches as $branch)
+                                        <th scope="col">{{ $branch->name }}</th>
+                                    @endforeach
+                                     @foreach ($branches as $branch)
+                                        <th scope="col">{{ $branch->name }}</th>
+                                    @endforeach @foreach ($branches as $branch)
                                         <th scope="col">{{ $branch->name }}</th>
                                     @endforeach
                                 </tr>
@@ -42,7 +64,24 @@
                             <tbody>
                                 @for ($i = 0; $i < 4; $i++)
                                     <tr>
-                                        <td>{{ $i }}</td>
+                                        <td>
+                                            @switch($i)
+                                                @case(0)
+                                                    新 New
+                                                @break
+
+                                                @case(1)
+                                                    搁置 On Hold
+                                                @break
+
+                                                @case(2)
+                                                    待定 Pending
+                                                @break
+
+                                                @default
+                                                    完成 Complete
+                                            @endswitch
+                                        </td>
                                         @foreach ($branches as $branch)
                                             <td>{{ $feedbacks->where('status', $i)->where('branch_id', $branch->id)->count() }}
                                             </td>
@@ -55,12 +94,6 @@
                     </section>
                     <section class="table_header">
                         <h1 class="table_header_body" style="font-size:30px;"><b>报告 Report</b></h1>
-                        {{-- <div class="input-group table_header_body">
-                                    <span class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></span>
-                                    <input type="text" class="form-control clear-border" id="searchKey"
-                                        placeholder="搜索名字 Search by name" onkeyup="searchFunction()"
-                                        aria-describedby="basic-addon1">
-                                </div> --}}
                     </section>
                     <section class="table_body">
                         <table class="table table-borderless shadow-sm" id="myTable">
@@ -68,15 +101,15 @@
                                 <tr>
                                     {{-- 分行<br>区域<br>地方<br>类别<br>标题<br>图片<br>反馈日<br> --}}
                                     <th scope="col">Id</th>
-                                    <th scope="col">Branch Name</th>
-                                    <th scope="col">Place Zone</th>
-                                    <th scope="col">Place Name</th>
-                                    <th scope="col">Place Category</th>
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Feeback By</th>
-                                    <th scope="col">Feedback Date</th>
-                                    <th scope="col">Latest Status</th>
-                                    <th scope="col">Last Updated By</th>
+                                    <th scope="col">分行名字<br> Branch Name</th>
+                                    <th scope="col">区 <br> Zone</th>
+                                    <th scope="col">地点 <br> Place</th>
+                                    <th scope="col">类别 <br> Category</th>
+                                    <th scope="col">标题 <br> Title</th>
+                                    <th scope="col">创建人 <br> Feedback By</th>
+                                    <th scope="col">日期 <br> Date</th>
+                                    <th scope="col">最新状态 <br> Latest Status</th>
+                                    <th scope="col">上次更新日期 <br> Last Updated Date</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -91,19 +124,26 @@
                                         </td>
                                         <td>{{ $feedback->titles->c_name . ' ' . $feedback->titles->e_name }}</td>
                                         <td>{{ $feedback->users->name }}</td>
-                                        <td>{{ $feedback->created_at->format('d/m/Y') }}</td>
+                                        <td>{{ $feedback->created_at_diff }}</td>
                                         <td>
-                                            <?php switch ($feedback->status) {
-                                                case '0':
-                                                    echo 'New';
-                                                    break;
-                                            
-                                                default:
-                                                    echo 'Completed';
-                                                    break;
-                                            } ?>
+                                            @switch($feedback->status)
+                                                @case(0)
+                                                    新 New
+                                                @break
+
+                                                @case(1)
+                                                    搁置 On Hold
+                                                @break
+
+                                                @case(2)
+                                                    待定 Pending
+                                                @break
+
+                                                @default
+                                                    完成 Complete
+                                            @endswitch
                                         </td>
-                                        <td>{{ $feedback->updated_at->format('d/m/Y') }}</td>
+                                        <td>{{ $feedback->update_at_diff}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
