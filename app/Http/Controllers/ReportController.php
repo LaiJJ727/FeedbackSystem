@@ -9,6 +9,7 @@ use App\Models\Feedback;
 use App\Models\Branch;
 use App\Models\Place;
 use App\Models\Title;
+use PDF;
 
 class ReportController extends Controller
 {
@@ -29,4 +30,13 @@ class ReportController extends Controller
         $branches = Branch::all();
         return view('/report/view', compact('feedbacks', 'branches', 'startDate', 'endDate'));
     }
+
+    // public function generate()
+    // {
+    //     $feedbacks = Feedback::all();
+    //     $branches = Branch::all();
+    //     $data = compact('feedbacks', 'branches');
+    //     $pdf = PDF::loadView('/report/view',$data);
+    //     return $pdf->download('eport.pdf');
+    // }
 }
