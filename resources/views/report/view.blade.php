@@ -29,70 +29,114 @@
                         </form>
                     </div>
                     <div id="myReport">
+                        <p id="showStartDate" style="display:none">开始日期 From Date: </p>
+                        <p id="showEndDate" style="display:none">结束日期 To Date: </p>
                         <section class="table_header">
                             <h1 class="table_header_body" style="font-size:30px;"><b>报告 Report</b></h1>
                         </section>
                         <section class="table_body">
-                            <table class="table table-borderless shadow-sm" id="myTable">
-                                <thead>
-                                    <tr>
-                                        {{-- 分行<br>区域<br>地方<br>类别<br>标题<br>图片<br>反馈日<br> --}}
-                                        <th scope="col">分行名字 Branch Name</th>
-                                        @foreach ($branches as $branch)
-                                            <th scope="col">{{ $branch->name }}</th>
-                                        @endforeach
-                                        {{-- @foreach ($branches as $branch)
-                                            <th scope="col">{{ $branch->name }}</th>
-                                        @endforeach
-
-                                        @foreach ($branches as $branch)
-                                            <th scope="col">{{ $branch->name }}</th>
-                                        @endforeach
-
-                                        @foreach ($branches as $branch)
-                                            <th scope="col">{{ $branch->name }}</th>
-                                        @endforeach
-                                        @foreach ($branches as $branch)
-                                            <th scope="col">{{ $branch->name }}</th>
-                                        @endforeach
-                                        @foreach ($branches as $branch)
-                                            <th scope="col">{{ $branch->name }}</th>
-                                        @endforeach @foreach ($branches as $branch)
-                                            <th scope="col">{{ $branch->name }}</th>
-                                        @endforeach --}}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @for ($i = 0; $i < 4; $i++)
+                            @if ($branches->count() / 15 <= 1)
+                                <table class="table table-borderless shadow-sm" id="myTable">
+                                    <thead>
                                         <tr>
-                                            <td>
-                                                @switch($i)
-                                                    @case(0)
-                                                        新 New
-                                                    @break
-
-                                                    @case(1)
-                                                        搁置 On Hold
-                                                    @break
-
-                                                    @case(2)
-                                                        待定 Pending
-                                                    @break
-
-                                                    @default
-                                                        完成 Complete
-                                                @endswitch
-                                            </td>
+                                            <th scope="col">分行名字 Branch Name</th>
                                             @foreach ($branches as $branch)
-                                                <td>{{ $feedbacks->where('status', $i)->where('branch_id', $branch->id)->count() }}
-                                                </td>
+                                                <th scope="col">{{ $branch->name }}</th>
                                             @endforeach
                                         </tr>
-                                    @endfor
+                                    </thead>
+                                    <tbody>
+                                        @for ($i = 0; $i < 4; $i++)
+                                            <tr>
+                                                <td>
+                                                    @switch($i)
+                                                        @case(0)
+                                                            新 New
+                                                        @break
 
-                                </tbody>
-                            </table>
+                                                        @case(1)
+                                                            搁置 On Hold
+                                                        @break
+
+                                                        @case(2)
+                                                            待定 Pending
+                                                        @break
+
+                                                        @default
+                                                            完成 Complete
+                                                    @endswitch
+                                                </td>
+                                                @foreach ($branches as $branch)
+                                                    <td>{{ $feedbacks->where('status', $i)->where('branch_id', $branch->id)->count() }}
+                                                    </td>
+                                                @endforeach
+                                            </tr>
+                                        @endfor
+                                    </tbody>
+                                </table>
+                            @else
+                                @for ($i = 0; $i <= (int) ($branches->count() / 15); $i++)
+                                    <table class="table table-borderless shadow-sm" id="myTable">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">分行名字 Branch Name</th>
+                                                @foreach ($branches as $key => $branch)
+                                                    @if ($i > 0)
+                                                        @if ($key >= 15 * $i && $key < 15 * ($i + 1))
+                                                            <th scope="col">{{ $branch->name }}</th>
+                                                        @endif
+                                                    @else
+                                                        @if ($key > -1 && $key < 15 * ($i + 1))
+                                                            <th scope="col">
+                                                                {{ $branch->name }}
+                                                            </th>
+                                                        @endif
+                                                    @endif
+                                                @endforeach
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for ($a = 0; $a < 4; $a++)
+                                                <tr>
+                                                    <td>
+                                                        @switch($a)
+                                                            @case(0)
+                                                                新 New
+                                                            @break
+
+                                                            @case(1)
+                                                                搁置 On Hold
+                                                            @break
+
+                                                            @case(2)
+                                                                待定 Pending
+                                                            @break
+
+                                                            @default
+                                                                完成 Complete
+                                                        @endswitch
+                                                    </td>
+                                                    @foreach ($branches as $key => $branch)
+                                                        @if ($i > 0)
+                                                            @if ($key >= 15 * $i && $key < 15 * ($i + 1))
+                                                                <td>{{ $feedbacks->where('status', $a)->where('branch_id', $branch->id)->count() }}
+                                                                </td>
+                                                            @endif
+                                                        @else
+                                                            @if ($key > -1 && $key < 15 * ($i + 1))
+                                                                <td>{{ $feedbacks->where('status', $a)->where('branch_id', $branch->id)->count() }}
+                                                                </td>
+                                                            @endif
+                                                        @endif
+                                                    @endforeach
+                                                </tr>
+                                            @endfor
+                                        </tbody>
+                                    </table>
+                                @endfor
+                            @endif
                         </section>
+
                         <section class="table_header">
                             <h1 class="table_header_body" style="font-size:30px;"><b>报告 Report</b></h1>
                         </section>
@@ -193,21 +237,37 @@
         }
 
         function downloadPdf() {
+            var startDate = document.getElementById("startDate").value;
+
+            var showStartDate = document.getElementById('showStartDate').innerHTML;
+            document.getElementById('showStartDate').innerHTML = showStartDate + startDate;
+            document.getElementById("showStartDate").style.display = "inline";
+
+            var endDate = document.getElementById("endDate").value;
+
+            var showEndDate = document.getElementById('showEndDate').innerHTML;
+            document.getElementById('showEndDate').innerHTML = showEndDate + endDate;
+            document.getElementById("showEndDate").style.display = "inline";
+
             // Source HTMLElement or a string containing HTML.
             var element = document.getElementById("myReport");
             var options = {
-                filename: 'myReport.pdf',
-                margin: [10, 10, 10, 10],
+                filename: `${startDate} to ${endDate}Report.pdf`,
+                margin: [5, 5, 5, 5],
                 html2canvas: {
                     scale: 2
                 },
                 jsPDF: {
                     unit: 'mm',
                     format: 'a4',
-                    orientation: 'portrait'
+                    orientation: 'landscape'
                 }
             };
             html2pdf().set(options).from(element).save();
+            setTimeout(function() {
+                document.getElementById("showStartDate").style.display = "none";
+                document.getElementById("showEndDate").style.display = "none";
+            }, 0.0001)
         }
     </script>
 @endsection
