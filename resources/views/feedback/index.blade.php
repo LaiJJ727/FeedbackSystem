@@ -182,7 +182,7 @@
                     (level === '全部情况 all situation' ? true :
                         $(this).find('.my_level').text().toLowerCase().indexOf(level) > -1) &&
                     (place === '全部地点 all place' ? true :
-                        $(this).find('.my_place').text().toLowerCase().indexOf(status) > -1)
+                        $(this).find('.my_place').text().toLowerCase().indexOf(place) > -1)
                 )
             });
             //hide levels if empty
