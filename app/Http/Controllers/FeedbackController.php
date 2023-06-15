@@ -109,14 +109,13 @@ class FeedbackController extends Controller
         $data['feedbacks'] = Feedback::all()->where('status', '!=', 3);
         $data['branches'] = [];
         $data['levels'] = [];
-        $data['place'] = [];
+        $data['statuses'] = [0,1,2,3];
 
         foreach ($data['feedbacks'] as $feedback) {
             array_push($data['branches'], $feedback->branches->name);
             // $data['branches'] = $feedback->branches->name;
             // $data['levels']= $feedback->feedback_to;
             array_push($data['levels'], $feedback->feedback_to);
-            array_push($data['place'], $feedback->places->c_name);
 
             //later change to status
             //$data['place']  = $feedback->places->c_name;
@@ -124,7 +123,6 @@ class FeedbackController extends Controller
 
         $data['branches'] = array_unique($data['branches']);
         $data['levels'] = array_unique($data['levels']);
-        $data['place'] = array_unique($data['place']);
 
         return view('feedback/index', $data);
     }
@@ -138,14 +136,13 @@ class FeedbackController extends Controller
         $data['feedbacks']= Feedback::all()->where('status', 3);
         $data['branches'] = [];
         $data['levels'] = [];
-        $data['place'] = [];
+        $data['statuses'] = [0,1,2,3];
 
         foreach ($data['feedbacks'] as $feedback) {
             array_push($data['branches'], $feedback->branches->name);
             // $data['branches'] = $feedback->branches->name;
             // $data['levels']= $feedback->feedback_to;
             array_push($data['levels'], $feedback->feedback_to);
-            array_push($data['place'], $feedback->places->c_name);
 
             //later change to status
             //$data['place']  = $feedback->places->c_name;
@@ -153,7 +150,6 @@ class FeedbackController extends Controller
 
         $data['branches'] = array_unique($data['branches']);
         $data['levels'] = array_unique($data['levels']);
-        $data['place'] = array_unique($data['place']);
 
         return view('feedback/index', $data);
     }
