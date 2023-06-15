@@ -70,9 +70,9 @@
                                     <select name="status" id="status" class="form-control"
                                         value="{{ $feedback->status }}">
                                         <option disabled selected value>-- 选择一个情况 Select one stauts --</option>
-                                        <option value="1">搁置 On Hold</option>
-                                        <option value="2">待定 Pending</option>
-                                        <option value="3">完成 Complete</option>
+                                        <option value="1"  @if (old('status') == '1') selected @endif>搁置 On Hold</option>
+                                        <option value="2" @if (old('status') == '2') selected @endif>待定 Pending</option>
+                                        <option value="3" @if (old('status') == '3') selected @endif>完成 Complete</option>
                                     </select>
                                 @endif
                                 <label for="description">评论 Comment</label>

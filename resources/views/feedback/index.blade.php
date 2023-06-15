@@ -30,10 +30,27 @@
                         </select>
                     </div>
                     <div class="col-12 col-sm-4 p-2 p-sm-3">
-                        <select id="ddlPlace" class="form-select" onchange="searchFunction()">
-                            <option>全部地点 All Place</option>
-                            @foreach ($place as $place)
-                                <option> {{ $place }} </option>
+                        <select id="ddlStatus" class="form-select" onchange="searchFunction()">
+                            <option>全部状态 All Status</option>
+                            @foreach ($statuses as $status)
+                                <option value="{{ $status }}">
+                                    @switch($status)
+                                        @case(0)
+                                            新 New
+                                        @break
+
+                                        @case(1)
+                                            搁置 On Hold
+                                        @break
+
+                                        @case(2)
+                                            待定 Pending
+                                        @break
+
+                                        @default
+                                            完成 Complete
+                                    @endswitch
+                                </option>
                             @endforeach
                         </select>
                     </div>
@@ -66,6 +83,27 @@
                                         <p>标题 Title:
                                             {{ Auth::user()->language == 'Chinese' ? $feedback->titles->c_name : $feedback->titles->e_name }}
                                         </p>
+                                        <p class="my_status" style="display:none;">状态 Status:
+                                            {{$feedback->status}} 
+                                        </p>
+                                        <p>状态 Status:
+                                            @switch($feedback->status)
+                                                @case(0)
+                                                    新 New
+                                                @break
+
+                                                @case(1)
+                                                    搁置 On Hold
+                                                @break
+
+                                                @case(2)
+                                                    待定 Pending
+                                                @break
+
+                                                @default
+                                                    完成 Complete
+                                            @endswitch
+                                        </p>
                                         <p>描述 Description: {{ $feedback->description }}</p>
                                         <p>反馈人员 Report Person: {{ $feedback->users->name }}</p>
                                         <p class="my_level" style="display: none;">{{ $feedback->feedback_to }}</p>
@@ -97,7 +135,7 @@
                                         <p>区 Zone:
                                             {{ Auth::user()->language == 'Chinese' ? $feedback->zones->c_name : $feedback->zones->e_name }}
                                         </p>
-                                        <p class="my_place">地点 Place:
+                                        <p>地点 Place:
                                             {{ Auth::user()->language == 'Chinese' ? $feedback->places->c_name : $feedback->places->e_name }}
                                         </p>
                                         <p>类别 Category:
@@ -105,6 +143,27 @@
                                         </p>
                                         <p>标题 Title:
                                             {{ Auth::user()->language == 'Chinese' ? $feedback->titles->c_name : $feedback->titles->e_name }}
+                                        </p>
+                                         <p class="my_status" style="display:none;">状态 Status:
+                                            {{$feedback->status}} 
+                                        </p>
+                                        <p>状态 Status:
+                                            @switch($feedback->status)
+                                                @case(0)
+                                                    新 New
+                                                @break
+
+                                                @case(1)
+                                                    搁置 On Hold
+                                                @break
+
+                                                @case(2)
+                                                    待定 Pending
+                                                @break
+
+                                                @default
+                                                    完成 Complete
+                                            @endswitch
                                         </p>
                                         <p>描述 Description: {{ $feedback->description }}</p>
                                         <p>反馈人员 Report Person: {{ $feedback->users->name }}</p>
@@ -145,6 +204,27 @@
                                         <p>标题 Title:
                                             {{ Auth::user()->language == 'Chinese' ? $feedback->titles->c_name : $feedback->titles->e_name }}
                                         </p>
+                                         <p class="my_status" style="display:none;">状态 Status:
+                                            {{$feedback->status}} 
+                                        </p>
+                                        <p>状态 Status:
+                                            @switch($feedback->status)
+                                                @case(0)
+                                                    新 New
+                                                @break
+
+                                                @case(1)
+                                                    搁置 On Hold
+                                                @break
+
+                                                @case(2)
+                                                    待定 Pending
+                                                @break
+
+                                                @default
+                                                    完成 Complete
+                                            @endswitch
+                                        </p>
                                         <p>描述 Description: {{ $feedback->description }}</p>
                                         <p>反馈人员 Report Person: {{ $feedback->users->name }}</p>
                                         <p class="my_level" style="display: none;">{{ $feedback->feedback_to }}</p>
@@ -172,7 +252,7 @@
             var value = $('#searchKey').val().toLowerCase();
             var branch = $('#ddlBranch').val().toLowerCase();
             var level = $('#ddlLevel').val().toLowerCase();
-            var place = $('#ddlPlace').val().toLowerCase();
+            var status = $('#ddlStatus').val().toLowerCase();
             // start filtering items in div
             $('#myCard div').filter(function() {
                 // my_place my_branch
@@ -181,8 +261,8 @@
                         $(this).find('.my_branch').text().toLowerCase().indexOf(branch) > -1) &&
                     (level === '全部情况 all situation' ? true :
                         $(this).find('.my_level').text().toLowerCase().indexOf(level) > -1) &&
-                    (place === '全部地点 all place' ? true :
-                        $(this).find('.my_place').text().toLowerCase().indexOf(place) > -1)
+                    (status === '全部状态 all status' ? true :
+                        $(this).find('.my_status').text().toLowerCase().indexOf(status) > -1)
                 )
             });
             //hide levels if empty
