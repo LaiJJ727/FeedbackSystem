@@ -42,5 +42,168 @@ class BranchSeeder extends Seeder
             'image' => null,
             'status' => 'close',
         ]);
+        // Branch::create([
+        //     'name' => 'a',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);
+        // Branch::create([
+        //     'name' => 'b',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);
+        // Branch::create([
+        //     'name' => 'c',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);
+        // Branch::create([
+        //     'name' => 'd',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);
+        // Branch::create([
+        //     'name' => 'e',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);
+        // Branch::create([
+        //     'name' => 'f',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);Branch::create([
+        //     'name' => 'g',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);Branch::create([
+        //     'name' => 'h',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);Branch::create([
+        //     'name' => 'i',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);Branch::create([
+        //     'name' => 'j',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);Branch::create([
+        //     'name' => 'k',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);Branch::create([
+        //     'name' => 'l',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);Branch::create([
+        //     'name' => 'm',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);Branch::create([
+        //     'name' => 'n',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);Branch::create([
+        //     'name' => 'o',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);Branch::create([
+        //     'name' => 'p',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);Branch::create([
+        //     'name' => 'q',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);Branch::create([
+        //     'name' => 'r',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);Branch::create([
+        //     'name' => 's',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);
+        // Branch::create([
+        //     'name' => 't',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);Branch::create([
+        //     'name' => 'u',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);Branch::create([
+        //     'name' => 'v',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);Branch::create([
+        //     'name' => 'w',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);Branch::create([
+        //     'name' => 'x',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);Branch::create([
+        //     'name' => 'y',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);Branch::create([
+        //     'name' => 'z',
+        //     'address' => 'Lot 4, Jalan Empat, Chan Sow Lin, 55200 Kuala Lumpur, Wilayah Persekutuan Kuala Lumpur',
+        //     'description' => null,
+        //     'image' => null,
+        //     'status' => 'close',
+        // ]);
     }
 }
