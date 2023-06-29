@@ -54,8 +54,9 @@
                             <form action="{{ route('add_comment') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $feedback->id }}">
-                                @if ($feedback->feedback_to == 'Houskeeping' && Auth::user()->role == 'Housekeep')
-                                    <label for="status">Status</label>
+                                @if (Auth::user()->role == 'Housekeep' && $feedback->feedback_to == "Housekeeping") 
+                                    <label for="status">Status</label><small style="color:red"> 非必要选择 Non essential
+                                        selection</small>
                                     <select name="status" id="status" class="form-control"
                                         value="{{ $feedback->status }}">
                                         <option disabled selected value>-- 选择一个情况 Select one stauts --</option>
@@ -66,25 +67,32 @@
                                 @elseif(
                                     (Auth::user()->role == 'Admin' || Auth::user()->role == 'Agent') &&
                                         ($feedback->feedback_to == 'General' || $feedback->feedback_to == 'Emergency'))
-                                    <label for="status">情况 Status</label> <small style="color:red"> 非必要选择 Non essential selection</small>
+                                    <label for="status">情况 Status</label> <small style="color:red"> 非必要选择 Non essential
+                                        selection</small>
                                     <select name="status" id="status" class="form-control"
                                         value="{{ $feedback->status }}">
                                         <option disabled selected value>-- 选择一个情况 Select one stauts --</option>
-                                        <option value="1"  @if (old('status') == '1') selected @endif>搁置 On Hold</option>
-                                        <option value="2" @if (old('status') == '2') selected @endif>待定 Pending</option>
-                                        <option value="3" @if (old('status') == '3') selected @endif>完成 Complete</option>
+                                        <option value="1" @if (old('status') == '1') selected @endif>搁置 On Hold
+                                        </option>
+                                        <option value="2" @if (old('status') == '2') selected @endif>待定 Pending
+                                        </option>
+                                        <option value="3" @if (old('status') == '3') selected @endif>完成 Complete
+                                        </option>
                                     </select>
                                 @endif
                                 <label for="description">评论 Comment</label>
-                                <input class="form-control  @error('description') is-invalid @enderror" id="description" name="description" value="">
+                                <input class="form-control  @error('description') is-invalid @enderror" id="description"
+                                    name="description" value="">
                                 @error('description')
                                     <span class="invalid-message" style="color:red;" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     <br>
                                 @enderror
-                                <label for="image">图片 Image</label><small style="color:red"> 非必要选择 Non essential selection</small>
-                                <input class="form-control  @error('image') is-invalid @enderror" type="file" id="image" name="image"> 
+                                <label for="image">图片 Image</label><small style="color:red"> 非必要选择 Non essential
+                                    selection</small>
+                                <input class="form-control  @error('image') is-invalid @enderror" type="file"
+                                    id="image" name="image">
                                 @error('image')
                                     <span class="invalid-message" style="color:red;" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -125,7 +133,7 @@
                             </div>
                             <div class="card-body">
                                 @if ($comment->image != '')
-                                    <img src="{{ asset('comment_images/') }}/{{ $comment->image }}" alt=""
+                                    <img src="{{ asset('public/comment_images/') }}/{{ $comment->image }}" alt=""
                                         class="img-fluid">
                                 @endif
                                 <p>{{ $comment->users->name }}: {{ $comment->description }}</p>

@@ -84,25 +84,25 @@
                                             {{ Auth::user()->language == 'Chinese' ? $feedback->titles->c_name : $feedback->titles->e_name }}
                                         </p>
                                         <p class="my_status" style="display:none;">状态 Status:
-                                            {{$feedback->status}} 
+                                            {{ $feedback->status }}
                                         </p>
                                         <p>状态 Status:
                                             @switch($feedback->status)
                                                 @case(0)
-                                                    新 New
+                                                    <strong style="border: 5px; color:grey;">新 New</strong>
                                                 @break
 
                                                 @case(1)
-                                                    搁置 On Hold
+                                                    <strong style="border: 5px; color:red;">搁置 On Hold</strong>
                                                 @break
 
                                                 @case(2)
-                                                    待定 Pending
-                                                @break
+                                                    <strong style="border: 5px; color:blue"> 待定 Pending</strong>
+                                                        @break
 
-                                                @default
-                                                    完成 Complete
-                                            @endswitch
+                                                        @default
+                                                            <strong style="border: 5px; color:green;">完成 Complete</strong>
+                                                            @endswitch
                                         </p>
                                         <p>描述 Description: {{ $feedback->description }}</p>
                                         <p>反馈人员 Report Person: {{ $feedback->users->name }}</p>
@@ -144,26 +144,26 @@
                                         <p>标题 Title:
                                             {{ Auth::user()->language == 'Chinese' ? $feedback->titles->c_name : $feedback->titles->e_name }}
                                         </p>
-                                         <p class="my_status" style="display:none;">状态 Status:
-                                            {{$feedback->status}} 
+                                        <p class="my_status" style="display:none;">状态 Status:
+                                            {{ $feedback->status }}
                                         </p>
                                         <p>状态 Status:
                                             @switch($feedback->status)
                                                 @case(0)
-                                                    新 New
+                                                    <strong style="border: 5px; color:grey;">新 New</strong>
                                                 @break
 
                                                 @case(1)
-                                                    搁置 On Hold
+                                                    <strong style="border: 5px; color:red;">搁置 On Hold</strong>
                                                 @break
 
                                                 @case(2)
-                                                    待定 Pending
-                                                @break
+                                                    <strong style="border: 5px; color:blue"> 待定 Pending</strong>
+                                                        @break
 
-                                                @default
-                                                    完成 Complete
-                                            @endswitch
+                                                        @default
+                                                            <strong style="border: 5px; color:green;">完成 Complete</strong>
+                                                            @endswitch
                                         </p>
                                         <p>描述 Description: {{ $feedback->description }}</p>
                                         <p>反馈人员 Report Person: {{ $feedback->users->name }}</p>
@@ -204,26 +204,26 @@
                                         <p>标题 Title:
                                             {{ Auth::user()->language == 'Chinese' ? $feedback->titles->c_name : $feedback->titles->e_name }}
                                         </p>
-                                         <p class="my_status" style="display:none;">状态 Status:
-                                            {{$feedback->status}} 
+                                        <p class="my_status" style="display:none;">状态 Status:
+                                            {{ $feedback->status }}
                                         </p>
                                         <p>状态 Status:
                                             @switch($feedback->status)
                                                 @case(0)
-                                                    新 New
+                                                    <strong style="border: 5px; color:grey;">新 New</strong>
                                                 @break
 
                                                 @case(1)
-                                                    搁置 On Hold
+                                                    <strong style="border: 5px; color:red;">搁置 On Hold</strong>
                                                 @break
 
                                                 @case(2)
-                                                    待定 Pending
-                                                @break
+                                                    <strong style="border: 5px; color:blue"> 待定 Pending</strong>
+                                                        @break
 
-                                                @default
-                                                    完成 Complete
-                                            @endswitch
+                                                        @default
+                                                            <strong style="border: 5px; color:green;">完成 Complete</strong>
+                                                            @endswitch
                                         </p>
                                         <p>描述 Description: {{ $feedback->description }}</p>
                                         <p>反馈人员 Report Person: {{ $feedback->users->name }}</p>

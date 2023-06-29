@@ -58,6 +58,20 @@
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
+                <label for="password">密码 Password</label>
+                <input class="form-control @error('password') is-invalid @enderror" type="text" id="password" name="password">
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+                <label for="confirmPassword">确认密码 Confirm Password</label>
+                <input class="form-control @error('confirmPassword') is-invalid @enderror" type="text" id="confirmPassword" name="confirmPassword">
+                @error('confirmPassword')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
             </div>
 
             <button type="submit" class="btn btn-primary">更新 Update</button>

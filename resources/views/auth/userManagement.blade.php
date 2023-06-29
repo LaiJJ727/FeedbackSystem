@@ -52,13 +52,13 @@
                                             </td>
                                             <td><a href="{{ route('profile_user_view', ['id' => $user->id]) }}"
                                                     class="btn btn-primary btn-xs">Enter</a></td>
-                                        @elseif($user->role == 'Staff' || $user->role == 'Agent' || $user->role == 'Housekeep')
+                                        @elseif($user->role != 'Admin')
                                             <td><a href="{{ route('deactivateUser', ['id' => $user->id]) }}"
                                                     class="btn btn-danger btn-xs"
                                                     onClick="return confirm('Are you sure to deactivate?')">Deactivate</a>
                                             </td>
                                             <td><a href="{{ route('profile_user_view', ['id' => $user->id]) }}"
-                                                    class="btn btn-primary btn-xs">Enter</a></td>
+                                                    class="btn btn-main btn-xs">Enter</a></td>
                                         @endif
                                     </tr>
                                 @endforeach

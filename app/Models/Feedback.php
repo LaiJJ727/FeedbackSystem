@@ -35,7 +35,7 @@ class Feedback extends Model
     }
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'feedback_id', 'id');
+        return $this->hasMany(Comment::class, 'feedback_id', 'id')->orderBy('created_at','desc');
     }
     public function titles()
     {
