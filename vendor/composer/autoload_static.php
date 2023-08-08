@@ -21,6 +21,7 @@ class ComposerStaticInit12c3e7bd33bb8b38bbabd99335a9ec16
         '3bd81c9b8fcc150b69d8b63b4d2ccf23' => __DIR__ . '/..' . '/spatie/flare-client-php/src/helpers.php',
         '09f6b20656683369174dd6fa83b7e5fb' => __DIR__ . '/..' . '/symfony/polyfill-uuid/bootstrap.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
+        '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
@@ -29,7 +30,6 @@ class ComposerStaticInit12c3e7bd33bb8b38bbabd99335a9ec16
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
-        '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'a1cfe24d14977df6878b9bf804af2d1c' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Phpunit/Autoload.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
@@ -82,6 +82,7 @@ class ComposerStaticInit12c3e7bd33bb8b38bbabd99335a9ec16
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
             'Svg\\' => 4,
+            'Spatie\\WebTinker\\' => 17,
             'Spatie\\LaravelIgnition\\' => 23,
             'Spatie\\Ignition\\' => 16,
             'Spatie\\FlareClient\\' => 19,
@@ -315,6 +316,10 @@ class ComposerStaticInit12c3e7bd33bb8b38bbabd99335a9ec16
         'Svg\\' => 
         array (
             0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
+        ),
+        'Spatie\\WebTinker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/laravel-web-tinker/src',
         ),
         'Spatie\\LaravelIgnition\\' => 
         array (
@@ -2977,6 +2982,7 @@ class ComposerStaticInit12c3e7bd33bb8b38bbabd99335a9ec16
         'Laravel\\Telescope\\IncomingDumpEntry' => __DIR__ . '/..' . '/laravel/telescope/src/IncomingDumpEntry.php',
         'Laravel\\Telescope\\IncomingEntry' => __DIR__ . '/..' . '/laravel/telescope/src/IncomingEntry.php',
         'Laravel\\Telescope\\IncomingExceptionEntry' => __DIR__ . '/..' . '/laravel/telescope/src/IncomingExceptionEntry.php',
+        'Laravel\\Telescope\\Jobs\\ProcessPendingUpdates' => __DIR__ . '/..' . '/laravel/telescope/src/Jobs/ProcessPendingUpdates.php',
         'Laravel\\Telescope\\ListensForStorageOpportunities' => __DIR__ . '/..' . '/laravel/telescope/src/ListensForStorageOpportunities.php',
         'Laravel\\Telescope\\RegistersWatchers' => __DIR__ . '/..' . '/laravel/telescope/src/RegistersWatchers.php',
         'Laravel\\Telescope\\Storage\\DatabaseEntriesRepository' => __DIR__ . '/..' . '/laravel/telescope/src/Storage/DatabaseEntriesRepository.php',
@@ -5590,6 +5596,13 @@ class ComposerStaticInit12c3e7bd33bb8b38bbabd99335a9ec16
         'Spatie\\LaravelIgnition\\Support\\StringComparator' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Support/StringComparator.php',
         'Spatie\\LaravelIgnition\\Views\\BladeSourceMapCompiler' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Views/BladeSourceMapCompiler.php',
         'Spatie\\LaravelIgnition\\Views\\ViewExceptionMapper' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Views/ViewExceptionMapper.php',
+        'Spatie\\WebTinker\\Console\\InstallCommand' => __DIR__ . '/..' . '/spatie/laravel-web-tinker/src/Console/InstallCommand.php',
+        'Spatie\\WebTinker\\Http\\Controllers\\WebTinkerController' => __DIR__ . '/..' . '/spatie/laravel-web-tinker/src/Http/Controllers/WebTinkerController.php',
+        'Spatie\\WebTinker\\Http\\Middleware\\Authorize' => __DIR__ . '/..' . '/spatie/laravel-web-tinker/src/Http/Middleware/Authorize.php',
+        'Spatie\\WebTinker\\OutputModifiers\\OutputModifier' => __DIR__ . '/..' . '/spatie/laravel-web-tinker/src/OutputModifiers/OutputModifier.php',
+        'Spatie\\WebTinker\\OutputModifiers\\PrefixDateTime' => __DIR__ . '/..' . '/spatie/laravel-web-tinker/src/OutputModifiers/PrefixDateTime.php',
+        'Spatie\\WebTinker\\Tinker' => __DIR__ . '/..' . '/spatie/laravel-web-tinker/src/Tinker.php',
+        'Spatie\\WebTinker\\WebTinkerServiceProvider' => __DIR__ . '/..' . '/spatie/laravel-web-tinker/src/WebTinkerServiceProvider.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Svg\\CssLength' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/CssLength.php',
         'Svg\\DefaultStyle' => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg/DefaultStyle.php',
