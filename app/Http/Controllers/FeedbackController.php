@@ -39,7 +39,6 @@ class FeedbackController extends Controller
             'description' => 'required',
             'feedbackTo' => 'required',
         ]);
-
         $image = $request->file('image');
         $imageName = $image->getClientOriginalName();
         $destinationPath = public_path('images');
@@ -102,14 +101,18 @@ class FeedbackController extends Controller
             }
         }
 
-        return redirect()->route('feedback_index');
+        return redirect()
+            ->route('feedback_index')
+            ->with('openModal', 'open');
     }
     public function index()
     {
-        $data['feedbacks'] = Feedback::orderBy('created_at','desc')->where('status', '!=', 3)->get();
+        $data['feedbacks'] = Feedback::orderBy('created_at', 'desc')
+            ->where('status', '!=', 3)
+            ->get();
         $data['branches'] = [];
         $data['levels'] = [];
-        $data['statuses'] = [0,1,2,3];
+        $data['statuses'] = [0, 1, 2, 3];
 
         foreach ($data['feedbacks'] as $feedback) {
             array_push($data['branches'], $feedback->branches->name);
@@ -133,10 +136,12 @@ class FeedbackController extends Controller
     }
     public function feedbackIndexComplete()
     {
-        $data['feedbacks'] = Feedback::orderBy('created_at','desc')->where('status', 3)->get();
+        $data['feedbacks'] = Feedback::orderBy('created_at', 'desc')
+            ->where('status', 3)
+            ->get();
         $data['branches'] = [];
         $data['levels'] = [];
-        $data['statuses'] = [0,1,2,3];
+        $data['statuses'] = [0, 1, 2, 3];
 
         foreach ($data['feedbacks'] as $feedback) {
             array_push($data['branches'], $feedback->branches->name);

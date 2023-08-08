@@ -25,12 +25,12 @@ class AdminMiddleware
                 return $next($request);
             } elseif (str_contains(Auth::user()->role, 'ban')) {
                 Auth::logout();
-                return redirect('/login')->with('message', 'Login to access the website info');
+                return redirect('/login')->with('Fail', 'Login to access the website info');
             } else {
-                return redirect('/home')->with('message', 'Access Denied as you are not Admin!');
+                return redirect('/home')->with('Fail', 'Access Denied as you are not Admin!');
             }
         } else {
-            return redirect('/login')->with('message', 'Login to access the website info');
+            return redirect('/login')->with('Fail', 'Login to access the website info');
         }
         // return $next($request);
     }

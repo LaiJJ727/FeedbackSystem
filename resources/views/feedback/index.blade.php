@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('styles')
 @endsection
-
 @section('content')
     <div class="container py-2">
         <div class="row" style="background-color:white">
@@ -98,11 +97,11 @@
 
                                                 @case(2)
                                                     <strong style="border: 5px; color:blue"> 待定 Pending</strong>
-                                                        @break
+                                                @break
 
-                                                        @default
-                                                            <strong style="border: 5px; color:green;">完成 Complete</strong>
-                                                            @endswitch
+                                                @default
+                                                    <strong style="border: 5px; color:green;">完成 Complete</strong>
+                                            @endswitch
                                         </p>
                                         <p>描述 Description: {{ $feedback->description }}</p>
                                         <p>反馈人员 Report Person: {{ $feedback->users->name }}</p>
@@ -159,11 +158,11 @@
 
                                                 @case(2)
                                                     <strong style="border: 5px; color:blue"> 待定 Pending</strong>
-                                                        @break
+                                                @break
 
-                                                        @default
-                                                            <strong style="border: 5px; color:green;">完成 Complete</strong>
-                                                            @endswitch
+                                                @default
+                                                    <strong style="border: 5px; color:green;">完成 Complete</strong>
+                                            @endswitch
                                         </p>
                                         <p>描述 Description: {{ $feedback->description }}</p>
                                         <p>反馈人员 Report Person: {{ $feedback->users->name }}</p>
@@ -219,11 +218,11 @@
 
                                                 @case(2)
                                                     <strong style="border: 5px; color:blue"> 待定 Pending</strong>
-                                                        @break
+                                                @break
 
-                                                        @default
-                                                            <strong style="border: 5px; color:green;">完成 Complete</strong>
-                                                            @endswitch
+                                                @default
+                                                    <strong style="border: 5px; color:green;">完成 Complete</strong>
+                                            @endswitch
                                         </p>
                                         <p>描述 Description: {{ $feedback->description }}</p>
                                         <p>反馈人员 Report Person: {{ $feedback->users->name }}</p>
@@ -242,8 +241,31 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #47c9a2;" sytle="text-align:center;">
+                    <h3><i style="font-size: 1em;" class="fa fa-check-circle"></i> 成功 Successful</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                </div>
+                <div class="modal-body" style="text-align: center">
+                    <p>成功添加新的反馈!
+                        <br>Add New Feedback Successfully!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script>
+        @if (Session::has('openModal')) //this line works as expected
+            $(document).ready(function() {
+                $('#successModal').modal('show');
+            });
+        @endif
+
         //declare level
         var all_levels = {!! json_encode($levels) !!};
 

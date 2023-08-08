@@ -23,13 +23,13 @@
 </head>
 @if (Session::has('Success'))
     <!---for deactivate user alert--->
-    <div class="alert alert-success" role="alert">
+    <div class="alert alert-success" role="alert" style="margin-bottom: -0.4rem !important">
         {{ Session::get('Success') }}
     </div>
 @endif
 @if (Session::has('Fail'))
     <!---for deactivate user alert--->
-    <div class="alert alert-danger" role="alert" style="margin-bottom: -0.5rem !important">
+    <div class="alert alert-danger" role="alert" style="margin-bottom: -0.4rem !important">
         {{ Session::get('Fail') }}
     </div>
 @endif

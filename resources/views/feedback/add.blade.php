@@ -1,15 +1,56 @@
 @extends('layouts.app')
 @section('content')
+    <style>
+        .button {
+            display: flex !important;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #352671;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 3px solid black;
+            width: 20px;
+            height: 20px;
+            -webkit-animation: spin 2s linear infinite;
+            /* Safari */
+            animation: spin 2s linear infinite;
+            display: inline-block;
+        }
+        /* Safari */
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
     <div class="container col-sm-12   mt-3">
         <h3>添加新的反馈 Add New Feedback</h3>
-        <form action="{{ route('feedback_add') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('feedback_add') }}" method="POST" enctype="multipart/form-data" id="feedback_form">
             @CSRF
             <div class="form-group">
                 <label for="branch">分行 Branch</label>
                 <div class="dropdown">
                     <button class="btn btn-secondary btn-block bg-transparent"
-                        style="color:black; text-align:left; border: 1px solid #ced4da" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        style="color:black; text-align:left; border: 1px solid #ced4da" type="button"
+                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         @if (Auth::user()->branch_id == 'all')
                             @if (old('branch_id'))
                                 @foreach ($branches as $branch)
@@ -151,7 +192,9 @@
                     <br>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-main btn-block">提交 Submit</button>
+            <button class="button btn-main btn-block" id="submitButton">
+                <p style="margin: 0 !important" id="button_text" class="">提交 Submit</p>
+            </button>
 
 
         </form>
@@ -334,5 +377,13 @@
         function autoFill(text) {
             document.getElementById('description').value = document.getElementById('description').value + text;
         };
+
+       document.getElementById("submitButton").addEventListener("click", function() {
+            document.getElementById('feedback_form').submit();
+            document.getElementById("submitButton").disabled = 'true';
+            var buttonText = document.getElementById("button_text");
+            buttonText.innerText = "";
+            buttonText.classList.add("loader");
+        });
     </script>
 @endsection

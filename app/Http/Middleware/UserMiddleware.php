@@ -24,12 +24,12 @@ class UserMiddleware
             //deactivate user ==3
             if(str_contains(Auth::user()->role, 'ban')){
                 Auth::logout();
-                return redirect('/login')->with('message', 'Login to access the website info');
+                return redirect('/login')->with('Fail', 'Login to access the website info');
             }else{
                 return $next($request);
             }
         }else{
-            return redirect('/login')->with('message', 'Login to access the website info');
+            return redirect('/login')->with('Fail', 'Login to access the website info');
         }
 
         //return $next($request);
