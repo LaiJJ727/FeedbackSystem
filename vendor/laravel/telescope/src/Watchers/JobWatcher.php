@@ -7,6 +7,7 @@ use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Queue;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Laravel\Telescope\EntryType;
 use Laravel\Telescope\EntryUpdate;
@@ -59,7 +60,11 @@ class JobWatcher extends Watcher
             return;
         }
 
-        if (in_array(get_class($payload['data']['command']), $this->ignoredJobClasses)) {
+        $job = isset($payload['data']['command'])
+            ? get_class($payload['data']['command'])
+            : $payload['job'];
+
+        if (in_array($job, $this->ignoredJobClasses)) {
             return;
         }
 
@@ -124,7 +129,7 @@ class JobWatcher extends Watcher
                 'status' => 'failed',
                 'exception' => [
                     'message' => $event->exception->getMessage(),
-                    'trace' => $event->exception->getTrace(),
+                    'trace' => collect($event->exception->getTrace())->map(fn ($trace) => Arr::except($trace, ['args']))->all(),
                     'line' => $event->exception->getLine(),
                     'line_preview' => ExceptionContext::get($event->exception),
                 ],
@@ -197,6 +202,10 @@ class JobWatcher extends Watcher
      */
     protected function updateBatch($payload)
     {
+        if (! isset($payload['data']['command'])) {
+            return;
+        }
+
         $wasRecordingEnabled = Telescope::$shouldRecord;
 
         Telescope::$shouldRecord = false;

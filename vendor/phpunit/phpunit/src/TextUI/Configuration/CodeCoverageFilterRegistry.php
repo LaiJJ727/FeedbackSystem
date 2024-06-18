@@ -9,6 +9,7 @@
  */
 namespace PHPUnit\TextUI\Configuration;
 
+use function array_keys;
 use function assert;
 use SebastianBergmann\CodeCoverage\Filter;
 
@@ -33,6 +34,9 @@ final class CodeCoverageFilterRegistry
         return self::$instance;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function get(): Filter
     {
         assert($this->filter !== null);
@@ -40,47 +44,31 @@ final class CodeCoverageFilterRegistry
         return $this->filter;
     }
 
-    public function init(Configuration $configuration): void
+    /**
+     * @codeCoverageIgnore
+     */
+    public function init(Configuration $configuration, bool $force = false): void
     {
-        if (!$configuration->hasCoverageReport()) {
+        if (!$configuration->hasCoverageReport() && !$force) {
             return;
         }
 
-        if ($this->configured) {
+        if ($this->configured && !$force) {
             return;
         }
 
         $this->filter = new Filter;
 
-        if ($configuration->hasNonEmptyListOfFilesToBeIncludedInCodeCoverageReport()) {
-            foreach ($configuration->coverageIncludeDirectories() as $directory) {
-                $this->filter->includeDirectory(
-                    $directory->path(),
-                    $directory->suffix(),
-                    $directory->prefix()
-                );
-            }
-
-            foreach ($configuration->coverageIncludeFiles() as $file) {
-                $this->filter->includeFile($file->path());
-            }
-
-            foreach ($configuration->coverageExcludeDirectories() as $directory) {
-                $this->filter->excludeDirectory(
-                    $directory->path(),
-                    $directory->suffix(),
-                    $directory->prefix()
-                );
-            }
-
-            foreach ($configuration->coverageExcludeFiles() as $file) {
-                $this->filter->excludeFile($file->path());
-            }
+        if ($configuration->source()->notEmpty()) {
+            $this->filter->includeFiles(array_keys((new SourceMapper)->map($configuration->source())));
 
             $this->configured = true;
         }
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function configured(): bool
     {
         return $this->configured;
