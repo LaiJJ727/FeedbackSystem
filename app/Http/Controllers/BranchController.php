@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Branch;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class BranchController extends Controller
 {
@@ -23,9 +25,16 @@ class BranchController extends Controller
         $imageName = null;
 
         if ($image) {
+            // $imageName = $image->getClientOriginalName();
+            // $destinationPath = public_path('branch_images');
+            // $image->move($destinationPath, $imageName); //images is the location
             $imageName = $image->getClientOriginalName();
             $destinationPath = public_path('branch_images');
-            $image->move($destinationPath, $imageName); //images is the location
+            $manager = new ImageManager(new Driver());
+            $img = $manager->read($image);
+            $img->scaleDown(height:500);
+            //images is the location
+            $img->save($destinationPath.'/'.$imageName);
         }
 
         $addBranch = Branch::create([
@@ -67,9 +76,16 @@ class BranchController extends Controller
         $imageName = null;
 
         if ($image) {
+             // $imageName = $image->getClientOriginalName();
+            // $destinationPath = public_path('branch_images');
+            // $image->move($destinationPath, $imageName); //images is the location
             $imageName = $image->getClientOriginalName();
             $destinationPath = public_path('branch_images');
-            $image->move($destinationPath, $imageName); //images is the location
+            $manager = new ImageManager(new Driver());
+            $img = $manager->read($image);
+            $img->scaleDown(height:500);
+            //images is the location
+            $img->save($destinationPath.'/'.$imageName);
         }
 
         $editBranch = Branch::find($request->branchId);

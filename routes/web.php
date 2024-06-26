@@ -20,6 +20,9 @@ Auth::routes();
 Route::post('/login', 'App\Http\Controllers\Auth\LoginController@login')->name('login.perform');
 Route::get('/login', 'App\Http\Controllers\Auth\LoginController@show')->name('login.show');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/notifications/subscribe', [NotificationManagerController::class, 'subscribe']);
+Route::post('/notifications/unsubscribe', [NotificationManagerController::class, 'unsubscribe']);
+Route::get('/notifications/send', [NotificationManagerController::class, 'send']);
 
 Route::group(['middleware' => ['auth']], function () {
     /**

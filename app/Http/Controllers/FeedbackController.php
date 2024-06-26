@@ -11,6 +11,8 @@ use App\Models\Title;
 use App\Models\Place;
 use App\Models\Category;
 use App\Models\Zone;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use Auth;
 
 class FeedbackController extends Controller
@@ -42,7 +44,13 @@ class FeedbackController extends Controller
         $image = $request->file('image');
         $imageName = $image->getClientOriginalName();
         $destinationPath = public_path('images');
-        $image->move($destinationPath, $imageName); //images is the location
+        // $image->move($destinationPath, $imageName); //images is the location
+        $manager = new ImageManager(new Driver());
+        $img =  $manager->read($image);
+        $newImgWidth = $img->width() * 0.75;    
+        $img->scaleDown(width:$newImgWidth);
+        
+        $img->save(public_path('images').'/'.$imageName);
 
         $addFeedback = Feedback::create([
             'user_id' => Auth::id(),

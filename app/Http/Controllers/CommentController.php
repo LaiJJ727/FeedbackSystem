@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Branch;
 use App\Models\Feedback;
 use App\Models\Comment;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use Auth;
 class CommentController extends Controller
 {
@@ -34,7 +36,11 @@ class CommentController extends Controller
         if ($image) {
             $imageName = $image->getClientOriginalName();
             $destinationPath = public_path('comment_images');
-            $image->move($destinationPath, $imageName); //images is the location
+            $manager = new ImageManager(new Driver());
+            $img = $manager->read($image);
+            $img->scaleDown(height:500);
+            //images is the location
+            $img->save($destinationPath.'/'.$imageName);
         }
 
         $addComment = Comment::create([

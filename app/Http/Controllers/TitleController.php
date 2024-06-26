@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Title;
 use App\Models\Category;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class TitleController extends Controller
 {
@@ -18,9 +20,16 @@ class TitleController extends Controller
         $imageName = null;
 
         if ($image) {
+            // $imageName = $image->getClientOriginalName();
+            // $destinationPath = public_path('title_images');
+            // $image->move($destinationPath, $imageName); //images is the location
             $imageName = $image->getClientOriginalName();
             $destinationPath = public_path('title_images');
-            $image->move($destinationPath, $imageName); //images is the location
+            $manager = new ImageManager(new Driver());
+            $img = $manager->read($image);
+            $img->scaleDown(height:500);
+            //images is the location
+            $img->save($destinationPath.'/'.$imageName);
         }
 
         $addTitle = Title::create([
@@ -64,9 +73,16 @@ class TitleController extends Controller
         $imageName = null;
 
         if ($image) {
+            // $imageName = $image->getClientOriginalName();
+            // $destinationPath = public_path('title_images');
+            // $image->move($destinationPath, $imageName); //images is the location
             $imageName = $image->getClientOriginalName();
             $destinationPath = public_path('title_images');
-            $image->move($destinationPath, $imageName); //images is the location
+            $manager = new ImageManager(new Driver());
+            $img = $manager->read($image);
+            $img->scaleDown(height:500);
+            //images is the location
+            $img->save($destinationPath.'/'.$imageName);
         }
 
         $editTitle = Title::find($request->titleId);

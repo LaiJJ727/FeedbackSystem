@@ -20,6 +20,7 @@
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     @yield('styles')
+    <script type="text/javascript" src="{{asset('js/main.js')}}"></script>
 </head>
 @if (Session::has('Success'))
     <!---for deactivate user alert--->

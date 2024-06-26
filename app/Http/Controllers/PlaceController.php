@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Place;
 use App\Models\Branch;
 use App\Models\Zone;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 
 class PlaceController extends Controller
 {
@@ -22,9 +24,16 @@ class PlaceController extends Controller
         $imageName = null;
 
         if ($image) {
+            // $imageName = $image->getClientOriginalName();
+            // $destinationPath = public_path('place_images');
+            // $image->move($destinationPath, $imageName); //images is the location
             $imageName = $image->getClientOriginalName();
             $destinationPath = public_path('place_images');
-            $image->move($destinationPath, $imageName); //images is the location
+            $manager = new ImageManager(new Driver());
+            $img = $manager->read($image);
+            $img->scaleDown(height:500);
+            //images is the location
+            $img->save($destinationPath.'/'.$imageName);
         }
 
         $addPlace = Place::create([
@@ -74,9 +83,16 @@ class PlaceController extends Controller
         $imageName = null;
 
         if ($image) {
+            // $imageName = $image->getClientOriginalName();
+            // $destinationPath = public_path('place_images');
+            // $image->move($destinationPath, $imageName); //images is the location
             $imageName = $image->getClientOriginalName();
             $destinationPath = public_path('place_images');
-            $image->move($destinationPath, $imageName); //images is the location
+            $manager = new ImageManager(new Driver());
+            $img = $manager->read($image);
+            $img->scaleDown(height:500);
+            //images is the location
+            $img->save($destinationPath.'/'.$imageName);
         }
 
 
