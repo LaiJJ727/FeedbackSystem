@@ -133,7 +133,7 @@
                             </div>
                             <div class="card-body">
                                 @if ($comment->image != '')
-                                    <img src="{{ asset('public/comment_images/') }}/{{ $comment->image }}" alt=""
+                                    <img src="{{ asset('comment_images') }}/{{ $comment->image }}" alt=""
                                         class="img-fluid">
                                 @endif
                                 <p>{{ $comment->users->name }}: {{ $comment->description }}</p>

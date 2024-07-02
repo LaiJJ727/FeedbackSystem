@@ -6,11 +6,17 @@ use Illuminate\Http\Request;
 use App\Models\Branch;
 use App\Models\Feedback;
 use App\Models\Comment;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
+use App\Services\Services;
 use Auth;
+
 class CommentController extends Controller
 {
+    protected $services;
+    public function __construct()
+    {
+        $this->services = new Services();
+    }
+
     public function indexComment($id)
     {
         $data['feedback'] = Feedback::find($id);
@@ -31,18 +37,9 @@ class CommentController extends Controller
         $feedback->save();
 
         $image = $request->file('image') ? $request->file('image') : null;
-        $imageName = null;
-
-        if ($image) {
-            $imageName = $image->getClientOriginalName();
-            $destinationPath = public_path('comment_images');
-            $manager = new ImageManager(new Driver());
-            $img = $manager->read($image);
-            $img->scaleDown(height:500);
-            //images is the location
-            $img->save($destinationPath.'/'.$imageName);
-        }
-
+        $publicPath = 'comment_images';
+        $imageName  = $this->services->ImageResizeService($image, $publicPath);
+        
         $addComment = Comment::create([
             'user_id' => Auth::id(),
             'feedback_id' => $request->id,

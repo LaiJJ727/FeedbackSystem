@@ -6,11 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\Place;
 use App\Models\Branch;
 use App\Models\Zone;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
+use App\Services\Services;
 
 class PlaceController extends Controller
 {
+    protected $services;
+    public function __construct()
+    {
+        $this->services = new Services();
+    }
+
     public function add(Request $request)
     {
         $validated = $request->validate([
@@ -21,23 +26,11 @@ class PlaceController extends Controller
         ]);
 
         $image = $request->file('placeImage') ? $request->file('placeImage') : null;
-        $imageName = null;
-
-        if ($image) {
-            // $imageName = $image->getClientOriginalName();
-            // $destinationPath = public_path('place_images');
-            // $image->move($destinationPath, $imageName); //images is the location
-            $imageName = $image->getClientOriginalName();
-            $destinationPath = public_path('place_images');
-            $manager = new ImageManager(new Driver());
-            $img = $manager->read($image);
-            $img->scaleDown(height:500);
-            //images is the location
-            $img->save($destinationPath.'/'.$imageName);
-        }
+        $publicPath = 'place_images';
+        $imageName  = $this->services->ImageResizeService($image, $publicPath);
 
         $addPlace = Place::create([
-            'zone' => $request->zone,
+            'zone_id' => $request->zone,
             'c_name' => $request->placeCnName,
             'e_name' => $request->placeEngName ? $request->placeEngName : null,
             'branch_id' => $request->branch,
@@ -80,21 +73,8 @@ class PlaceController extends Controller
         ]);
 
         $image = $request->file('placeImage') ? $request->file('placeImage') : null;
-        $imageName = null;
-
-        if ($image) {
-            // $imageName = $image->getClientOriginalName();
-            // $destinationPath = public_path('place_images');
-            // $image->move($destinationPath, $imageName); //images is the location
-            $imageName = $image->getClientOriginalName();
-            $destinationPath = public_path('place_images');
-            $manager = new ImageManager(new Driver());
-            $img = $manager->read($image);
-            $img->scaleDown(height:500);
-            //images is the location
-            $img->save($destinationPath.'/'.$imageName);
-        }
-
+        $publicPath = 'place_images';
+        $imageName  = $this->services->ImageResizeService($image, $publicPath);
 
         $editPlace = Place::find($request->placeId);
 

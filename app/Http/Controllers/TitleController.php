@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Title;
 use App\Models\Category;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
+use App\Services\Services;
 
 class TitleController extends Controller
 {
+    protected $services;
+    public function __construct()
+    {
+        $this->services = new Services();
+    }
+
     public function add(Request $request)
     {
         $validated = $request->validate([
@@ -17,20 +22,8 @@ class TitleController extends Controller
             'titleImg' => 'image|mimes:png,jpg,jpeg,gif,svg',
         ]);
         $image = $request->file('titleImg') ? $request->file('titleImg') : null;
-        $imageName = null;
-
-        if ($image) {
-            // $imageName = $image->getClientOriginalName();
-            // $destinationPath = public_path('title_images');
-            // $image->move($destinationPath, $imageName); //images is the location
-            $imageName = $image->getClientOriginalName();
-            $destinationPath = public_path('title_images');
-            $manager = new ImageManager(new Driver());
-            $img = $manager->read($image);
-            $img->scaleDown(height:500);
-            //images is the location
-            $img->save($destinationPath.'/'.$imageName);
-        }
+        $publicPath = 'title_images';
+        $imageName  = $this->services->ImageResizeService($image, $publicPath);
 
         $addTitle = Title::create([
             'c_name' => $request->titleCnName,
@@ -70,20 +63,8 @@ class TitleController extends Controller
             'titleImg' => 'image|mimes:png,jpg,jpeg,gif,svg',
         ]);
         $image = $request->file('titleImg') ? $request->file('titleImg') : null;
-        $imageName = null;
-
-        if ($image) {
-            // $imageName = $image->getClientOriginalName();
-            // $destinationPath = public_path('title_images');
-            // $image->move($destinationPath, $imageName); //images is the location
-            $imageName = $image->getClientOriginalName();
-            $destinationPath = public_path('title_images');
-            $manager = new ImageManager(new Driver());
-            $img = $manager->read($image);
-            $img->scaleDown(height:500);
-            //images is the location
-            $img->save($destinationPath.'/'.$imageName);
-        }
+        $publicPath = 'title_images';
+        $imageName  = $this->services->ImageResizeService($image, $publicPath);
 
         $editTitle = Title::find($request->titleId);
 

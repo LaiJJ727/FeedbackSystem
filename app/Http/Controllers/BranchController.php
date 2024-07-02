@@ -5,14 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Branch;
 use Illuminate\Support\Facades\Validator;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
+use App\Services\Services;
 
 class BranchController extends Controller
 {
+    protected $services;
+    public function __construct()
+    {
+        $this->services = new Services();
+    }
+
     //add branch
     public function add(Request $request)
-    {
+    {   
         //if ($request->file('branchImage') != null) {
         $validated = $request->validate([
             'branchName' => 'required|string',
@@ -22,20 +27,8 @@ class BranchController extends Controller
         // }
 
         $image = $request->file('branchImage') ? $request->file('branchImage') : null;
-        $imageName = null;
-
-        if ($image) {
-            // $imageName = $image->getClientOriginalName();
-            // $destinationPath = public_path('branch_images');
-            // $image->move($destinationPath, $imageName); //images is the location
-            $imageName = $image->getClientOriginalName();
-            $destinationPath = public_path('branch_images');
-            $manager = new ImageManager(new Driver());
-            $img = $manager->read($image);
-            $img->scaleDown(height:500);
-            //images is the location
-            $img->save($destinationPath.'/'.$imageName);
-        }
+        $publicPath = 'branch_images';
+        $imageName  = $this->services->ImageResizeService($image, $publicPath);
 
         $addBranch = Branch::create([
             'name' => $request->branchName,
@@ -73,20 +66,8 @@ class BranchController extends Controller
         ]);
 
         $image = $request->file('branchImage') ? $request->file('branchImage') : null;
-        $imageName = null;
-
-        if ($image) {
-             // $imageName = $image->getClientOriginalName();
-            // $destinationPath = public_path('branch_images');
-            // $image->move($destinationPath, $imageName); //images is the location
-            $imageName = $image->getClientOriginalName();
-            $destinationPath = public_path('branch_images');
-            $manager = new ImageManager(new Driver());
-            $img = $manager->read($image);
-            $img->scaleDown(height:500);
-            //images is the location
-            $img->save($destinationPath.'/'.$imageName);
-        }
+        $publicPath = 'branch_images';
+        $imageName  = $this->services->ImageResizeService($image, $publicPath);
 
         $editBranch = Branch::find($request->branchId);
         $editBranch->name = $request->branchName;

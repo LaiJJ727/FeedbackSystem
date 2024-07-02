@@ -11,12 +11,17 @@ use App\Models\Title;
 use App\Models\Place;
 use App\Models\Category;
 use App\Models\Zone;
-use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
+use App\Services\Services;
 use Auth;
 
 class FeedbackController extends Controller
 {
+    protected $services;
+    public function __construct()
+    {
+        $this->services = new Services();
+    }
+
     public function add_view(Request $request)
     {
         $data['branches'] = Branch::whereNot('status', '=', 'close')->get();
@@ -42,15 +47,8 @@ class FeedbackController extends Controller
             'feedbackTo' => 'required',
         ]);
         $image = $request->file('image');
-        $imageName = $image->getClientOriginalName();
-        $destinationPath = public_path('images');
-        // $image->move($destinationPath, $imageName); //images is the location
-        $manager = new ImageManager(new Driver());
-        $img =  $manager->read($image);
-        $newImgWidth = $img->width() * 0.75;    
-        $img->scaleDown(width:$newImgWidth);
-        
-        $img->save(public_path('images').'/'.$imageName);
+        $publicPath = 'images';
+        $imageName  = $this->services->ImageResizeService($image, $publicPath);
 
         $addFeedback = Feedback::create([
             'user_id' => Auth::id(),
@@ -65,49 +63,68 @@ class FeedbackController extends Controller
             'image' => $imageName,
         ]);
         //send notification to whatsapp
-        if (API::find(1) != null) {
-            $api = API::find(1)->first();
-            $apiKey = $api->api;
-            $engZoneName = $addFeedback->zones->e_name ? $addFeedback->zones->e_name : ' ';
-            $engPlaceName = $addFeedback->places->e_name ? $addFeedback->places->e_name : ' ';
-            $engCategoryName = $addFeedback->categories->e_name ? $addFeedback->categories->e_name : ' ';
-            $engTitleName = $addFeedback->titles->e_name ? $addFeedback->titles->e_name : ' ';
-            $FullMessage = 'Feedback Case ID: ' . $addFeedback->id . "\nBranch: " . $addFeedback->branches->name . "\nZone: " . $addFeedback->zones->c_name . ' ' . $engZoneName . "\nPlace:" . $addFeedback->places->c_name . ' ' . $engPlaceName . "\nCategory: " . $addFeedback->categories->c_name . ' ' . $engCategoryName . "\nTitle: " . $addFeedback->titles->c_name . ' ' . $engTitleName . "\nFeedback To: " . $addFeedback->feedback_to . "\nDescription: " . $request->description;
+        $engZoneName = $addFeedback->zones->e_name ? $addFeedback->zones->e_name : ' ';
+        $engPlaceName = $addFeedback->places->e_name ? $addFeedback->places->e_name : ' ';
+        $engCategoryName = $addFeedback->categories->e_name ? $addFeedback->categories->e_name : ' ';
+        $engTitleName = $addFeedback->titles->e_name ? $addFeedback->titles->e_name : ' ';
+        $FullMessage = 'Feedback Case ID: ' . $addFeedback->id . "\nBranch: " . $addFeedback->branches->name . "\nZone: " . $addFeedback->zones->c_name . ' ' . $engZoneName . "\nPlace:" . $addFeedback->places->c_name . ' ' . $engPlaceName . "\nCategory: " . $addFeedback->categories->c_name . ' ' . $engCategoryName . "\nTitle: " . $addFeedback->titles->c_name . ' ' . $engTitleName . "\nFeedback To: " . $addFeedback->feedback_to . "\nDescription: " . $request->description;
 
-            if ($addFeedback->feedback_to === 'Housekeeping') {
-                $users = User::where('role', 'Admin')
-                    ->orWhere('role', 'Housekeep')
-                    ->get();
-                foreach ($users as $user) {
-                    $data = [
-                        'phone_number' => $user->phone,
-                        'message' => $FullMessage,
-                    ];
-
-                    $response = \Illuminate\Support\Facades\Http::accept('application/json')
-                        ->withToken($apiKey)
-                        ->post('https://onsend.io/api/v1/send', $data);
-
-                    //dump($response->body());//check only
-                }
-            } else {
-                $users = User::where('role', 'Admin')
-                    ->orWhere('role', 'Agent')
-                    ->get();
-                foreach ($users as $user) {
-                    $data = [
-                        'phone_number' => $user->phone,
-                        'message' => $FullMessage,
-                    ];
-
-                    $response = \Illuminate\Support\Facades\Http::accept('application/json')
-                        ->withToken($apiKey)
-                        ->post('https://onsend.io/api/v1/send', $data);
-
-                    //dump($response->body());//check only
-                }
-            }
+        if ($addFeedback->feedback_to === 'Housekeeping') {
+            $users = User::where('role', 'Admin')
+                ->orWhere('role', 'Housekeep')
+                ->get();
+            $this->services->sendWhatsappMessage($users->toArray(), $FullMessage);
+        } else {
+            $users = User::where('role', 'Admin')
+                ->orWhere('role', 'Agent')
+                ->get();
+            $this->services->sendWhatsappMessage($users->toArray(), $FullMessage);
         }
+        // if (API::find(1) != null) {
+        //     $api = API::find(1)->first();
+        //     $apiKey = $api->api;
+        //     $engZoneName = $addFeedback->zones->e_name ? $addFeedback->zones->e_name : ' ';
+        //     $engPlaceName = $addFeedback->places->e_name ? $addFeedback->places->e_name : ' ';
+        //     $engCategoryName = $addFeedback->categories->e_name ? $addFeedback->categories->e_name : ' ';
+        //     $engTitleName = $addFeedback->titles->e_name ? $addFeedback->titles->e_name : ' ';
+        //     $FullMessage = 'Feedback Case ID: ' . $addFeedback->id . "\nBranch: " . $addFeedback->branches->name . "\nZone: " . $addFeedback->zones->c_name . ' ' . $engZoneName . "\nPlace:" . $addFeedback->places->c_name . ' ' . $engPlaceName . "\nCategory: " . $addFeedback->categories->c_name . ' ' . $engCategoryName . "\nTitle: " . $addFeedback->titles->c_name . ' ' . $engTitleName . "\nFeedback To: " . $addFeedback->feedback_to . "\nDescription: " . $request->description;
+
+        //     if ($addFeedback->feedback_to === 'Housekeeping') {
+        //         $users = User::where('role', 'Admin')
+        //             ->orWhere('role', 'Housekeep')
+        //             ->get();
+        //         // foreach ($users as $user) {
+        //         //     $data = [
+        //         //         'phone_number' => $user->phone,
+        //         //         'message' => $FullMessage,
+        //         //     ];
+
+        //         //     $response = \Illuminate\Support\Facades\Http::accept('application/json')
+        //         //         ->withToken($apiKey)
+        //         //         ->post('https://onsend.io/api/v1/send', $data);
+
+        //         //     //dump($response->body());//check only
+        //         // }
+        //         $this->services->sendWhatsappMessage($users->toArray(), $FullMessage);
+        //     } else {
+        //         $users = User::where('role', 'Admin')
+        //             ->orWhere('role', 'Agent')
+        //             ->get();
+        //         // foreach ($users as $user) {
+        //         //     $data = [
+        //         //         'phone_number' => $user->phone,
+        //         //         'message' => $FullMessage,
+        //         //     ];
+
+        //         //     $response = \Illuminate\Support\Facades\Http::accept('application/json')
+        //         //         ->withToken($apiKey)
+        //         //         ->post('https://onsend.io/api/v1/send', $data);
+
+        //         //     //dump($response->body());//check only
+        //         // }
+        //         $this->services->sendWhatsappMessage($users->toArray(), $FullMessage);
+        //     }
+        // }
 
         return redirect()
             ->route('feedback_index')
