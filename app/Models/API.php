@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class API extends Model
 {
     use HasFactory;
-    protected $fillable = [ 'api'];
+    protected $fillable = [ 'api','service_name','service_type','in_used'];
 
 }

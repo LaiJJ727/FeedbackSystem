@@ -30,8 +30,18 @@ class Services
         foreach ($recipients as $recipient) {
             // dump($_ENV['TWILIO_WHATSAPP_FROM']);
             // dump($recipient['phone']);
+            $phoneNum =$recipient['phone'];
+            $countryCode = '60';
+            if (strpos($phoneNum, '0') === 0) {
+                // Remove the leading '0'
+                $phoneNum = substr($phoneNum, 1);
+            }
+            if (strpos($phoneNum, $countryCode) !== 0) {
+                // If not, add the country code
+                $phoneNum = $countryCode . $phoneNum;
+            }
             $client->messages->create(
-                "whatsapp:{$recipient['phone']}",
+                "whatsapp:{$phoneNum}",
                 [
                     'from' => "whatsapp:".$_ENV['TWILIO_WHATSAPP_FROM'],
                     'body' => $message,

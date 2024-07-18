@@ -14,10 +14,11 @@ class ApiController extends Controller
             $api ="none";
         } else {
             $api = API::find(1);
+            $isOnSend = $api->in_used;
             $api = $api->api;
             $check ="none";
         }
-        return view('admin/apiSetting')->with('api', $api)->with('check',$check);
+        return view('admin/apiSetting')->with('api', $api)->with('check',$check)->with('isOnSend',$isOnSend);
     }
     public function apiEdit()
     {
@@ -26,10 +27,11 @@ class ApiController extends Controller
             $check ="edit";
         } else {
             $api = API::find(1);
+            $isOnSend = $api->in_used;
             $api = $api->api;
             $check ="edit";
         }
-        return view('admin/apiSetting')->with('api', $api)->with('check',$check);
+        return view('admin/apiSetting')->with('api', $api)->with('check',$check)->with('isOnSend',$isOnSend);
     }
     public function apiUpadate()
     {
@@ -38,10 +40,14 @@ class ApiController extends Controller
         if (API::find(1) == null) {
             $api = API::create([
                 'api' => $r->key,
+                'service_name' => 'OnSend',
+                'service_type' => 'Whatsapp',
+                'in_used' => $r->switch,
             ]);
         } else {
             $api= API::find(1)->first();
             $api->api = $r->key;
+            $api->in_used = $r->switch;
             $api->save();
 
         }
